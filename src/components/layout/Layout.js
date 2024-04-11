@@ -7,10 +7,21 @@ import style from './Layout.module.css';
 import Searchbar from '../search/Searchbar';
 
 import { useScroll } from '@/src/hook/useScroll';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Layout({ children }) {
   const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(true);
+
+  useEffect(() => {
+    if (!isAdmin && router.pathname.includes('admin')) {
+      return () => {
+        alert('관리자 로그인이 필요합니다.');
+        router.push('/login');
+      };
+    }
+  }, [router]);
+
   const { q } = router.query;
 
   const { y } = useScroll();
@@ -40,22 +51,22 @@ export default function Layout({ children }) {
   };
 
   const onClickCommunity = () => {
-    router.push('/community');
+    router.push('/user/community');
   };
 
   const onClickEpilogue = () => {
-    router.push('/epilogue');
+    router.push('/user/epilogue');
   };
 
   const onClickMyPage = () => {
-    router.push('/mypage');
+    router.push('/user/mypage');
   };
 
   const onClickCustomerCenter = () => {
-    router.push('/customercenter');
+    router.push('/uesr/customercenter');
   };
 
-  return (
+  let content = !isAdmin ? (
     <div>
       <header className={headerStyle}>
         <div className={style.logo} onClick={onClickHome}>
@@ -69,12 +80,37 @@ export default function Layout({ children }) {
             <li onClick={onClickCustomerCenter}>고객센터</li>
           </ul>
         </nav>
-        {router.pathname !== '/community' && <Searchbar q={q} />}
+        {router.pathname !== '/user/community' && <Searchbar q={q} />}
         <p onClick={onClickLogin} className={style.login}>
           로그인
         </p>
       </header>
       <main className={style.main}>{children}</main>
     </div>
+  ) : (
+    <div>
+      <header className={style.header_admin}>
+        <div className={style.logo} onClick={onClickHome}>
+          {Logo}
+        </div>
+        <nav>
+          <ul className={style.header_admin_nav}>
+            <li onClick={onClickCommunity}>사용자 계정 관리</li>
+            <li onClick={onClickEpilogue}>커뮤니티 게시판 관리</li>
+            <li onClick={onClickMyPage}>후기 게시판 관리</li>
+            <li onClick={onClickCustomerCenter}>사용자 문의</li>
+            <li onClick={onClickCustomerCenter}>AI 관리</li>
+            <li onClick={onClickCustomerCenter}>관리자 정보 수정</li>
+          </ul>
+        </nav>
+
+        <p onClick={onClickLogin} className={style.logout_admin}>
+          로그아웃
+        </p>
+      </header>
+      <main className={style.main_admin}>{children}</main>
+    </div>
   );
+
+  return <>{content}</>;
 }

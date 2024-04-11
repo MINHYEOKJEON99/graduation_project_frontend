@@ -1,5 +1,5 @@
 import style from './mypage.module.css';
-import profile from '../../src/assets/profile.png';
+import profile from '../../../src/assets/profile.png';
 import Image from 'next/image';
 import Button from '@/src/components/UI/Button';
 import { useRouter } from 'next/router';
@@ -11,11 +11,11 @@ export default function Mypage() {
   const router = useRouter();
 
   const onClickAcitivity = () => {
-    router.push('/mypage/activity');
+    router.push('/user/mypage/activity');
   };
 
   const onClickUserInfo = () => {
-    router.push('/mypage/userinfo');
+    router.push('/user/mypage/userinfo');
   };
 
   const onToggleModal = () => {

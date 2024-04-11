@@ -5,7 +5,7 @@ export default function CommunityPost() {
   const router = useRouter();
 
   const onClickCommunity = () => {
-    router.push('/community/communityDetail');
+    router.push('/user/community/communityDetail');
   };
 
   return (

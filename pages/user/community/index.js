@@ -8,7 +8,7 @@ export default function Communty() {
   const router = useRouter();
 
   const onClickNewPost = () => {
-    router.push('/community/newpost');
+    router.push('/user/community/newpost');
   };
 
   return (

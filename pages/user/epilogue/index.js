@@ -8,7 +8,7 @@ export default function EpiloguePage() {
   const router = useRouter();
 
   const onClickNewEpilogue = () => {
-    router.push('/epilogue/newepilogue');
+    router.push('/user/epilogue/newepilogue');
   };
 
   return (

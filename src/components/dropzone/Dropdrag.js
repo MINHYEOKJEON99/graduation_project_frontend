@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import style from './Dropdrag.module.css';
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -73,7 +74,9 @@ export default function Dropdrag() {
           <BsFileEarmarkPlay size={20} />
           <p>{fileName}</p>
         </div>
-        <button onClick={onToggleFile}>삭제</button>
+        <Button onClick={onToggleFile} style={{ color: 'black' }}>
+          삭제
+        </Button>
       </div>
     </div>
   );

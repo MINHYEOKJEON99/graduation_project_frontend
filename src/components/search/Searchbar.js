@@ -24,7 +24,7 @@ export default function Searchbar({ q }) {
 
   const onClickSearch = () => {
     if (search !== '') {
-      router.push(`/search?q=${search}`);
+      router.push(`/user/search?q=${search}`);
     }
     setSearch('');
   };

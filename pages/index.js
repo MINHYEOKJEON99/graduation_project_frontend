@@ -10,7 +10,7 @@ export default function MainPage() {
   const router = useRouter();
 
   const navService = () => {
-    router.push('/predictservice');
+    router.push('/user/predictservice');
   };
 
   return (

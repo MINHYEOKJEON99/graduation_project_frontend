@@ -9,8 +9,10 @@ export default function Login() {
     password: '',
   });
 
+  const adminData = { id: 'admin', password: '1234' };
+
   const onClickSignUp = () => {
-    router.push('./signup');
+    router.push('/signup');
   };
 
   const onChangeIdData = (e) => {
@@ -34,10 +36,17 @@ export default function Login() {
   const onSubmitData = (e) => {
     e.preventDefault();
     console.log(loginData);
-    setLoginData({
-      id: '',
-      password: '',
-    });
+    if (
+      loginData.id === adminData.id &&
+      loginData.password === adminData.password
+    ) {
+      router.push('/admin');
+    } else {
+      setLoginData({
+        id: '',
+        password: '',
+      });
+    }
   };
 
   return (

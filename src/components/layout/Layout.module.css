@@ -14,7 +14,6 @@
   cursor: pointer;
   border-bottom: 0px solid #cfdaf0;
   color: white;
-  /* color: black; */
   z-index: 2;
 }
 
@@ -41,7 +40,7 @@
 .otherHeader {
   /* background-color: rgb(207, 218, 240); */
   background-color: #e1ebfa;
-  backdrop-filter: blur(2px);
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -63,13 +62,14 @@
 
 .logo {
   align-items: center;
-
+  cursor: pointer;
   margin: 0 20px;
   padding-top: 5px;
 }
 
 .header_nav {
   display: flex;
+  cursor: pointer;
   list-style: none;
   padding: 0px;
   gap: 50px;
@@ -90,4 +90,59 @@
 .img {
   width: 80px;
   height: 30px;
+}
+
+.header_admin {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 80%;
+  height: 100%;
+  /* background-color: rgb(207, 218, 240); */
+  background-color: #e1ebfa;
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  border-bottom: 0px solid #cfdaf0;
+  color: black;
+}
+
+.main_admin {
+  position: fixed;
+  top: 0px;
+  left: 20%;
+  right: 0%;
+  height: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header_admin_nav {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  list-style: none;
+  padding: 0px;
+  gap: 50px;
+  cursor: pointer;
+}
+
+.header_admin_nav > li:hover {
+  color: #8a877b;
+}
+
+.logout_admin {
+  margin: 0 30px;
+  cursor: pointer;
+}
+
+.logout_admin:hover {
+  color: #8a877b;
 }
