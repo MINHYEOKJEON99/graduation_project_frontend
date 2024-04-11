@@ -18,6 +18,16 @@
   align-items: center;
 }
 
+.outbox_second {
+  display: flex;
+  width: 740px;
+  height: 430px;
+  padding: 10px 20px;
+  background-color: #e1ebfa;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 .box {
   display: flex;
   flex-direction: column;
@@ -33,6 +43,24 @@
 
 .box:hover {
   background-color: #9cafca;
+}
+
+.content_text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  padding: 0px 10px;
+  color: black;
+  font-size: 15px;
+  border-bottom: 0.5px solid black;
+}
+
+.content_text > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .submitBtn {
