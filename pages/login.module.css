@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  width: 100%;
+  min-height: 700px;
+  max-width: 800px; /* 적당한 최대 너비 */
+  margin: 50px auto; /* 중앙 정렬 */
+  padding: 50px 0px; /* 포스트 리스트 내부 여백 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  box-shadow: 1px 1px 5px 2px #f1f1f1;
+}
+.joinForm {
+  width: 400px;
+  height: 400px;
+  padding: 30px, 20px;
+  text-align: center;
+  margin: auto;
+  border-radius: 15px;
+}
+
+.joinForm h2 {
+  text-align: center;
+  margin: 30px;
+}
+
+.textForm {
+  border-bottom: 2px solid #adadad;
+  margin: 30px;
+  padding: 10px 10px;
+}
+
+.value {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #636e72;
+  font-size: 16px;
+  height: 25px;
+  background: none;
+}
+
+.submitBtn {
+  background-color: #d5e1f2;
+  padding: 10px 20px;
+  margin-top: 20px;
+  margin: 0px 20px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+  width: 30%;
+}
+.submitBtn:hover {
+  background-color: #9cafca;
+}

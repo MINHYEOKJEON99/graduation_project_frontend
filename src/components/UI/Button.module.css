@@ -1,0 +1,21 @@
+.button {
+  display: flex;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  font-family: 'NanumSquareRoundR';
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 40px;
+  width: 15%;
+  height: 35px;
+  color: black;
+  border-radius: 5px;
+  transition: background-color, 0.5s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #316bc6;
+  color: white;
+}

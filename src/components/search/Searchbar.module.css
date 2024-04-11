@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  background-color: white;
+  border-radius: 30px;
+  align-items: center;
+  border: 1px solid black;
+  justify-content: center;
+  background-color: white;
+  padding-left: 10px;
+  height: 80%;
+  gap: 10px;
+  width: 170px;
+}
+
+.container > input {
+  width: 100%;
+  border-style: none;
+  border-radius: 30px;
+  outline: none;
+  height: 80%;
+}
+
+.container > button {
+  width: 80px;
+  border: none;
+
+  padding: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
