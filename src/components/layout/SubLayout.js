@@ -4,7 +4,7 @@ export default function SubLayout({ children }) {
   return (
     <div>
       <div className={style.main}>{children}</div>
-      <footer className={style.footer}>@Gachon University mdmProject</footer>
+      <footer className={style.footer}>@Gachon University</footer>
     </div>
   );
 }

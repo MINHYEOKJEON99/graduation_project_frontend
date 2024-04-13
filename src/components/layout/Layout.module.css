@@ -96,10 +96,10 @@
   position: fixed;
   top: 0px;
   left: 0px;
-  right: 80%;
+  right: 85%;
   height: 100%;
   /* background-color: rgb(207, 218, 240); */
-  background-color: #e1ebfa;
+  background-color: #4b67d0;
   padding: 20px 0px;
   display: flex;
   flex-direction: column;
@@ -107,13 +107,16 @@
   justify-content: space-between;
   font-weight: bold;
   border-bottom: 0px solid #cfdaf0;
-  color: black;
+  color: #d9e0f3;
+  font-family: 'Arial, sans-serif';
+  font-size: 12px;
 }
 
 .main_admin {
-  position: fixed;
+  position: absolute;
+
   top: 0px;
-  left: 20%;
+  left: 15%;
   right: 0%;
   height: 100%;
   max-width: 100%;
@@ -132,6 +135,12 @@
   padding: 0px;
   gap: 50px;
   cursor: pointer;
+}
+
+.header_admin_nav > li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .header_admin_nav > li:hover {

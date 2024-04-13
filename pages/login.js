@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import style from './login.module.css';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { adminAuthActions } from '@/src/store/adminAuth';
 
 export default function Login() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [loginData, setLoginData] = useState({
     id: '',
@@ -40,6 +43,7 @@ export default function Login() {
       loginData.id === adminData.id &&
       loginData.password === adminData.password
     ) {
+      dispatch(adminAuthActions.adminLogin());
       router.push('/admin');
     } else {
       setLoginData({

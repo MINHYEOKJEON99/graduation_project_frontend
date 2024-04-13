@@ -28,3 +28,49 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.search_container {
+  height: 40px;
+  width: 40%;
+  max-width: 300px;
+  margin: 50px 0px;
+  display: flex;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.search_input {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.search_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e86ff;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  outline: none;
+}
+
+.search_icon {
+  height: 24px;
+  width: 24px;
+  fill: white;
+}
+
+/* Optional: Add some hover effects */
+.search_button:hover {
+  background-color: #1a76d2;
+}
+
+.search_input::placeholder {
+  color: #ccc;
+}
