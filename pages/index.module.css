@@ -40,26 +40,24 @@
   z-index: 0;
   height: 600px;
   width: 100%;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
 }
 
 .button {
-  display: flex;
-  background-color: white;
-  align-items: center;
-  justify-content: center;
-  font-family: 'NanumSquareRoundR';
-  font-weight: bold;
-  font-size: 14px;
-  margin-top: 40px;
-  width: 13%;
-  height: 35px;
-  color: black;
   border-radius: 20px;
-  transition: background-color, 0.5s ease;
-  cursor: pointer;
 }
 
-.button:hover {
-  background-color: #316bc6;
-  color: white;
+@media (max-width: 790px) {
+  .main_paragraph > h1 {
+    font-size: 25px;
+    margin-bottom: 6px;
+  }
+
+  .main_paragraph > p {
+    font-size: 10px;
+    margin-bottom: 7px;
+  }
+  .button {
+    width: 50%;
+  }
 }

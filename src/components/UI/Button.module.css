@@ -15,7 +15,17 @@
   cursor: pointer;
 }
 
+.button2 {
+  border-radius: 20px;
+}
+
 .button:hover {
   background-color: #316bc6;
   color: white;
+}
+
+@media (max-width: 780px) {
+  .button {
+    width: 40%;
+  }
 }
