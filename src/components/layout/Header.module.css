@@ -38,9 +38,9 @@
 }
 
 .otherHeader {
+  height: 50px;
   /* background-color: rgb(207, 218, 240); */
   background-color: #e1ebfa;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -102,11 +102,36 @@
     display: none;
   }
 
+  .modal_logo {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .modal_login {
+    cursor: pointer;
+    font-family: 'NanumSquareRoundR';
+    font-size: 12px;
+    padding-bottom: 3px;
+    color: #e0e0e0;
+    border-bottom: 0.5px solid #c0c0c0;
+    margin: 20px 0px;
+  }
+
+  .modal_login:hover {
+    color: #8a877b;
+  }
+
+  .login {
+    display: none;
+  }
+
   .header_nav {
     display: none;
   }
 
   .header_nav2 {
+    margin-top: 50px;
     color: black;
     display: flex;
     flex-direction: column;

@@ -7,8 +7,8 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 
 import { useScroll } from '@/src/hook/useScroll';
 import { useRouter } from 'next/router';
-import Modal from '../UI/Modal';
 import { useState } from 'react';
+import Menu from '../UI/Menu';
 
 export default function Header({ children }) {
   const router = useRouter();
@@ -35,10 +35,12 @@ export default function Header({ children }) {
 
   const onClickHome = () => {
     router.push('/');
+    setClickMenu(false);
   };
 
   const onClickLogin = () => {
     router.push('/login');
+    setClickMenu(false);
   };
 
   const onClickCommunity = () => {
@@ -66,14 +68,21 @@ export default function Header({ children }) {
   };
 
   let content = clickMenu && (
-    <Modal onHide={onToggleMenu}>
+    <Menu onHide={onToggleMenu}>
+      <div className={style.modal_logo} onClick={onClickHome}>
+        <Image src={logoBlack} alt="logo" className={style.img} priority />
+      </div>
+      <p onClick={onClickLogin} className={style.modal_login}>
+        로그인 후 이용해주세요
+      </p>
       <ul className={style.header_nav2}>
         <li onClick={onClickCommunity}>커뮤니티</li>
         <li onClick={onClickEpilogue}>후기</li>
         <li onClick={onClickMyPage}>마이페이지</li>
         <li onClick={onClickCustomerCenter}>고객센터</li>
+        <li onClick={onToggleMenu}>닫기</li>
       </ul>
-    </Modal>
+    </Menu>
   );
 
   return (
