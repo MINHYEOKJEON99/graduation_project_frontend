@@ -59,7 +59,7 @@ export default function Dropdrag() {
 
   let content = !showFile ? (
     <div className={style.outbox}>
-      <form>
+      <form className={style.form_box}>
         <div {...getRootProps()} className={style.box}>
           <input {...getInputProps()} />
           <BsClipboardPlus size={50} />

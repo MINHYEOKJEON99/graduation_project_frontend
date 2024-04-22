@@ -21,8 +21,13 @@
 
 .content {
   width: 95%;
+  font-family: 'NanumSquareRoundR';
+  font-size: 14px;
 }
 .like {
-  text-align: end;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
   width: 95%;
 }
