@@ -7,33 +7,25 @@ import { BsFileEarmarkPlay } from 'react-icons/bs';
 
 export default function Dropdrag() {
   const [fileName, setFileName] = useState('');
-  const [filePath, setFilePath] = useState('');
-  const [formDataState, setFormDataState] = useState({});
+  const [videoFile, setVideoFile] = useState(null);
   const [showFile, setShowFile] = useState(false);
 
   const onToggleFile = () => {
     setShowFile((prev) => !prev);
   };
 
-  const onDrop = useCallback((files) => {
-    let formData = new FormData();
-    // Do something with the files
-    const config = {
-      header: { 'content-type': 'multipart/form-data' },
-    };
-    formData.append('file', files[0]);
-    const extractedData = {};
-    for (let [key, value] of formData.entries()) {
-      extractedData[key] = value;
-    }
-    setFormDataState(extractedData);
-    setFileName(extractedData.file.name);
-    setFilePath(extractedData.file.path);
-    console.log(extractedData);
-    setShowFile((prev) => !prev);
-  }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
+    accept: 'video/*',
+    onDrop: (acceptedFiles) => {
+      setShowFile((prev) => !prev);
+      // 첫 번째 파일만 사용 (다중 파일 업로드 미지원 시)
+      const file = acceptedFiles[0];
+
+      // 파일을 읽기 위해 URL.createObjectURL을 사용하여 임시 URL 생성
+      const fileUrl = URL.createObjectURL(file);
+      setVideoFile(fileUrl);
+      setFileName(file.name);
+    },
     noKeyboard: true,
   });
 
@@ -58,9 +50,11 @@ export default function Dropdrag() {
           삭제
         </Button>
       </div>
-      <video muted controls width="50%" style={{ borderRadius: '8px' }}>
-        <source src={filePath} type="video/mp4" />
-      </video>
+      <div>
+        <video muted controls width="100%" style={{ borderRadius: '8px' }}>
+          <source src={videoFile} controls />
+        </video>
+      </div>
     </div>
   );
 

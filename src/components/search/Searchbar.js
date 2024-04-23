@@ -33,9 +33,9 @@ export default function Searchbar({ q }) {
 
   const onClickSearch = () => {
     if (search !== '') {
+      setSearch('');
       router.push(`/user/search?q=${search}`);
     }
-    setSearch('');
   };
 
   let content = !isAdmin ? (
