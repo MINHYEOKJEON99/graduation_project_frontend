@@ -20,6 +20,8 @@
 
 .outbox_second {
   display: flex;
+  flex-direction: column;
+
   width: 60%;
   height: 430px;
   padding: 10px 20px;

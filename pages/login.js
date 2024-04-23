@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import style from './login.module.css';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { adminAuthActions } from '@/src/store/adminAuth';
 
 export default function Login() {
   const dispatch = useDispatch();
+  const userLoginData = useSelector((state) => state.userInfo);
+
   const router = useRouter();
   const [loginData, setLoginData] = useState({
     id: '',
@@ -50,6 +52,19 @@ export default function Login() {
         id: '',
         password: '',
       });
+    }
+
+    const user = userLoginData.find(
+      (userInfo) =>
+        userInfo.username === loginData.id &&
+        userInfo.pwd === loginData.password
+    );
+    if (user) {
+      console.log('로그인 성공');
+      console.log(user);
+      router.push('/');
+    } else {
+      console.log('로그인 실패');
     }
   };
 

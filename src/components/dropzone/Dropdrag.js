@@ -1,40 +1,18 @@
 import { Button } from '@mui/material';
 import style from './Dropdrag.module.css';
 import React, { useCallback, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import Dropzone, { useDropzone } from 'react-dropzone';
 import { BsClipboardPlus } from 'react-icons/bs';
 import { BsFileEarmarkPlay } from 'react-icons/bs';
 
 export default function Dropdrag() {
   const [fileName, setFileName] = useState('');
+  const [filePath, setFilePath] = useState('');
   const [formDataState, setFormDataState] = useState({});
   const [showFile, setShowFile] = useState(false);
 
   const onToggleFile = () => {
     setShowFile((prev) => !prev);
-  };
-
-  const handleDrop = (files) => {
-    // 영상데이터 서버에 보내기
-    // axios.post("/api/video/uploadfiles", formData, config).then((res) => {
-    //   if (res.data.success) {
-    //     let variable = {
-    //       filePath: res.data.filePath,
-    //       fileName: res.data.fileName,
-    //     };
-    //     setFilePath(res.data.filePath);
-    //     axios.post("/api/video/thumbnail", variable).then((res) => {
-    //       if (res.data.success) {
-    //         setThumbnailPath(res.data.thumbsFilePath);
-    //         setDuration(res.data.fileDuration);
-    //       } else {
-    //         alert("Failed to make the thumbnails");
-    //       }
-    //     });
-    //   } else {
-    //     alert("failed to save the video in server");
-    //   }
-    // });
   };
 
   const onDrop = useCallback((files) => {
@@ -50,6 +28,8 @@ export default function Dropdrag() {
     }
     setFormDataState(extractedData);
     setFileName(extractedData.file.name);
+    setFilePath(extractedData.file.path);
+    console.log(extractedData);
     setShowFile((prev) => !prev);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -78,6 +58,9 @@ export default function Dropdrag() {
           삭제
         </Button>
       </div>
+      <video muted controls width="50%" style={{ borderRadius: '8px' }}>
+        <source src={filePath} type="video/mp4" />
+      </video>
     </div>
   );
 

@@ -8,6 +8,7 @@ export default function Input({
   value,
   disabled,
   styled,
+  ref,
 }) {
   return (
     <div className={style.textForm}>
