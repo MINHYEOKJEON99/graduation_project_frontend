@@ -3,33 +3,35 @@ import style from './community.module.css';
 import CommunityPost from '@/src/components/post/CommunityPost';
 import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
+import { useSelector } from 'react-redux';
 
-const DUMMY_ARRAY = [
-  {
-    id: '1',
-    title: '벤츠 추천좀요',
-    content: '벤츠 뭐탈지 추천좀 해주세요 월급 400입니다.',
-    like: 2,
-    commentNum: 3,
-  },
-  {
-    id: '2',
-    title: '비엠 추천좀요',
-    content: '비엠 뭐탈지 추천좀 해주세요 월급 500입니다.',
-    like: 5,
-    commentNum: 6,
-  },
-  {
-    id: '3',
-    title: '아우디 추천좀요',
-    content: '아우디 뭐탈지 추천좀 해주세요 월급 400입니다.',
-    like: 1,
-    commentNum: 6,
-  },
-];
+// const DUMMY_ARRAY = [
+//   {
+//     id: '1',
+//     title: '벤츠 추천좀요',
+//     content: '벤츠 뭐탈지 추천좀 해주세요 월급 400입니다.',
+//     like: 2,
+//     commentNum: 3,
+//   },
+//   {
+//     id: '2',
+//     title: '비엠 추천좀요',
+//     content: '비엠 뭐탈지 추천좀 해주세요 월급 500입니다.',
+//     like: 5,
+//     commentNum: 6,
+//   },
+//   {
+//     id: '3',
+//     title: '아우디 추천좀요',
+//     content: '아우디 뭐탈지 추천좀 해주세요 월급 400입니다.',
+//     like: 1,
+//     commentNum: 6,
+//   },
+// ];
 
 export default function Communty() {
   const router = useRouter();
+  const DUMMY_ARRAY = useSelector((state) => state.post);
 
   const onClickNewPost = () => {
     router.push('/user/community/newpost');

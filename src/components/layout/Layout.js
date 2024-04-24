@@ -13,7 +13,7 @@ export default function Layout({ children }) {
     if (!isAdmin && router.pathname.includes('admin')) {
       router.push('/login');
     }
-  }, [router.pathname, isAdmin]);
+  }, [router, isAdmin]);
 
   let content =
     !isAdmin && !router.pathname.includes('admin') ? (
