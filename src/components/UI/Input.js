@@ -8,7 +8,7 @@ export default function Input({
   value,
   disabled,
   styled,
-  ref,
+  readOnly,
 }) {
   return (
     <div className={style.textForm}>
@@ -21,6 +21,7 @@ export default function Input({
         onChange={onChange}
         value={value}
         disabled={disabled}
+        readOnly={readOnly}
       />
     </div>
   );

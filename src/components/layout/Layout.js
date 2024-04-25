@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 export default function Layout({ children }) {
   const router = useRouter();
-  const isAdmin = useSelector((state) => state.adminAuth.isAdminAuthenticated);
+  const isAdmin = useSelector((state) => state.auth.isAdminAuthenticated);
 
   useEffect(() => {
     if (!isAdmin && router.pathname.includes('admin')) {

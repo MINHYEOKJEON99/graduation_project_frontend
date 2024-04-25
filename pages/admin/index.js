@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import Card from '@/src/components/UI/Card';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { adminAuthActions } from '@/src/store/adminAuth';
+import { adminAuthActions } from '@/src/store/auth';
 
 export default function AdminPage() {
   const dispatch = useDispatch();

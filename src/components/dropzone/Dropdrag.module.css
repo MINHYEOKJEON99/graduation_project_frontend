@@ -30,6 +30,11 @@
   align-items: flex-start;
 }
 
+.video_box {
+  margin: auto;
+  width: 70%;
+}
+
 .form_box {
   display: flex;
   flex-direction: column;
@@ -92,6 +97,12 @@
   background-color: #9cafca;
 }
 
+@media (max-width: 1100px) {
+  .video_box {
+    width: 90%;
+  }
+}
+
 @media (max-width: 768px) {
   .outbox {
     height: 300px;
@@ -100,5 +111,9 @@
   .box {
     height: 270px;
     font-size: 13px;
+  }
+
+  .video_box {
+    width: 100%;
   }
 }

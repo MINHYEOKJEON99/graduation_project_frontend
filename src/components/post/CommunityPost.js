@@ -4,16 +4,16 @@ import { FaHeart } from 'react-icons/fa';
 import { MdOutlineInsertComment } from 'react-icons/md';
 
 export default function CommunityPost({
-  id,
   title,
   content,
   like,
   commentNum,
+  username,
 }) {
   const router = useRouter();
 
   const onClickCommunityDetail = () => {
-    router.push(`/user/community/communityDetail/${id}`);
+    router.push(`/user/community/communityDetail/${username}`);
   };
 
   return (

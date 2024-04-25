@@ -2,7 +2,8 @@ import { useState } from 'react';
 import style from './login.module.css';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminAuthActions } from '@/src/store/adminAuth';
+import { adminAuthActions, authActions } from '@/src/store/auth';
+import { currentUserInfoActions } from '@/src/store/currentUserInfo';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -60,6 +61,8 @@ export default function Login() {
         userInfo.pwd === loginData.password
     );
     if (user) {
+      dispatch(authActions.userLogin());
+      dispatch(currentUserInfoActions.addCurrentUserInfo(user));
       console.log('로그인 성공');
       console.log(user);
       router.push('/');

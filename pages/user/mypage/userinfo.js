@@ -3,8 +3,31 @@ import style from './userinfo.module.css';
 import profile from '../../../src/assets/profile.png';
 import { Button } from '@mui/material';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 export default function UserInfo() {
+  const userInfo = useSelector((state) => state.currentUserInfo);
+  const [changeNickname, setChangeNickname] = useState('');
+  const [changeEmail, setChangeEmail] = useState('');
+  const [changeBirth, setChangeBirth] = useState('');
+  const [changeDrivingExperience, setchangeDrivingExperience] = useState(0);
+  const { name, nickName, username, email, birth, drivingExperience } =
+    userInfo;
+
+  const onChangeNickname = (e) => {
+    setChangeNickname(e.target.value);
+  };
+  const onChangeEmail = (e) => {
+    setChangeEmail(e.target.value);
+  };
+  const onChangeBirth = (e) => {
+    setChangeBirth(e.target.value);
+  };
+  const onChangedriving = (e) => {
+    setchangeDrivingExperience(e.target.value);
+  };
+
   return (
     <div className={style.container}>
       <h2>회원정보 수정</h2>
@@ -16,7 +39,7 @@ export default function UserInfo() {
             <Input
               name={'name'}
               type={'text'}
-              placeholder={'이름'}
+              placeholder={name}
               disabled={true}
             />
             <Button style={{ color: 'black', backgroundColor: '#e1ebfa' }}>
@@ -25,7 +48,13 @@ export default function UserInfo() {
           </div>
           <div className={style.content_box}>
             <p>닉네임:</p>
-            <Input name={'nickname'} type={'text'} placeholder={'닉네임'} />
+            <Input
+              name={'nickname'}
+              type={'text'}
+              placeholder={nickName}
+              onChange={onChangeNickname}
+              value={changeNickname}
+            />
             <div style={{ width: '66px' }} />
           </div>
           <div className={style.content_box}>
@@ -33,14 +62,20 @@ export default function UserInfo() {
             <Input
               name={'username'}
               type={'text'}
-              placeholder={'아이디'}
+              placeholder={username}
               disabled={true}
             />
             <div style={{ width: '66px' }} />
           </div>
           <div className={style.content_box}>
             <p>이메일: </p>
-            <Input name={'email'} type={'email'} placeholder={'이메일'} />
+            <Input
+              name={'email'}
+              type={'email'}
+              placeholder={email}
+              onChange={onChangeEmail}
+              value={changeEmail}
+            />
             <div style={{ width: '66px' }} />
           </div>
           <div className={style.content_box}>
@@ -60,7 +95,13 @@ export default function UserInfo() {
           </div>
           <div className={style.content_box}>
             <p>생년월일: </p>
-            <Input name={'birth'} placeholder={'생년월일'} disabled={true} />
+            <Input
+              name={'birth'}
+              placeholder={birth}
+              type="date"
+              onChange={onChangeBirth}
+              value={changeBirth}
+            />
             <div style={{ width: '66px' }} />
           </div>
           <div className={style.content_box}>
@@ -68,7 +109,9 @@ export default function UserInfo() {
             <Input
               name={'drive_license'}
               type={'number'}
-              placeholder={'운전 면허경력 숫자만 입력'}
+              onChange={onChangedriving}
+              placeholder={drivingExperience}
+              value={changeDrivingExperience}
             />
             <div style={{ width: '66px' }} />
           </div>

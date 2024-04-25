@@ -49,11 +49,11 @@ export default function Communty() {
         {DUMMY_ARRAY.map((post) => (
           <CommunityPost
             key={post.id}
-            id={post.id}
             title={post.title}
             content={post.content}
             like={post.like}
             commentNum={post.commentNum}
+            username={post.username}
           />
         ))}
 
@@ -63,7 +63,7 @@ export default function Communty() {
           </Button>
         </div>
         <div className={style.paging}>
-          <p>1 2 3</p>
+          <p>1</p>
         </div>
       </div>
     </div>

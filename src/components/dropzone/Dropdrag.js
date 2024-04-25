@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import style from './Dropdrag.module.css';
-import React, { useCallback, useState } from 'react';
-import Dropzone, { useDropzone } from 'react-dropzone';
+import React, { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { BsClipboardPlus } from 'react-icons/bs';
 import { BsFileEarmarkPlay } from 'react-icons/bs';
 
@@ -50,7 +50,7 @@ export default function Dropdrag() {
           삭제
         </Button>
       </div>
-      <div>
+      <div className={style.video_box}>
         <video muted controls width="100%" style={{ borderRadius: '8px' }}>
           <source src={videoFile} controls />
         </video>

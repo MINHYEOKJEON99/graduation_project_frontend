@@ -1,13 +1,14 @@
 const { createSlice } = require('@reduxjs/toolkit');
 
 const initialPostState = [
-  // {
-  //   title: '',
-  //   content: '',
-  //   like: '',
-  //   commentNum: '',
-  //   username: '',
-  // }
+  {
+    id: '1',
+    title: '테스트',
+    content: '테스트 커뮤니티',
+    like: 5,
+    commentNum: 7,
+    username: '전빡빡',
+  },
 ];
 
 const postSlice = createSlice({

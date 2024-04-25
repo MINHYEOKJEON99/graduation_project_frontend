@@ -5,13 +5,23 @@ import Button from '@/src/components/UI/Button';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Modal from '@/src/components/UI/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions } from '@/src/store/auth';
 
 export default function Mypage() {
   const [showModal, setShowModal] = useState(false);
+  const userInfo = useSelector((state) => state.currentUserInfo);
+  const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const onClickAcitivity = () => {
     router.push('/user/mypage/activity');
+  };
+
+  const onClickLogout = () => {
+    dispatch(authActions.userLogout());
+    router.push('/');
   };
 
   const onClickUserInfo = () => {
@@ -38,7 +48,7 @@ export default function Mypage() {
         <div className={style.box}>
           <h3>마이페이지</h3>
           <Image src={profile} alt="profile" className={style.img} priority />
-          <h3>닉네임</h3>
+          {userLogin ? <h3>{userInfo.nickName}</h3> : <h3>닉네임</h3>}
         </div>
         <div className={style.content_box}>
           <Button
@@ -77,6 +87,7 @@ export default function Mypage() {
               height: '70px',
               backgroundColor: '#EFF1F3',
             }}
+            onClickButton={onClickLogout}
           >
             로그아웃
           </Button>

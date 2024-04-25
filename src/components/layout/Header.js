@@ -9,9 +9,14 @@ import { useScroll } from '@/src/hook/useScroll';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Menu from '../UI/Menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions } from '@/src/store/auth';
 
 export default function Header({ children }) {
+  const dispatch = useDispatch();
   const router = useRouter();
+  const nickname = useSelector((state) => state.currentUserInfo.nickName);
+  const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
   const { q } = router.query;
   const [clickMenu, setClickMenu] = useState(false);
 
@@ -43,6 +48,11 @@ export default function Header({ children }) {
     setClickMenu(false);
   };
 
+  const onClickLogout = () => {
+    router.push('/');
+    dispatch(authActions.userLogout());
+  };
+
   const onClickCommunity = () => {
     router.push('/user/community');
     setClickMenu(false);
@@ -54,8 +64,14 @@ export default function Header({ children }) {
   };
 
   const onClickMyPage = () => {
-    router.push('/user/mypage');
-    setClickMenu(false);
+    if (!userLogin) {
+      setClickMenu(false);
+      alert('로그인이 필요합니다.');
+      router.push('/login');
+    } else {
+      router.push('/user/mypage');
+      setClickMenu(false);
+    }
   };
 
   const onClickCustomerCenter = () => {
@@ -64,6 +80,7 @@ export default function Header({ children }) {
   };
 
   const onToggleMenu = () => {
+    console.log(nickname);
     setClickMenu((prev) => !prev);
   };
 
@@ -72,9 +89,13 @@ export default function Header({ children }) {
       <div className={style.modal_logo} onClick={onClickHome}>
         <Image src={logoBlack} alt="logo" className={style.img} priority />
       </div>
-      <p onClick={onClickLogin} className={style.modal_login}>
-        로그인 후 이용해주세요
-      </p>
+      {userLogin ? (
+        <p className={style.modal_login2}>{nickname} 님, 안녕하세요</p>
+      ) : (
+        <p onClick={onClickLogin} className={style.modal_login}>
+          로그인 후 이용해주세요
+        </p>
+      )}
       <ul className={style.header_nav2}>
         <li onClick={onClickCommunity}>커뮤니티</li>
         <li onClick={onClickEpilogue}>후기</li>
@@ -106,9 +127,15 @@ export default function Header({ children }) {
           </ul>
         </nav>
         {router.pathname !== '/user/community' && <Searchbar q={q} />}
-        <p onClick={onClickLogin} className={style.login}>
-          로그인
-        </p>
+        {userLogin ? (
+          <p onClick={onClickLogout} className={style.login}>
+            로그아웃
+          </p>
+        ) : (
+          <p onClick={onClickLogin} className={style.login}>
+            로그인
+          </p>
+        )}
       </header>
       <main className={style.main}>{children}</main>
     </div>
