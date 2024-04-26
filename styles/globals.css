@@ -8,7 +8,7 @@ body {
   background: white;
   overflow: scroll;
   /* font-family: 'NanumSquareNeo-dEb'; */
-  font-family: 'NanumSquareNeo-dEB';
+  font-family: 'NanumSquareNeo-dEb';
 }
 
 @font-face {
@@ -20,5 +20,5 @@ body {
 @font-face {
   font-family: 'NanumSquareNeo-dEb';
   font-weight: 200;
-  src: url('../public/fonts/NanumSquareNeo-dEB.ttf') format('truetype');
+  src: url('../public/fonts/NanumSquareNeo-dEb.ttf') format('truetype');
 }

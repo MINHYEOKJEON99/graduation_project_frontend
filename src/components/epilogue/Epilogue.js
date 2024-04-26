@@ -1,6 +1,7 @@
 import style from './Epliogue.module.css';
 import dummy_video from '../../assets/dummy_video.mp4';
 import { FaHeart } from 'react-icons/fa';
+import { useRouter } from 'next/router';
 
 const DUMMY_DATA = {
   id: 1,
@@ -11,8 +12,14 @@ const DUMMY_DATA = {
 };
 
 export default function Epilogue() {
+  const router = useRouter();
+
+  const onClickEpilogueDetail = () => {
+    router.push('/user/epilogue/epilogueDetail');
+  };
+
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} onClick={onClickEpilogueDetail}>
       <div className={style.container}>
         <video muted controls width="210" style={{ borderRadius: '8px' }}>
           <source src={dummy_video} type="video/mp4" />

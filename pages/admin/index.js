@@ -4,14 +4,14 @@ import { Button } from '@mui/material';
 import Card from '@/src/components/UI/Card';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { adminAuthActions } from '@/src/store/auth';
+import { authActions } from '@/src/store/auth';
 
 export default function AdminPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const onClickAdminLogout = () => {
-    dispatch(adminAuthActions.adminLogout());
+    dispatch(authActions.adminLogout());
     router.push('/');
   };
   return (

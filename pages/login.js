@@ -2,7 +2,7 @@ import { useState } from 'react';
 import style from './login.module.css';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminAuthActions, authActions } from '@/src/store/auth';
+import { authActions } from '@/src/store/auth';
 import { currentUserInfoActions } from '@/src/store/currentUserInfo';
 
 export default function Login() {
@@ -46,7 +46,7 @@ export default function Login() {
       loginData.id === adminData.id &&
       loginData.password === adminData.password
     ) {
-      dispatch(adminAuthActions.adminLogin());
+      dispatch(authActions.adminLogin());
       router.push('/admin');
     } else {
       setLoginData({
