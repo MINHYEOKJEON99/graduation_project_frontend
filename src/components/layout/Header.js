@@ -11,6 +11,7 @@ import { useState } from 'react';
 import Menu from '../UI/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '@/src/store/auth';
+import { currentUserInfoActions } from '@/src/store/currentUserInfo';
 
 export default function Header({ children }) {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ export default function Header({ children }) {
   const onClickLogout = () => {
     router.push('/');
     dispatch(authActions.userLogout());
+    dispatch(currentUserInfoActions.logoutCurrentUserInfo());
   };
 
   const onClickCommunity = () => {

@@ -17,6 +17,9 @@ const currentUserInfoSlice = createSlice({
     addCurrentUserInfo(state, action) {
       return action.payload;
     },
+    logoutCurrentUserInfo(state, action) {
+      return initialCurrentUserInfoState;
+    },
   },
 });
 

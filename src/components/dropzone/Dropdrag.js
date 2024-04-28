@@ -5,7 +5,7 @@ import { useDropzone } from 'react-dropzone';
 import { BsClipboardPlus } from 'react-icons/bs';
 import { BsFileEarmarkPlay } from 'react-icons/bs';
 
-export default function Dropdrag() {
+export default function Dropdrag({ onClick }) {
   const [fileName, setFileName] = useState('');
   const [videoFile, setVideoFile] = useState(null);
   const [showFile, setShowFile] = useState(false);
@@ -61,7 +61,12 @@ export default function Dropdrag() {
   return (
     <div className={style.container}>
       {content}
-      <input className={style.submitBtn} type="button" value="측정하기" />
+      <input
+        className={style.submitBtn}
+        onClick={onClick}
+        type="button"
+        value="측정하기"
+      />
     </div>
   );
 }

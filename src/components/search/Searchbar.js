@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { BiSearch } from 'react-icons/bi';
-
 import style from './Searchbar.module.css';
 
 export default function Searchbar({ q }) {
