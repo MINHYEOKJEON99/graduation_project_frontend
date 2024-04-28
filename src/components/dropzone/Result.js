@@ -61,7 +61,7 @@ export default function Result() {
           onClickButton={onClickHome}
           styles={{ width: '50%', marginTop: '0px' }}
         >
-          홈으로 이동하기
+          홈으로
         </Button>
       </div>
     </div>

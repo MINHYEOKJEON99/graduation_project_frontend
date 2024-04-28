@@ -67,6 +67,7 @@ export default function Login() {
       console.log(user);
       router.push('/');
     } else {
+      alert('아이디 또는 비밀번호가 일치하지 않습니다.');
       console.log('로그인 실패');
     }
   };

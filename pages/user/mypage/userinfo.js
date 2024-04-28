@@ -8,12 +8,12 @@ import { useState } from 'react';
 
 export default function UserInfo() {
   const userInfo = useSelector((state) => state.currentUserInfo);
-  const [changeNickname, setChangeNickname] = useState('');
-  const [changeEmail, setChangeEmail] = useState('');
-  const [changeBirth, setChangeBirth] = useState('');
-  const [changeDrivingExperience, setchangeDrivingExperience] = useState(0);
   const { name, nickName, username, email, birth, drivingExperience } =
     userInfo;
+  const [changeNickname, setChangeNickname] = useState('');
+  const [changeEmail, setChangeEmail] = useState('');
+  const [changeDrivingExperience, setchangeDrivingExperience] = useState(null);
+  const [changeBirth, setChangeBirth] = useState(birth);
 
   const onChangeNickname = (e) => {
     setChangeNickname(e.target.value);
