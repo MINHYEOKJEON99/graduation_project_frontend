@@ -63,7 +63,7 @@ export default function Dropdrag({ onClick }) {
       {content}
       <input
         className={style.submitBtn}
-        onClick={onClick}
+        onClick={onClick.bind(null, fileName)}
         type="button"
         value="측정하기"
       />

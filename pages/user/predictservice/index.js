@@ -5,7 +5,11 @@ import { useState } from 'react';
 export default function Predictservice() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const onClickResult = () => {
+  const onClickResult = (fileName) => {
+    if (!fileName) {
+      alert('영상 파일을 넣어주세요');
+      return;
+    }
     setIsLoading(true);
   };
 
