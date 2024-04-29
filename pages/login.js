@@ -48,6 +48,7 @@ export default function Login() {
     ) {
       dispatch(authActions.adminLogin());
       router.push('/admin');
+      return;
     } else {
       setLoginData({
         id: '',

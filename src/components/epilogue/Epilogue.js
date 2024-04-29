@@ -3,13 +3,29 @@ import dummy_video from '../../assets/dummy_video.mp4';
 import { FaHeart } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 
-const DUMMY_DATA = {
-  id: 1,
-  title: '첫 후기',
-  video: dummy_video,
-  content: '유용해요',
-  like: 4,
-};
+const DUMMY_DATA = [
+  {
+    id: 1,
+    title: '첫 후기',
+    video: dummy_video,
+    content: '유용해요',
+    like: 4,
+  },
+  {
+    id: 2,
+    title: '두번째 후기',
+    video: dummy_video,
+    content: '참고용으로 좋아요',
+    like: 23,
+  },
+  {
+    id: 3,
+    title: '세번째 후기',
+    video: dummy_video,
+    content: '생각보다 잘맞아서 신기해요',
+    like: 11,
+  },
+];
 
 export default function Epilogue() {
   const router = useRouter();
@@ -18,27 +34,31 @@ export default function Epilogue() {
     router.push('/user/epilogue/epilogueDetail');
   };
 
-  return (
-    <div className={style.wrapper} onClick={onClickEpilogueDetail}>
-      <div className={style.container}>
-        <video muted controls width="210" style={{ borderRadius: '8px' }}>
-          <source src={dummy_video} type="video/mp4" />
-        </video>
-        <div className={style.content_box}>
-          <p>{DUMMY_DATA.content}</p>
-          <div
-            style={{
-              display: 'flex',
-              alignContent: 'center',
-              gap: '5px',
-              fontSize: '13px',
-            }}
-          >
-            <FaHeart color="red" size={16} />
-            {DUMMY_DATA.like}
-          </div>
+  let content = DUMMY_DATA.map((epilogue) => (
+    <div key={epilogue.id} className={style.container}>
+      <video muted controls width="210" style={{ borderRadius: '8px' }}>
+        <source src={epilogue.video} type="video/mp4" />
+      </video>
+      <div className={style.content_box}>
+        <p>{epilogue.content}</p>
+        <div
+          style={{
+            display: 'flex',
+            alignContent: 'center',
+            gap: '5px',
+            fontSize: '13px',
+          }}
+        >
+          <FaHeart color="red" size={16} />
+          {epilogue.like}
         </div>
       </div>
+    </div>
+  ));
+
+  return (
+    <div className={style.wrapper} onClick={onClickEpilogueDetail}>
+      {content}
     </div>
   );
 }
