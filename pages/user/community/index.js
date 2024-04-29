@@ -2,8 +2,15 @@ import Searchbar from '@/src/components/search/Searchbar';
 import style from './community.module.css';
 import CommunityPost from '@/src/components/post/CommunityPost';
 import { useRouter } from 'next/router';
-import { Button } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 // const DUMMY_ARRAY = [
 //   {
@@ -32,9 +39,14 @@ import { useSelector } from 'react-redux';
 export default function Communty() {
   const router = useRouter();
   const DUMMY_ARRAY = useSelector((state) => state.post);
+  const [age, setAge] = useState(0);
 
   const onClickNewPost = () => {
     router.push('/user/community/newpost');
+  };
+
+  const handleChange = (e) => {
+    setAge(e.target.value);
   };
 
   return (
@@ -44,6 +56,21 @@ export default function Communty() {
           <h2>커뮤니티</h2>
         </div>
         <div className={style.search_bar}>
+          <FormControl sx={{ minWidth: 80 }}>
+            <InputLabel id="demo-simple-select-label">검색 옵션</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="검색옵션"
+              onChange={handleChange}
+              style={{ height: '42px' }}
+            >
+              <MenuItem value={10}>제목</MenuItem>
+              <MenuItem value={20}>작성자</MenuItem>
+              <MenuItem value={30}>내용</MenuItem>
+            </Select>
+          </FormControl>
           <Searchbar />
         </div>
         {DUMMY_ARRAY.map((post) => (
