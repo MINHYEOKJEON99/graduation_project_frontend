@@ -1,3 +1,20 @@
+import SearchList from '@/src/components/post/SearchList';
+import style from './search.module.css';
+import { useRouter } from 'next/router';
+
 export default function Search() {
-  return <div>searchPage</div>;
+  const router = useRouter();
+  const { q } = router.query;
+
+  return (
+    <div className={style.wrapper}>
+      <div className={style.container}>
+        <div className={style.box}>
+          <h2>{q}의 검색결과</h2>
+        </div>
+
+        <SearchList q={q} />
+      </div>
+    </div>
+  );
 }

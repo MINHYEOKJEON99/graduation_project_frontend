@@ -29,16 +29,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(no, name, calories, fat, carbs, protein) {
-  return { no, name, calories, fat, carbs, protein };
+function createData(no, name, nickname, date, ans) {
+  return { no, name, nickname, date, ans };
 }
 
 const rows = [
-  createData(1, 'Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData(2, 'Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData(3, 'Eclair', 262, 16.0, 24, 6.0),
-  createData(4, 'Cupcake', 305, 3.7, 67, 4.3),
-  createData(5, 'Gingerbread', 356, 16.0, 49, 3.9),
+  createData(1, '공지사항 1', '전빡빡', '2024-02-01', '완료'),
+  createData(2, '공지사항 2', '돼지', '2024-02-02', '보류'),
+  createData(3, '공지사항 3', '소', '2024-02-03', '완료'),
+  createData(4, '공지사항 4', '토끼', '2024-02-05', '완료'),
+  createData(5, '공지사항 5', '바보', '2024-03-01', '미완료'),
 ];
 
 export default function CustomerCenterTable() {
@@ -83,10 +83,10 @@ export default function CustomerCenterTable() {
                     {row.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.calories}
+                    {row.nickname}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                  <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                  <StyledTableCell align="right">{row.date}</StyledTableCell>
+                  <StyledTableCell align="right">{row.ans}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
