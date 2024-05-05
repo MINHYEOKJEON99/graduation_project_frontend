@@ -33,7 +33,7 @@ export default function SearchList({ q }) {
   return (
     <>
       {searchList.map((post) => (
-        <div className={style.content_wrapper}>
+        <div className={style.content_wrapper} key={post.id}>
           <div className={style.content_box}>
             <div className={style.category_detail}>{post.title}</div>
             <div className={style.content}>{post.content}</div>
