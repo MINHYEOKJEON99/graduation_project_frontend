@@ -10,7 +10,7 @@ export default function Search() {
     <div className={style.wrapper}>
       <div className={style.container}>
         <div className={style.box}>
-          <h2>{q}의 검색결과</h2>
+          <h2>&ldquo;{q}&rdquo; 의 검색결과</h2>
         </div>
 
         <SearchList q={q} />
