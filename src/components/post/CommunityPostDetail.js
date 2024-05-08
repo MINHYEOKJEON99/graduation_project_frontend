@@ -3,9 +3,11 @@ import style from './CommunityPostDetail.module.css';
 import { FaHeart } from 'react-icons/fa';
 import { FaRegHeart } from 'react-icons/fa';
 import { useState } from 'react';
+import { Button } from '@mui/material';
 
 export default function CommunityPostDetail({ title, content, like }) {
   const router = useRouter();
+  const { id } = router.query;
   const [toggleHeart, setToggleHeart] = useState(false);
 
   const onClickCommunity = () => {
@@ -16,12 +18,17 @@ export default function CommunityPostDetail({ title, content, like }) {
     setToggleHeart((prev) => !prev);
   };
 
+  const onClickUpdate = () => {
+    router.push(`/user/community/updateCommunity/${id}`);
+  };
+
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
         <div onClick={onClickCommunity} className={style.box}>
           <h2>커뮤니티 게시판</h2>
         </div>
+        <Button onClick={onClickUpdate}>수정하기</Button>
         <div className={style.content_box}>
           <div>
             <div className={style.title}>

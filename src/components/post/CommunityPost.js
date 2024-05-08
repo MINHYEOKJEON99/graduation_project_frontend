@@ -1,19 +1,19 @@
 import { useRouter } from 'next/router';
 import style from './CommunityPost.module.css';
-import { FaHeart } from 'react-icons/fa';
+import { FaRegEye } from 'react-icons/fa';
 import { MdOutlineInsertComment } from 'react-icons/md';
 
 export default function CommunityPost({
+  id,
   title,
   content,
-  like,
+  viewCount,
   commentNum,
-  username,
 }) {
   const router = useRouter();
 
   const onClickCommunityDetail = () => {
-    router.push(`/user/community/communityDetail/${username}`);
+    router.push(`/user/community/communityDetail/${id}`);
   };
 
   return (
@@ -21,8 +21,8 @@ export default function CommunityPost({
       <div className={style.title}>{title}</div>
       <div className={style.content}>{content.slice(0, 75)}</div>
       <div className={style.like}>
-        <FaHeart color="red" />
-        {like}
+        <FaRegEye size={20} />
+        {viewCount}
         <MdOutlineInsertComment size={20} />
         {commentNum}
       </div>

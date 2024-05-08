@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
-import style from './newpost.module.css';
+import { useCallback, useEffect, useState } from 'react';
+import style from './[id].module.css';
 import { useRouter } from 'next/router';
-import { fetchNewPost } from '@/pages/api/api';
+import { useSelector } from 'react-redux';
 
-export default function Newpost() {
+export default function UpdatePost() {
   const router = useRouter();
+  const postDetail = useSelector((state) => state.post);
   const [token, setToken] = useState();
+
   const [text, setText] = useState({
-    title: '',
-    content: '',
+    title: postDetail.title,
+    content: postDetail.content,
   });
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export default function Newpost() {
     <form onSubmit={onSubmitPost} className={style.wrapper}>
       <div className={style.container}>
         <div className={style.box}>
-          <h2>글 작성</h2>
+          <h2>글 수정</h2>
         </div>
         <div className={style.content_box}>
           <div className={style.title}>
@@ -58,7 +60,7 @@ export default function Newpost() {
       </div>
       <div className={style.new_post}>
         <button type="submit" className={style.button}>
-          글쓰기
+          수정하기
         </button>
       </div>
     </form>

@@ -1,27 +1,34 @@
 //이름, 닉네임, 아이디, 이메일, 비밀번호, 비밀번호 확인, 생년월일, 운전면허 취득연도
 import Input from '@/src/components/UI/Input';
 import style from './signup.module.css';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { userInfoActions } from '@/src/store/userInfo';
+import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
+import { fetchSignUp } from './api/api';
 
 export default function SignUp() {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const [confirmPwd, setConfirmPwd] = useState('');
+
   const [userInfo, setUserInfo] = useState({
-    name: '',
-    nickName: '',
-    username: '',
     email: '',
-    pwd: '',
+    username: '',
+    password: '',
+    passwordCheck: '',
+    Myname: '',
+    nickname: '',
     birth: '',
-    drivingExperience: 0,
+    driveExp: 0,
   });
 
-  const { name, nickname, username, email, pwd, birth, drivingExperience } =
-    userInfo;
+  const {
+    myName,
+    nickname,
+    username,
+    email,
+    password,
+    passwordCheck,
+    birth,
+    driveExp,
+  } = userInfo;
 
   const onValueChange = (e) => {
     setUserInfo({
@@ -30,22 +37,22 @@ export default function SignUp() {
     });
   };
 
-  const onChangeCpwd = (e) => {
-    setConfirmPwd(e.target.value);
-  };
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    if (pwd !== confirmPwd) {
-      setIsValid(false);
-      alert('비밀번호를 확인해주세요');
-      return;
-    }
-    dispatch(userInfoActions.addUserInfo(userInfo));
-    alert('회원가입이 되었습니다.');
-    router.push('/login');
-  };
+      fetchSignUp(userInfo);
+      // if (pwd !== confirmPwd) {
+      //   setIsValid(false);
+      //   alert('비밀번호를 확인해주세요');
+      //   return;
+      // }
+      // dispatch(userInfoActions.addUserInfo(userInfo));
+      // alert('회원가입이 되었습니다.');
+      // router.push('/login');
+    },
+    [userInfo]
+  );
 
   return (
     <div className={style.container}>
@@ -53,10 +60,10 @@ export default function SignUp() {
       <form onSubmit={onSubmit} className={style.joinForm}>
         <Input
           onChange={onValueChange}
-          name={'name'}
+          name={'myName'}
           type={'text'}
           placeholder={'이름'}
-          value={name}
+          value={myName}
         />
         <Input
           onChange={onValueChange}
@@ -81,17 +88,17 @@ export default function SignUp() {
         />
         <Input
           onChange={onValueChange}
-          name={'pwd'}
+          name={'password'}
           type={'password'}
           placeholder={'비밀번호'}
-          value={pwd}
+          value={password}
         />
         <Input
-          onChange={onChangeCpwd}
-          name={'confirmpwd'}
+          onChange={onValueChange}
+          name={'passwordCheck'}
           type={'password'}
           placeholder={'비밀번호 확인'}
-          value={confirmPwd}
+          value={passwordCheck}
         />
         <Input
           onChange={onValueChange}
@@ -102,10 +109,10 @@ export default function SignUp() {
         />
         <Input
           onChange={onValueChange}
-          name={'drivingExperience'}
+          name={'driveExp'}
           type={'number'}
           placeholder={'운전 면허경력 숫자만 입력'}
-          value={drivingExperience}
+          value={driveExp}
         />
         <input className={style.submitBtn} type="submit" value="회원가입" />
       </form>

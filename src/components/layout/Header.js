@@ -7,7 +7,7 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 
 import { useScroll } from '@/src/hook/useScroll';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Menu from '../UI/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '@/src/store/auth';
@@ -20,6 +20,7 @@ export default function Header({ children }) {
   const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
   const { q } = router.query;
   const [clickMenu, setClickMenu] = useState(false);
+  const [isLogin, setIsLogin] = useState();
 
   const { y } = useScroll();
   let headerStyle = style.header;
@@ -39,6 +40,15 @@ export default function Header({ children }) {
     );
   }
 
+  useEffect(() => {
+    setIsLogin(localStorage.getItem('loginToken'));
+    if (isLogin) {
+      dispatch(authActions.userLogin());
+    } else {
+      dispatch(authActions.userLogout());
+    }
+  }, [isLogin, dispatch]);
+
   const onClickHome = () => {
     router.push('/');
     setClickMenu(false);
@@ -51,8 +61,10 @@ export default function Header({ children }) {
 
   const onClickLogout = () => {
     router.push('/');
+    localStorage.removeItem('loginToken');
+    setIsLogin(null);
     dispatch(authActions.userLogout());
-    dispatch(currentUserInfoActions.logoutCurrentUserInfo());
+    alert('로그아웃 되었습니다.');
   };
 
   const onClickCommunity = () => {

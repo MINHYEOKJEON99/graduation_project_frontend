@@ -2,12 +2,16 @@ const { createSlice } = require('@reduxjs/toolkit');
 
 const initialPostState = [
   {
-    id: '1',
-    title: '테스트',
-    content: '테스트 커뮤니티',
-    like: 5,
-    commentNum: 7,
-    username: '전빡빡',
+    boardId: 0,
+    title: '',
+    content: '',
+    viewCount: 0,
+    writerName: '',
+    driveExp: 0,
+    createdDate: '',
+    modifiedDate: 'Z',
+    comments: [],
+    files: [],
   },
 ];
 
@@ -15,8 +19,8 @@ const postSlice = createSlice({
   name: 'post',
   initialState: initialPostState,
   reducers: {
-    addPost(state, action) {
-      state.push(action.payload);
+    addPostDetail(state, action) {
+      return action.payload;
     },
   },
 });

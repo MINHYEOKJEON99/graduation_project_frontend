@@ -1,19 +1,35 @@
-import { useSelector } from 'react-redux';
+import { fetchCommunityDetail } from '@/pages/api/api';
 import CommunityPostDetail from '@/src/components/post/CommunityPostDetail';
+import { postActions } from '@/src/store/post';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function CommunityDetail() {
-  const DUMMY_ARRAY = useSelector((state) => state.post);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [contentDetail, setContentDetail] = useState({});
+
+  const setInitData = useCallback(async () => {
+    const response = await fetchCommunityDetail(router.query.id);
+
+    setContentDetail(response.data);
+    dispatch(postActions.addPostDetail(contentDetail));
+  }, [router]);
+
+  useEffect(() => {
+    setInitData();
+  }, []);
 
   return (
     <>
-      {DUMMY_ARRAY.map((post) => (
+      {contentDetail && (
         <CommunityPostDetail
-          key={post.id}
-          title={post.title}
-          content={post.content}
-          like={post.like}
+          key={contentDetail.boardId}
+          title={contentDetail.title}
+          content={contentDetail.content}
         />
-      ))}
+      )}
     </>
   );
 }

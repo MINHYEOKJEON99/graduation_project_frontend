@@ -2,8 +2,8 @@ import Image from 'next/image';
 import style from './index.module.css';
 import backImg from '../src/assets/backImg.jpg';
 import { BsFileText } from 'react-icons/bs';
-import Epilogue from '@/src/components/epilogue/Epilogue';
 import { useRouter } from 'next/router';
+import Epilogue from '@/src/components/epilogue/Epilogue';
 import Button from '@/src/components/UI/Button';
 
 export default function MainPage() {

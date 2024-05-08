@@ -10,7 +10,8 @@ import {
   Select,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchCommunity } from '@/pages/api/api';
 
 // const DUMMY_ARRAY = [
 //   {
@@ -36,10 +37,20 @@ import { useState } from 'react';
 //   },
 // ];
 
-export default function Communty() {
+export default function Community() {
   const router = useRouter();
-  const DUMMY_ARRAY = useSelector((state) => state.post);
   const [age, setAge] = useState(0);
+  const [contents, setContents] = useState([]);
+
+  useEffect(() => {
+    const setInitData = async () => {
+      const { data } = await fetchCommunity();
+      setContents(data.content);
+    };
+
+    setInitData();
+    console.log(contents);
+  }, []);
 
   const onClickNewPost = () => {
     router.push('/user/community/newpost');
@@ -73,16 +84,18 @@ export default function Communty() {
           </FormControl>
           <Searchbar />
         </div>
-        {DUMMY_ARRAY.map((post) => (
-          <CommunityPost
-            key={post.id}
-            title={post.title}
-            content={post.content}
-            like={post.like}
-            commentNum={post.commentNum}
-            username={post.username}
-          />
-        ))}
+        {contents &&
+          contents.map((post) => (
+            <CommunityPost
+              key={post.boardId}
+              id={post.boardId}
+              title={post.title}
+              content={post.content}
+              viewCount={post.viewCount}
+              commentNum={0}
+              username={post.writerName}
+            />
+          ))}
 
         <div className={style.new_post}>
           <Button style={{ color: 'black' }} onClick={onClickNewPost}>
