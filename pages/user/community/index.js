@@ -39,9 +39,12 @@ import { fetchCommunity } from '@/pages/api/api';
 
 export default function Community() {
   const router = useRouter();
+  const isLogin = useSelector((state) => state.auth.isUserAuthenticated);
+
   const [age, setAge] = useState(0);
   const [contents, setContents] = useState([]);
 
+  //커뮤니티 리스트 업데이트
   useEffect(() => {
     const setInitData = async () => {
       const { data } = await fetchCommunity();
@@ -49,10 +52,14 @@ export default function Community() {
     };
 
     setInitData();
-    console.log(contents);
   }, []);
 
   const onClickNewPost = () => {
+    if (!isLogin) {
+      alert('로그인이 필요합니다.');
+      router.push('/login');
+      return;
+    }
     router.push('/user/community/newpost');
   };
 
@@ -93,7 +100,6 @@ export default function Community() {
               content={post.content}
               viewCount={post.viewCount}
               commentNum={0}
-              username={post.writerName}
             />
           ))}
 

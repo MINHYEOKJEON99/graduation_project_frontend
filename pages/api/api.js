@@ -48,6 +48,27 @@ export async function fetchNewPost(newPost, token) {
   }
 }
 
+//커뮤니티 글 수정하기
+export async function fetchUpdatePost(id, updatePost, token) {
+  try {
+    const response = await axios.patch(
+      `http://ceprj.gachon.ac.kr:60011/board/${id}/update`,
+      updatePost,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log('success, response: ', response);
+    return true;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
 //커뮤니티 리스트 불러오기
 export async function fetchCommunity() {
   try {
@@ -74,4 +95,14 @@ export async function fetchCommunityDetail(id) {
   }
 }
 
-//
+//커뮤니티 삭제
+export async function fetchCommunityDelete(id) {
+  try {
+    const response = await axios.delete(
+      `http://ceprj.gachon.ac.kr:60011/board/${id}/delete`
+    );
+    console.log('delete success', response);
+  } catch (e) {
+    console.log(e);
+  }
+}

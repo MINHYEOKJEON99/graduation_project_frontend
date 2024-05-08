@@ -2,17 +2,21 @@ import { useCallback, useEffect, useState } from 'react';
 import style from './[id].module.css';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+import { fetchUpdatePost } from '@/pages/api/api';
 
 export default function UpdatePost() {
   const router = useRouter();
   const postDetail = useSelector((state) => state.post);
-  const [token, setToken] = useState();
 
+  const { id } = router.query;
+
+  const [token, setToken] = useState();
   const [text, setText] = useState({
     title: postDetail.title,
     content: postDetail.content,
   });
 
+  //토큰 저장
   useEffect(() => {
     setToken(localStorage.getItem('loginToken'));
     console.log(token);
@@ -24,10 +28,10 @@ export default function UpdatePost() {
 
   const onSubmitPost = async (e) => {
     e.preventDefault();
-    const isSuccess = await fetchNewPost(text, token);
+    const isSuccess = await fetchUpdatePost(id, text, token);
     if (isSuccess) {
-      alert('새 글이 게시되었습니다.');
-      router.push('/user/community');
+      alert('글이 수정되었습니다.');
+      router.push(`/user/community/communityDetail/${id}`);
       console.log(text);
     } else {
       console.error('에러');

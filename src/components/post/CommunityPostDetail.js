@@ -5,7 +5,13 @@ import { FaRegHeart } from 'react-icons/fa';
 import { useState } from 'react';
 import { Button } from '@mui/material';
 
-export default function CommunityPostDetail({ title, content, like }) {
+export default function CommunityPostDetail({
+  title,
+  content,
+  like,
+  writerName,
+  onClickDelete,
+}) {
   const router = useRouter();
   const { id } = router.query;
   const [toggleHeart, setToggleHeart] = useState(false);
@@ -28,12 +34,15 @@ export default function CommunityPostDetail({ title, content, like }) {
         <div onClick={onClickCommunity} className={style.box}>
           <h2>커뮤니티 게시판</h2>
         </div>
-        <Button onClick={onClickUpdate}>수정하기</Button>
+        <div className={style.button_box}>
+          <Button onClick={onClickUpdate}>수정하기</Button>
+          <Button onClick={onClickDelete}>삭제하기</Button>
+        </div>
         <div className={style.content_box}>
           <div>
             <div className={style.title}>
               <span>제목: {title}</span>
-              <p>작성자:{router.query.id}</p>
+              <p>작성자:{writerName}</p>
             </div>
             <div className={style.content}>
               <p>{content}</p>

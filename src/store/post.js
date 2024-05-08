@@ -1,20 +1,17 @@
 const { createSlice } = require('@reduxjs/toolkit');
 
-const initialPostState = [
-  {
-    boardId: 0,
-    title: '',
-    content: '',
-    viewCount: 0,
-    writerName: '',
-    driveExp: 0,
-    createdDate: '',
-    modifiedDate: 'Z',
-    comments: [],
-    files: [],
-  },
-];
-
+const initialPostState = {
+  boardId: 0,
+  title: 'gg',
+  content: '',
+  viewCount: 0,
+  writerName: '',
+  driveExp: 0,
+  createdDate: '',
+  modifiedDate: 'Z',
+  comments: [],
+  files: [],
+};
 const postSlice = createSlice({
   name: 'post',
   initialState: initialPostState,

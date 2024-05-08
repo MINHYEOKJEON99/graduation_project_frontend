@@ -43,9 +43,16 @@ export default function Login() {
     async (e) => {
       e.preventDefault();
       const token = await fetchLogin(loginData);
-      console.log(token);
+
       localStorage.setItem('loginToken', token);
+
+      setTimeout(() => {
+        localStorage.removeItem('loginToken');
+        dispatch(authActions.userLogout());
+      }, 1800000);
+
       dispatch(authActions.userLogin());
+      alert('로그인 되었습니다.');
       router.push('/');
     },
     [loginData, dispatch, router]
