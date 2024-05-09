@@ -15,7 +15,9 @@ export default function CommunityDetail() {
   const setInitData = useCallback(async () => {
     const response = await fetchCommunityDetail(router.query.id);
 
-    setContentDetail(response.data);
+    if (response) {
+      setContentDetail(response.data);
+    }
   }, [router.query.id]);
 
   useEffect(() => {

@@ -2,8 +2,11 @@ import { useRouter } from 'next/router';
 import style from './CommunityPostDetail.module.css';
 import { FaHeart } from 'react-icons/fa';
 import { FaRegHeart } from 'react-icons/fa';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
+import { fetchComment, fetchWriteComment } from '@/pages/api/api';
+import Comment from './Comment';
+import { useSelector } from 'react-redux';
 
 export default function CommunityPostDetail({
   title,
@@ -14,7 +17,32 @@ export default function CommunityPostDetail({
 }) {
   const router = useRouter();
   const { id } = router.query;
+  const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
+
   const [toggleHeart, setToggleHeart] = useState(false);
+  const [token, setToken] = useState();
+  const [commentList, setCommentList] = useState();
+  const [commentListLength, setCommentListLength] = useState();
+  const [comment, setComment] = useState({
+    content: '',
+  });
+
+  useEffect(() => {
+    const setInitData = async () => {
+      const response = await fetchComment(id);
+      if (response) {
+        setCommentList(response.data.content);
+        setCommentListLength(response.data.totalElements);
+      }
+    };
+
+    setInitData();
+  }, [id]);
+
+  useEffect(() => {
+    setToken(localStorage.getItem('loginToken'));
+    console.log(token);
+  }, [token]);
 
   const onClickCommunity = () => {
     router.push('/user/community');
@@ -26,6 +54,25 @@ export default function CommunityPostDetail({
 
   const onClickUpdate = () => {
     router.push(`/user/community/updateCommunity/${id}`);
+  };
+
+  const onClickCommentWrite = () => {
+    if (!userLogin) {
+      alert('로그인이 필요합니다.');
+      router.push('/login');
+      return;
+    }
+    if (comment.content.trim().length !== '') {
+      fetchWriteComment(id, comment, token);
+      alert('댓글이 작성되었습니다.');
+      location.reload();
+    } else {
+      alert('댓글을 입력해주세요.');
+    }
+  };
+
+  const onChangeComment = (e) => {
+    setComment({ content: e.target.value });
   };
 
   return (
@@ -65,8 +112,29 @@ export default function CommunityPostDetail({
           </div>
         </div>
         <div className={style.answer}>
-          <div>댓글</div>
+          <div>{commentListLength}개 댓글</div>
+          <div className={style.answer_write}>
+            <textarea
+              placeholder={
+                userLogin ? '댓글을 작성해주세요' : '로그인이 필요합니다.'
+              }
+              onChange={onChangeComment}
+              value={comment.content}
+              disabled={userLogin ? false : true}
+            />
+            <Button onClick={onClickCommentWrite}>작성</Button>
+          </div>
         </div>
+        {commentList &&
+          commentList.map((comment) => (
+            <Comment
+              key={comment.commentId}
+              id={comment.commentId}
+              commentWriterName={comment.commentWriterName}
+              content={comment.content}
+              createdDate={comment.createdDate}
+            />
+          ))}
       </div>
     </div>
   );

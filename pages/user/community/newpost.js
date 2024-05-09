@@ -21,6 +21,10 @@ export default function Newpost() {
   };
 
   const onSubmitPost = async (e) => {
+    if (text.title === '' || text.content === '') {
+      alert('제목과 내용을 입력해주세요.');
+      return;
+    }
     e.preventDefault();
     const isSuccess = await fetchNewPost(text, token);
     if (isSuccess) {
