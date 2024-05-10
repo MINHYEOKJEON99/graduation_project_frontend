@@ -62,6 +62,7 @@ export default function Header({ children }) {
   const onClickLogout = () => {
     router.push('/');
     localStorage.removeItem('loginToken');
+    localStorage.removeItem('currentEmail');
     setIsLogin(null);
     dispatch(authActions.userLogout());
     alert('로그아웃 되었습니다.');

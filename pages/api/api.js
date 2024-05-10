@@ -7,6 +7,7 @@ export async function fetchLogin(userInfo) {
       'http://ceprj.gachon.ac.kr:60011/user/login',
       userInfo
     );
+    console.log(response.data);
     return response.data.token;
   } catch (e) {
     console.log(e);
@@ -156,10 +157,10 @@ export async function fetchWriteComment(id, comment, token) {
 
 //커뮤니티 댓글 삭제
 
-export async function fetchCommentDelete(id, token) {
+export async function fetchCommentDelete(boardId, commentId, token) {
   try {
     const response = await axios.delete(
-      `http://ceprj.gachon.ac.kr:60011/delete/${id}`,
+      `http://ceprj.gachon.ac.kr:60011/board/${boardId}/comment/delete/${commentId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -175,10 +176,15 @@ export async function fetchCommentDelete(id, token) {
 
 //커뮤니티 댓글 수정
 
-export async function fetchUpdateComment(id, updateComment, token) {
+export async function fetchUpdateComment(
+  boardId,
+  commentId,
+  updateComment,
+  token
+) {
   try {
     const response = await axios.patch(
-      `http://ceprj.gachon.ac.kr:60011/update/${id}`,
+      `http://ceprj.gachon.ac.kr:60011/board/${boardId}/comment/update/${commentId}`,
       updateComment,
       {
         headers: {
@@ -192,5 +198,58 @@ export async function fetchUpdateComment(id, updateComment, token) {
   } catch (e) {
     console.log(e);
     return false;
+  }
+}
+
+//고객센터 문의리스트
+
+export async function fetchInquire() {
+  try {
+    const response = await axios.get(
+      'http://ceprj.gachon.ac.kr:60011/inquiry/list'
+    );
+    console.log('success, response: ', response);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+//고객센터 문의하기 글쓰기
+
+export async function fetchInquireWrite(inquriy, token) {
+  try {
+    const response = await axios.post(
+      'http://ceprj.gachon.ac.kr:60011/inquiry/write',
+      inquriy,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('success, response: ', response);
+    return true;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
+//고객센터 문의 상세보기
+
+export async function fetchInquiryDetail(inquiryId, token) {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/inquiry/${inquiryId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('success, response: ', response);
+    return response;
+  } catch (e) {
+    console.log(e);
   }
 }

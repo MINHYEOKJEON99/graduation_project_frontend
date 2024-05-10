@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useRouter } from 'next/router';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,19 +30,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(no, name, nickname, date, ans) {
-  return { no, name, nickname, date, ans };
-}
+export default function CustomerCenterTable({ inquriyList }) {
+  const router = useRouter();
 
-const rows = [
-  createData(1, '공지사항 1', '전빡빡', '2024-02-01', '완료'),
-  createData(2, '공지사항 2', '돼지', '2024-02-02', '보류'),
-  createData(3, '공지사항 3', '소', '2024-02-03', '완료'),
-  createData(4, '공지사항 4', '토끼', '2024-02-05', '완료'),
-  createData(5, '공지사항 5', '바보', '2024-03-01', '미완료'),
-];
-
-export default function CustomerCenterTable() {
+  const onClickRow = (id) => {
+    router.push(`/user/customercenter/inquiryDetail/${id}`);
+  };
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
@@ -76,19 +70,34 @@ export default function CustomerCenterTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell align="left">{row.no}</StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.nickname}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row.date}</StyledTableCell>
-                  <StyledTableCell align="right">{row.ans}</StyledTableCell>
-                </StyledTableRow>
-              ))}
+              {inquriyList &&
+                inquriyList.map((row) => (
+                  <StyledTableRow
+                    key={row.inquiryId}
+                    sx={{
+                      backgroundColor: 'white',
+                      ':hover': {
+                        backgroundColor: '#e0e0e0',
+                      },
+                      cursor: 'pointer',
+                    }}
+                    onClick={onClickRow.bind(null, row.inquiryId)}
+                  >
+                    <StyledTableCell align="left">
+                      {row.inquiryId}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {row.title}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.writerName}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.date}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.replied ? '완료' : '미완료'}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

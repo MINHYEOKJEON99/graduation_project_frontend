@@ -6,18 +6,23 @@ import { fetchCommentDelete, fetchUpdateComment } from '@/pages/api/api';
 import { useEffect, useState } from 'react';
 
 export default function Comment({
-  id,
+  boardId,
+  commentId,
   commentWriterName,
+  commentWriterEmail,
   createdDate,
   content,
 }) {
   const [token, setToken] = useState();
+  const [isValid, setIsValid] = useState(false);
   const [updateComment, setUpdateComment] = useState(content);
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     setToken(localStorage.getItem('loginToken'));
+    setIsValid(commentWriterEmail === localStorage.getItem('currentEmail'));
     console.log(token);
+    console.log(isValid);
   }, [token]);
 
   const onChangeComment = (e) => {
@@ -25,11 +30,17 @@ export default function Comment({
   };
 
   const onClickDelete = () => {
-    fetchCommentDelete(id, token);
+    fetchCommentDelete(boardId, commentId, token);
+
+    alert('댓글이 삭제되었습니다.');
+    location.reload();
   };
 
   const onClickUpdate = () => {
-    fetchUpdateComment(id, { content }, token);
+    fetchUpdateComment(boardId, commentId, { content: updateComment }, token);
+
+    alert('댓글이 수정되었습니다.');
+    location.reload();
   };
 
   const toggleButton = () => {
@@ -47,8 +58,14 @@ export default function Comment({
       </div>
       <div>
         <div className={style.comment}>{content}</div>
-        <Button onClick={toggleButton}>{toggle ? '닫기' : '수정하기'}</Button>
-        <Button onClick={onClickDelete}>삭제</Button>
+        {isValid && (
+          <div>
+            <Button onClick={toggleButton}>
+              {toggle ? '닫기' : '수정하기'}
+            </Button>
+            <Button onClick={onClickDelete}>삭제</Button>
+          </div>
+        )}
       </div>
       {toggle && (
         <div className={style.answer}>

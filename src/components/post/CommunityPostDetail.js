@@ -13,6 +13,7 @@ export default function CommunityPostDetail({
   content,
   like,
   writerName,
+  writerEmail,
   onClickDelete,
 }) {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function CommunityPostDetail({
   const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
 
   const [toggleHeart, setToggleHeart] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   const [token, setToken] = useState();
   const [commentList, setCommentList] = useState();
   const [commentListLength, setCommentListLength] = useState();
@@ -41,7 +43,9 @@ export default function CommunityPostDetail({
 
   useEffect(() => {
     setToken(localStorage.getItem('loginToken'));
+    setIsValid(localStorage.getItem('currentEmail') === writerEmail);
     console.log(token);
+    console.log(isValid);
   }, [token]);
 
   const onClickCommunity = () => {
@@ -81,10 +85,12 @@ export default function CommunityPostDetail({
         <div onClick={onClickCommunity} className={style.box}>
           <h2>커뮤니티 게시판</h2>
         </div>
-        <div className={style.button_box}>
-          <Button onClick={onClickUpdate}>수정하기</Button>
-          <Button onClick={onClickDelete}>삭제하기</Button>
-        </div>
+        {isValid && (
+          <div className={style.button_box}>
+            <Button onClick={onClickUpdate}>수정하기</Button>
+            <Button onClick={onClickDelete}>삭제하기</Button>
+          </div>
+        )}
         <div className={style.content_box}>
           <div>
             <div className={style.title}>
@@ -129,8 +135,10 @@ export default function CommunityPostDetail({
           commentList.map((comment) => (
             <Comment
               key={comment.commentId}
-              id={comment.commentId}
+              boardId={id}
+              commentId={comment.commentId}
               commentWriterName={comment.commentWriterName}
+              commentWriterEmail={comment.commentWriterEmail}
               content={comment.content}
               createdDate={comment.createdDate}
             />

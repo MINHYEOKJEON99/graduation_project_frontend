@@ -51,6 +51,7 @@ export default function CommunityDetail() {
           title={contentDetail.title}
           content={contentDetail.content}
           writerName={contentDetail.writerName}
+          writerEmail={contentDetail.writerEmail}
           onClickDelete={onClickDelete}
         />
       )}

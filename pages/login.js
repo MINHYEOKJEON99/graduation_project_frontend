@@ -45,9 +45,10 @@ export default function Login() {
       const token = await fetchLogin(loginData);
 
       localStorage.setItem('loginToken', token);
-
+      localStorage.setItem('currentEmail', loginData.email);
       setTimeout(() => {
         localStorage.removeItem('loginToken');
+        localStorage.removeItem('currentEmail');
         dispatch(authActions.userLogout());
       }, 1800000);
 

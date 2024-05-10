@@ -75,7 +75,6 @@ export default function Community() {
               title={post.title}
               content={post.content}
               viewCount={post.viewCount}
-              commentNum={0}
             />
           ))}
 
