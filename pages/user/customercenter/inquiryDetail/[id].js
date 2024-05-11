@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-export default function inquiryDetail() {
+export default function InquiryDetailPage() {
   const router = useRouter();
   const [token, setToken] = useState();
 

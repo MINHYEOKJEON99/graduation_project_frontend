@@ -1,3 +1,9 @@
+import AdminInquiryManage from '@/src/components/adminComponents/adminInquiry/AdminInquiryManage';
+
 export default function CustomerService() {
-  return <div>사용자문의</div>;
+  return (
+    <div>
+      <AdminInquiryManage />
+    </div>
+  );
 }

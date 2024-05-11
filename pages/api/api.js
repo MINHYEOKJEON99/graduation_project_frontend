@@ -315,3 +315,16 @@ export async function fetchAdminInquiry() {
     console.log(e);
   }
 }
+
+//관리자 문의글 삭제
+export async function fetchAdminInquiryDelete(id) {
+  try {
+    const response = await axios.delete(
+      `http://ceprj.gachon.ac.kr:60011/admin/inquiry/delete/${id}`
+    );
+    console.log('success, response: ', response);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}

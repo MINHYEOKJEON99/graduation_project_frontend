@@ -22,7 +22,7 @@ export default function AdminInquiryInfo() {
     <>
       {inquiry &&
         inquiry.map((inquiry) => (
-          <div key={inquiry.boardId} className={style.container}>
+          <div key={inquiry.inquiryId} className={style.container}>
             <div className={style.id}>{inquiry.inquiryId}</div>
             <div className={style.name}>{inquiry.writerName}</div>
             <div className={style.title}>{inquiry.title}</div>
