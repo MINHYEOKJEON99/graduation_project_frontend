@@ -42,6 +42,15 @@ export default function Login() {
   const onSubmitData = useCallback(
     async (e) => {
       e.preventDefault();
+      if (
+        loginData.email === adminData.id &&
+        loginData.password === adminData.password
+      ) {
+        dispatch(authActions.adminLogin());
+        router.push('/admin');
+        return;
+      }
+
       const token = await fetchLogin(loginData);
 
       localStorage.setItem('loginToken', token);
@@ -50,7 +59,7 @@ export default function Login() {
         localStorage.removeItem('loginToken');
         localStorage.removeItem('currentEmail');
         dispatch(authActions.userLogout());
-      }, 1800000);
+      }, 180000);
 
       dispatch(authActions.userLogin());
       alert('로그인 되었습니다.');

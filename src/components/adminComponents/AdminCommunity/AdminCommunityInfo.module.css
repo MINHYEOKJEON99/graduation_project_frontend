@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  font-size: 12px;
+  gap: 5px;
+  padding: 6px;
+  border-bottom: 1px solid #f2f2f2;
+  cursor: pointer;
+  justify-content: space-between;
+}
+.container:hover {
+  background-color: #f5f5f5;
+}
+
+.id {
+  flex: 1;
+}
+
+.name {
+  flex: 1;
+}
+
+.title {
+  flex: 3;
+}
+
+.date {
+  flex: 2;
+}

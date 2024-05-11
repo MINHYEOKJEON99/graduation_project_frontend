@@ -1,3 +1,9 @@
+import AdminUserManage from '@/src/components/adminComponents/adminUserInfo/AdminUserManage';
+
 export default function UserManage() {
-  return <div>사용자 계정관리</div>;
+  return (
+    <>
+      <AdminUserManage />
+    </>
+  );
 }

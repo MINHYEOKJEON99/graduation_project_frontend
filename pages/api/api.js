@@ -236,7 +236,6 @@ export async function fetchInquireWrite(inquriy, token) {
 }
 
 //고객센터 문의 상세보기
-
 export async function fetchInquiryDetail(inquiryId, token) {
   try {
     const response = await axios.get(
@@ -246,6 +245,69 @@ export async function fetchInquiryDetail(inquiryId, token) {
           Authorization: `Bearer ${token}`,
         },
       }
+    );
+    console.log('success, response: ', response);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//관리자 전체 사용자 조회
+export async function fetchAdminUserInfo() {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/admin/user/list`
+    );
+    console.log('success, response: ', response);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//관리자 사용자 삭제
+export async function fetchAdminUserDelete(id) {
+  try {
+    const response = await axios.delete(
+      `http://ceprj.gachon.ac.kr:60011/user/delete/${id}`
+    );
+    console.log('delete success: ', response);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//관리자 전체 커뮤니티 조회
+export async function fetchAdminCommunityInfo() {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/admin/board/list`
+    );
+    console.log('success, response: ', response);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//관리자 사용자 삭제
+export async function fetchAdminCommunityDelete(id) {
+  try {
+    const response = await axios.delete(
+      `http://ceprj.gachon.ac.kr:60011/board/delete/${id}`
+    );
+    console.log('delete success: ', response);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//관리자 전체 문의글 조회
+export async function fetchAdminInquiry() {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/admin/inquiry/list`
     );
     console.log('success, response: ', response);
     return response;

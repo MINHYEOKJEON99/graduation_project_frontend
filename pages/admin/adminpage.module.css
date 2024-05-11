@@ -72,3 +72,26 @@
 .shadow {
   box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
 }
+
+.community_header {
+  display: flex;
+  font-size: 13px;
+  padding: 6px;
+  gap: 5px;
+  border-bottom: 1px solid #f2f2f2;
+}
+.id {
+  flex: 1;
+}
+
+.name {
+  flex: 1;
+}
+
+.title {
+  flex: 3;
+}
+
+.date {
+  flex: 2;
+}
