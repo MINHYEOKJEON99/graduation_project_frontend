@@ -1,5 +1,6 @@
 import { fetchAdminInquiryDelete } from '@/pages/api/api';
 import style from './AdminInquiryManageTr.module.css';
+import { useRouter } from 'next/router';
 
 export default function AdminInquiryManageTr({
   inquiryId,
@@ -9,6 +10,8 @@ export default function AdminInquiryManageTr({
   createdDate,
   replied,
 }) {
+  const router = useRouter();
+
   const onDelete = () => {
     const result = confirm(`삭제하시겠습니까?`);
     if (result) {
@@ -16,8 +19,12 @@ export default function AdminInquiryManageTr({
       fetchAdminInquiryDelete(inquiryId);
     }
   };
+
+  const onClickTr = () => {
+    router.push(`/admin/customerservice/adminInquiryDetail/${inquiryId}`);
+  };
   return (
-    <tr>
+    <tr style={style.tr} onClick={onClickTr}>
       <td>{inquiryId}</td>
       <td>{title}</td>
       <td>{content}</td>

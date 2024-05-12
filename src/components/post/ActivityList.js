@@ -1,12 +1,12 @@
 import style from './ActivityList.module.css';
 
-export default function ActivityList() {
+export default function ActivityList({ title, content, createdDate, onClick }) {
   return (
     <div className={style.content_wrapper}>
-      <div className={style.content_box}>
-        <div className={style.category_detail}>카테고리</div>
-        <div className={style.content}>내용</div>
-        <div className={style.date}>날짜</div>
+      <div onClick={onClick} className={style.content_box}>
+        <div className={style.title}>{title}</div>
+        <div className={style.content}>{content}</div>
+        <div className={style.date}>{createdDate}</div>
       </div>
     </div>
   );

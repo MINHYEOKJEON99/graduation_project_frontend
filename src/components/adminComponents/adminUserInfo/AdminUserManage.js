@@ -36,6 +36,7 @@ export default function AdminUserManage() {
             userInfo.map((user) => (
               <AdminUserManageTr
                 key={user.email}
+                memberId={user.memberId}
                 myName={user.myName}
                 email={user.email}
                 nickname={user.nickname}

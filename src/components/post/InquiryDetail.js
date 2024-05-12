@@ -1,25 +1,43 @@
 import { useRouter } from 'next/router';
 import style from './InquiryDetail.module.css';
-import { FaHeart } from 'react-icons/fa';
-import { FaRegHeart } from 'react-icons/fa';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Button } from '@mui/material';
+import { fetchAdminInquiryanswer } from '@/pages/api/api';
 
 export default function InquiryDetail({ title, content, writerName }) {
   const router = useRouter();
 
-  const [toggleHeart, setToggleHeart] = useState(false);
+  const [answer, setAnswer] = useState(false);
+  const [text, setText] = useState({
+    answer: '',
+  });
 
-  const onToggleHeart = () => {
-    setToggleHeart((prev) => !prev);
+  const isAdmin = useSelector((state) => state.auth.isAdminAuthenticated);
+
+  const onClickAnswer = () => {
+    setAnswer((prev) => !prev);
+  };
+
+  const onChangeAnswer = (e) => {
+    setText({
+      answer: e.target.value,
+    });
+  };
+
+  const onSubmitAnswer = () => {
+    fetchAdminInquiryanswer(router.query.id);
+
+    console.log('답변완료');
   };
 
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
         <div className={style.box}>
-          <h2>문의하기</h2>
+          <h2>{isAdmin ? '문의 상세보기' : '문의하기'}</h2>
         </div>
-        <div className={style.content_box}>
+        <div className={isAdmin ? style.admin_content_box : style.content_box}>
           <div>
             <div className={style.title}>
               <span>제목: {title}</span>
@@ -29,38 +47,30 @@ export default function InquiryDetail({ title, content, writerName }) {
               <p>{content}</p>
             </div>
           </div>
-          <div className={style.like}>
-            {toggleHeart ? (
-              <FaHeart
-                onClick={onToggleHeart}
-                color="red"
-                style={{ cursor: 'pointer' }}
-              />
-            ) : (
-              <FaRegHeart
-                onClick={onToggleHeart}
-                style={{ cursor: 'pointer' }}
-              />
+        </div>
+        {isAdmin ? (
+          <div className={style.answer}>
+            {answer && (
+              <>
+                <textarea
+                  className={style.textarea}
+                  placeholder="문의에 대한 답변을 작성해주세요."
+                  onChange={onChangeAnswer}
+                  value={text.answer}
+                />
+                <Button onClick={onSubmitAnswer}>답변달기</Button>
+              </>
             )}
-            {3}
+            <Button onClick={onClickAnswer}>
+              {answer ? '닫기' : '답변하기'}
+            </Button>
           </div>
-        </div>
-        <div className={style.answer}>
-          <div>답글</div>
-          <div className={style.answer_write}></div>
-        </div>
-        {/* {commentList &&
-          commentList.map((comment) => (
-            <Comment
-              key={comment.commentId}
-              boardId={id}
-              commentId={comment.commentId}
-              commentWriterName={comment.commentWriterName}
-              commentWriterEmail={comment.commentWriterEmail}
-              content={comment.content}
-              createdDate={comment.createdDate}
-            />
-          ))} */}
+        ) : (
+          <div className={style.answer}>
+            <div>답글</div>
+            <div className={style.answer_write}></div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -13,15 +13,9 @@ export default function Mypage() {
   const userInfo = useSelector((state) => state.currentUserInfo);
   const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const onClickAcitivity = () => {
     router.push('/user/mypage/activity');
-  };
-
-  const onClickLogout = () => {
-    dispatch(authActions.userLogout());
-    router.push('/');
   };
 
   const onClickUserInfo = () => {
@@ -87,9 +81,8 @@ export default function Mypage() {
               height: '70px',
               backgroundColor: '#EFF1F3',
             }}
-            onClickButton={onClickLogout}
           >
-            로그아웃
+            문의 내역
           </Button>
         </div>
       </div>

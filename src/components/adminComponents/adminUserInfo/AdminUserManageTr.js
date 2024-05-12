@@ -7,12 +7,13 @@ export default function AdminUserManageTr({
   nickname,
   birth,
   driveExp,
+  memberId,
 }) {
   const onDelete = () => {
     const result = confirm(`삭제하시겠습니까?`);
     if (result) {
       console.log(result);
-      fetchAdminUserDelete(boardId);
+      fetchAdminUserDelete(memberId);
     }
   };
   return (

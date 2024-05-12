@@ -44,6 +44,18 @@
   margin-top: 20px;
 }
 
+.admin_content_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 1px 1px 5px 2px #f1f1f1;
+  width: 100%;
+  min-height: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
 .title {
   display: flex;
   align-items: center;
@@ -71,7 +83,6 @@
   margin-top: 20px;
   padding-bottom: 10px;
   margin-bottom: 10px;
-  border-bottom: 1px solid black;
 }
 
 .answer_write {
@@ -89,4 +100,8 @@
   display: flex;
   justify-content: flex-end;
   gap: 5px;
+}
+
+.textarea {
+  height: 100px;
 }
