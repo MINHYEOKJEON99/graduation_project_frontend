@@ -447,3 +447,43 @@ export async function fetchMyPageCommentDelete(id, token) {
     console.log(e);
   }
 }
+
+//ai 비디오 파일 다운로드
+export async function fetchVideo(token) {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/video/download?videoId=6`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        responseType: 'blob',
+      }
+    );
+    console.log('success, response: ', response);
+
+    const videoURL = window.URL.createObjectURL(response.data);
+    return videoURL;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//ai 비디오 파일 업로드
+export async function fetchVideoUpload(formData, token) {
+  try {
+    const response = await axios.post(
+      `http://ceprj.gachon.ac.kr:60011/video/upload`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('서버 응답:', response.data);
+  } catch (error) {
+    console.error('업로드 에러:', error);
+  }
+}

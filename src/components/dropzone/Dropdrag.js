@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsClipboardPlus } from 'react-icons/bs';
 import { BsFileEarmarkPlay } from 'react-icons/bs';
-import axios from 'axios';
+import { fetchVideoUpload } from '@/pages/api/api';
 
 export default function Dropdrag() {
   const [fileName, setFileName] = useState('');
@@ -27,21 +27,7 @@ export default function Dropdrag() {
 
     const formData = new FormData();
     formData.append('file', videoFile); // 'file'은 서버에서 요구하는 필드명에 맞게 조정
-    try {
-      const response = await axios.post(
-        'http://ceprj.gachon.ac.kr:60011/board/9/file/upload',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log('서버 응답:', response.data);
-    } catch (error) {
-      console.error('업로드 에러:', error);
-    }
+    fetchVideoUpload(formData, token);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
