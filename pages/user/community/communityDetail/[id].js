@@ -33,9 +33,12 @@ export default function CommunityDetail() {
   //커뮤니티 게시글 삭제기능
   const onClickDelete = async () => {
     try {
-      const response = await fetchCommunityDelete(router.query.id);
-      console.log(response);
-      alert('게시글이 삭제되었습니다.');
+      const confirm = window.confirm('삭제 하시겠습니까?');
+      if (confirm) {
+        await fetchCommunityDelete(router.query.id);
+
+        alert('게시글이 삭제되었습니다.');
+      }
       router.push('/user/community');
     } catch (error) {
       console.error('게시글 삭제 중 오류가 발생했습니다:', error);

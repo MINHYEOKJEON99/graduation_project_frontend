@@ -22,6 +22,10 @@ export default function Mypage() {
     router.push('/user/mypage/userinfo');
   };
 
+  const onClickInquiryList = () => {
+    router.push('/user/mypage/inquiryList');
+  };
+
   const onToggleModal = () => {
     setShowModal((prev) => !prev);
   };
@@ -81,6 +85,7 @@ export default function Mypage() {
               height: '70px',
               backgroundColor: '#EFF1F3',
             }}
+            onClickButton={onClickInquiryList}
           >
             문의 내역
           </Button>

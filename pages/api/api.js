@@ -330,10 +330,11 @@ export async function fetchAdminInquiryDelete(id) {
 }
 
 //관리자 문의글 답변
-export async function fetchAdminInquiryanswer(id) {
+export async function fetchAdminInquiryanswer(id, answer) {
   try {
     const response = await axios.patch(
-      `http://ceprj.gachon.ac.kr:60011/admin/inquiry/${id}/answer`
+      `http://ceprj.gachon.ac.kr:60011/admin/inquiry/${id}/answer`,
+      answer
     );
     console.log('success, response: ', response);
   } catch (e) {
@@ -390,6 +391,40 @@ export async function fetchMyPageInquiry(token) {
     );
     console.log('success, response: ', response);
     return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//마이페이지 게시글 삭제
+export async function fetchMyPageCommunityDelete(id, token) {
+  try {
+    const response = await axios.delete(
+      `http://ceprj.gachon.ac.kr:60011/mypage/board/list/${id}/delete`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('success, response: ', response);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//마이페이지 댓글 삭제
+export async function fetchMyPageCommentDelete(id, token) {
+  try {
+    const response = await axios.delete(
+      `http://ceprj.gachon.ac.kr:60011/mypage/comment/list/${id}/delete`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('success, response: ', response);
   } catch (e) {
     console.log(e);
   }

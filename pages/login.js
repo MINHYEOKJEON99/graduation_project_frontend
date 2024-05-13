@@ -59,7 +59,7 @@ export default function Login() {
         localStorage.removeItem('loginToken');
         localStorage.removeItem('currentEmail');
         dispatch(authActions.userLogout());
-      }, 180000);
+      }, 1800000);
 
       dispatch(authActions.userLogin());
       alert('로그인 되었습니다.');

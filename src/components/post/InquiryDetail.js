@@ -26,7 +26,7 @@ export default function InquiryDetail({ title, content, writerName }) {
   };
 
   const onSubmitAnswer = () => {
-    fetchAdminInquiryanswer(router.query.id);
+    fetchAdminInquiryanswer(router.query.id, text);
 
     console.log('답변완료');
   };

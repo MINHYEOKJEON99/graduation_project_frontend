@@ -24,6 +24,9 @@
 }
 
 .content_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   padding: 20px 0px;
   border-top: 1px solid black;
 }
@@ -59,4 +62,11 @@
   width: 95%;
   font-size: 12px;
   color: #aaaaaa;
+}
+
+.delete:hover {
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: rgb(119, 119, 119);
 }
