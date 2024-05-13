@@ -14,6 +14,24 @@ export async function fetchLogin(userInfo) {
   }
 }
 
+//로그인된 사용자 정보
+export async function fetchMyPageUserInfo(token) {
+  try {
+    const response = await axios.post(
+      'http://ceprj.gachon.ac.kr:60011/mypage/user/update',
+      {
+        header: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data.token;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 //회원가입
 export async function fetchSignUp(newUser) {
   try {

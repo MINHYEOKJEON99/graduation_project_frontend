@@ -1,17 +1,47 @@
 import { Button } from '@mui/material';
 import style from './Dropdrag.module.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsClipboardPlus } from 'react-icons/bs';
 import { BsFileEarmarkPlay } from 'react-icons/bs';
+import axios from 'axios';
 
-export default function Dropdrag({ onClick }) {
+export default function Dropdrag() {
   const [fileName, setFileName] = useState('');
   const [videoFile, setVideoFile] = useState(null);
+  const [showVideo, setShowVideo] = useState(null);
   const [showFile, setShowFile] = useState(false);
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    setToken(localStorage.getItem('loginToken'));
+    console.log(token);
+  }, [token]);
 
   const onToggleFile = () => {
     setShowFile((prev) => !prev);
+  };
+
+  const onUpload = async () => {
+    if (!videoFile) return;
+
+    const formData = new FormData();
+    formData.append('file', videoFile); // 'file'은 서버에서 요구하는 필드명에 맞게 조정
+    try {
+      const response = await axios.post(
+        'http://ceprj.gachon.ac.kr:60011/board/9/file/upload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log('서버 응답:', response.data);
+    } catch (error) {
+      console.error('업로드 에러:', error);
+    }
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -23,7 +53,8 @@ export default function Dropdrag({ onClick }) {
 
       // 파일을 읽기 위해 URL.createObjectURL을 사용하여 임시 URL 생성
       const fileUrl = URL.createObjectURL(file);
-      setVideoFile(fileUrl);
+      setShowVideo(fileUrl);
+      setVideoFile(file);
       setFileName(file.name);
     },
     noKeyboard: true,
@@ -31,13 +62,13 @@ export default function Dropdrag({ onClick }) {
 
   let content = !showFile ? (
     <div className={style.outbox}>
-      <form className={style.form_box}>
+      <div className={style.form_box}>
         <div {...getRootProps()} className={style.box}>
           <input {...getInputProps()} />
           <BsClipboardPlus size={50} />
           <p>파일을 드래그하거나 클릭하세요.</p>
         </div>
-      </form>
+      </div>
     </div>
   ) : (
     <div className={style.outbox_second}>
@@ -52,7 +83,7 @@ export default function Dropdrag({ onClick }) {
       </div>
       <div className={style.video_box}>
         <video muted controls width="100%" style={{ borderRadius: '8px' }}>
-          <source src={videoFile} controls />
+          <source src={showVideo} controls />
         </video>
       </div>
     </div>
@@ -63,7 +94,7 @@ export default function Dropdrag({ onClick }) {
       {content}
       <input
         className={style.submitBtn}
-        onClick={onClick.bind(null, fileName)}
+        onClick={onUpload}
         type="button"
         value="측정하기"
       />
