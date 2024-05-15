@@ -56,6 +56,31 @@
   color: black;
   width: 30%;
 }
+
+.submitBtn2 {
+  background-color: #dedede;
+  padding: 10px 20px;
+  margin-top: 20px;
+  margin: 0px 20px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+  width: 30%;
+}
+.submitBtn {
+  background-color: #e1ebfa;
+  padding: 10px 20px;
+  margin-top: 20px;
+  margin: 0px 20px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+  width: 30%;
+}
 .submitBtn:hover {
   background-color: #9cafca;
 }

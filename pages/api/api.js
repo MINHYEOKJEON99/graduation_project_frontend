@@ -10,6 +10,7 @@ export async function fetchLogin(userInfo) {
     console.log(response.data);
     return response.data.token;
   } catch (e) {
+    alert(`아이디와 비밀번호를 확인해주세요`);
     console.log(e);
   }
 }
@@ -17,16 +18,16 @@ export async function fetchLogin(userInfo) {
 //로그인된 사용자 정보
 export async function fetchMyPageUserInfo(token) {
   try {
-    const response = await axios.post(
+    const response = await axios.get(
       'http://ceprj.gachon.ac.kr:60011/mypage/user/update',
       {
-        header: {
+        headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
     console.log(response.data);
-    return response.data.token;
+    return response.data;
   } catch (e) {
     console.log(e);
   }
@@ -360,6 +361,24 @@ export async function fetchAdminInquiryanswer(id, answer) {
   }
 }
 
+//마이페이지 회원정보수정
+export async function fetchMyPageUpdate(updateInfo, token) {
+  try {
+    const response = await axios.patch(
+      `http://ceprj.gachon.ac.kr:60011/mypage/user/update`,
+      updateInfo,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('success, response: ', response);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 //마이페이지 활동내역(커뮤니티 글)
 export async function fetchMyPageCommunity(token) {
   try {
@@ -448,6 +467,23 @@ export async function fetchMyPageCommentDelete(id, token) {
   }
 }
 
+//마이페이지 회원탈퇴
+export async function fetchMyPageUserDelete(id, token) {
+  try {
+    const response = await axios.delete(
+      `http://ceprj.gachon.ac.kr:60011/mypage/user/update/${id}/delete`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('success, response: ', response);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 //ai 비디오 파일 다운로드
 export async function fetchVideo(token) {
   try {
@@ -473,7 +509,7 @@ export async function fetchVideo(token) {
 export async function fetchVideoUpload(formData, token) {
   try {
     const response = await axios.post(
-      `http://ceprj.gachon.ac.kr:60011/video/upload`,
+      `http://61.79.137.116:5000/detect`,
       formData,
       {
         headers: {
@@ -482,7 +518,7 @@ export async function fetchVideoUpload(formData, token) {
         },
       }
     );
-    console.log('서버 응답:', response.data);
+    console.log('서버 응답:', response);
   } catch (error) {
     console.error('업로드 에러:', error);
   }

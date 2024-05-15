@@ -51,19 +51,25 @@ export default function Login() {
         return;
       }
 
-      const token = await fetchLogin(loginData);
+      try {
+        const token = await fetchLogin(loginData);
 
-      localStorage.setItem('loginToken', token);
-      localStorage.setItem('currentEmail', loginData.email);
-      setTimeout(() => {
-        localStorage.removeItem('loginToken');
-        localStorage.removeItem('currentEmail');
-        dispatch(authActions.userLogout());
-      }, 1800000);
+        if (token) {
+          localStorage.setItem('loginToken', token);
+          localStorage.setItem('currentEmail', loginData.email);
+          setTimeout(() => {
+            localStorage.removeItem('loginToken');
+            localStorage.removeItem('currentEmail');
+            dispatch(authActions.userLogout());
+          }, 1800000);
 
-      dispatch(authActions.userLogin());
-      alert('로그인 되었습니다.');
-      router.push('/');
+          dispatch(authActions.userLogin());
+          alert('로그인 되었습니다.');
+          router.push('/');
+        }
+      } catch (e) {
+        console.log(e);
+      }
     },
     [loginData, dispatch, router]
   );

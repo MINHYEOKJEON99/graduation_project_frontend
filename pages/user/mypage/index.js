@@ -3,23 +3,47 @@ import profile from '../../../src/assets/profile.png';
 import Image from 'next/image';
 import Button from '@/src/components/UI/Button';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '@/src/components/UI/Modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { authActions } from '@/src/store/auth';
+import { useSelector } from 'react-redux';
+import { fetchMyPageUserInfo } from '@/pages/api/api';
 
 export default function Mypage() {
   const [showModal, setShowModal] = useState(false);
+  const [currentUserInfo, setCurrentUserInfo] = useState({});
   const userInfo = useSelector((state) => state.currentUserInfo);
   const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
   const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('loginToken');
+    const setInit = async () => {
+      const response = await fetchMyPageUserInfo(token);
+
+      if (response) {
+        setCurrentUserInfo(response);
+      }
+    };
+
+    setInit();
+  }, []);
 
   const onClickAcitivity = () => {
     router.push('/user/mypage/activity');
   };
 
   const onClickUserInfo = () => {
-    router.push('/user/mypage/userinfo');
+    router.push({
+      pathname: '/user/mypage/userinfo',
+      query: {
+        memberId: currentUserInfo.memberId,
+        myName: currentUserInfo.myName,
+        email: currentUserInfo.email,
+        nickname: currentUserInfo.nickname,
+        birth: currentUserInfo.birth,
+        driveExp: currentUserInfo.driveExp,
+      },
+    });
   };
 
   const onClickInquiryList = () => {

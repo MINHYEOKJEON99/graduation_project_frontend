@@ -42,6 +42,8 @@ export default function SignUp() {
       e.preventDefault();
 
       fetchSignUp(userInfo);
+      alert('회원가입이 완료되었습니다.');
+      router.push('/login');
       // if (pwd !== confirmPwd) {
       //   setIsValid(false);
       //   alert('비밀번호를 확인해주세요');
@@ -67,7 +69,7 @@ export default function SignUp() {
         />
         <Input
           onChange={onValueChange}
-          name={'nickName'}
+          name={'nickname'}
           type={'text'}
           placeholder={'닉네임'}
           value={nickname}
