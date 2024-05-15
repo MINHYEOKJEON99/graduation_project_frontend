@@ -61,7 +61,7 @@ export async function fetchNewPost(newPost, token) {
     );
 
     console.log('success, response: ', response);
-    return true;
+    return response;
   } catch (e) {
     console.log(e);
     return false;
@@ -69,10 +69,10 @@ export async function fetchNewPost(newPost, token) {
 }
 
 //커뮤니티 파일 업로드
-export async function fetchCommunityFileUpload(file, token) {
+export async function fetchCommunityFileUpload(file, token, boardId) {
   try {
     const response = await axios.post(
-      'http://ceprj.gachon.ac.kr:60011/video/upload',
+      `http://ceprj.gachon.ac.kr:60011/board/${boardId}/file/upload`,
       file,
       {
         headers: {

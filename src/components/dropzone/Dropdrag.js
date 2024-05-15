@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsClipboardPlus } from 'react-icons/bs';
 import { BsFileEarmarkPlay } from 'react-icons/bs';
-import { fetchVideoUpload } from '@/pages/api/api';
+import { fetchCommunityFileUpload, fetchVideoUpload } from '@/pages/api/api';
 
 export default function Dropdrag({ onClick }) {
   const [fileName, setFileName] = useState('');
   const [videoFile, setVideoFile] = useState(null);
-  const [file, setFile] = useState(null);
+  const [showVideo, setShowVideo] = useState(null);
   const [showFile, setShowFile] = useState(false);
   const [token, setToken] = useState();
 
@@ -27,7 +27,7 @@ export default function Dropdrag({ onClick }) {
 
     const formData = new FormData();
     formData.append('file', videoFile); // 'file'은 서버에서 요구하는 필드명에 맞게 조정
-    await fetchVideoUpload(formData, token);
+    await fetchCommunityFileUpload(formData, token);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -39,7 +39,7 @@ export default function Dropdrag({ onClick }) {
 
       // 파일을 읽기 위해 URL.createObjectURL을 사용하여 임시 URL 생성
       const fileUrl = URL.createObjectURL(file);
-      setFile(fileUrl);
+      setShowVideo(fileUrl);
       setVideoFile(file);
       setFileName(file.name);
     },
@@ -69,7 +69,7 @@ export default function Dropdrag({ onClick }) {
       </div>
       <div className={style.video_box}>
         <video muted controls width="100%" style={{ borderRadius: '8px' }}>
-          <source src={file} controls />
+          <source src={showVideo} controls />
         </video>
       </div>
     </div>

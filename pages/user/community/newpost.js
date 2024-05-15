@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import style from './newpost.module.css';
 import { useRouter } from 'next/router';
 import { fetchNewPost } from '@/pages/api/api';
+import { fetchCommunityFileUpload } from '@/pages/api/api';
 import ImageSelect from '@/src/components/dropzone/ImageSelect';
 
 export default function Newpost() {
   const router = useRouter();
   const [token, setToken] = useState();
-  const [uploadFunction, setUploadFunction] = useState(() => {});
+  const [formData, setFormData] = useState(null);
   const [text, setText] = useState({
     title: '',
     content: '',
@@ -22,8 +23,8 @@ export default function Newpost() {
     setText({ ...text, [e.target.name]: e.target.value });
   };
 
-  const fileUpload = (upload) => {
-    upload();
+  const onUpload = (formData) => {
+    setFormData(formData);
   };
 
   const onSubmitPost = async (e) => {
@@ -35,7 +36,7 @@ export default function Newpost() {
 
     const isSuccess = await fetchNewPost(text, token);
     if (isSuccess) {
-      uploadFunction();
+      await fetchCommunityFileUpload(formData, token, isSuccess.data.boardId);
       alert('새 글이 게시되었습니다.');
       router.push('/user/community');
       console.log(text);
@@ -50,7 +51,7 @@ export default function Newpost() {
         <div className={style.box}>
           <h2>글 작성</h2>
         </div>
-        <ImageSelect setUploadFunction={setUploadFunction} />
+        <ImageSelect onFileUpload={onUpload} />
 
         <div className={style.content_box}>
           <div className={style.title}>

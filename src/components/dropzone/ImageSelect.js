@@ -3,30 +3,23 @@ import style from './ImageSelect.module.css';
 import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { fetchCommunityFileUpload } from '@/pages/api/api';
 
-export default function ImageSelect({ setUploadFunction }) {
+export default function ImageSelect({ onFileUpload }) {
   const [fileName, setFileName] = useState('');
   const [videoFile, setVideoFile] = useState(null);
   const [showVideo, setShowVideo] = useState(null);
   const [showFile, setShowFile] = useState(false);
   const [token, setToken] = useState();
 
-  useEffect(() => {
-    setToken(localStorage.getItem('loginToken'));
-    console.log(token);
-  }, [token]);
-
   const onUpload = async () => {
     const formData = new FormData();
     formData.append('file', videoFile);
-    await fetchCommunityFileUpload(formData, token);
+    onFileUpload(formData);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: 'video/*,image/*',
     onDrop: (acceptedFiles) => {
-      setUploadFunction(onUpload);
       setShowFile((prev) => !prev);
       // 첫 번째 파일만 사용 (다중 파일 업로드 미지원 시)
       const file = acceptedFiles[0];
@@ -47,14 +40,17 @@ export default function ImageSelect({ setUploadFunction }) {
           <div>
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <p>파일 업로드</p>
+              <p>파일 선택</p>
             </div>
           </div>
         </Button>
       ) : (
-        <div className={style.file_box}>
-          <p>{fileName}</p>
-        </div>
+        <>
+          <div className={style.file_box}>
+            <p>{fileName}</p>
+          </div>
+          <Button onClick={onUpload}>파일 업로드</Button>
+        </>
       )}
     </>
   );
