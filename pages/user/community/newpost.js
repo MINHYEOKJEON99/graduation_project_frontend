@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import style from './newpost.module.css';
 import { useRouter } from 'next/router';
 import { fetchNewPost } from '@/pages/api/api';
+import ImageSelect from '@/src/components/dropzone/ImageSelect';
 
 export default function Newpost() {
   const router = useRouter();
@@ -42,6 +43,8 @@ export default function Newpost() {
         <div className={style.box}>
           <h2>글 작성</h2>
         </div>
+        <ImageSelect />
+
         <div className={style.content_box}>
           <div className={style.title}>
             <span>제목: </span>
