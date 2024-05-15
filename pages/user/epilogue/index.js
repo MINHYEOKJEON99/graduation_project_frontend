@@ -42,17 +42,6 @@ export default function EpiloguePage() {
         </div>
         <Epilogue />
       </div>
-      <div>
-        <a
-          href={`http://ceprj.gachon.ac.kr:60011/video/download?videoId=5`}
-          download
-        >
-          Download
-        </a>
-        <video controls width={'100%'}>
-          <source src={video} type="video/mp4" />
-        </video>
-      </div>
     </div>
   );
 }
