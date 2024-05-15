@@ -36,7 +36,9 @@ export default function Newpost() {
 
     const isSuccess = await fetchNewPost(text, token);
     if (isSuccess) {
-      await fetchCommunityFileUpload(formData, token, isSuccess.data.boardId);
+      if (formData) {
+        await fetchCommunityFileUpload(formData, token, isSuccess.data.boardId);
+      }
       alert('새 글이 게시되었습니다.');
       router.push('/user/community');
       console.log(text);

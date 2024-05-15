@@ -7,7 +7,6 @@ export async function fetchLogin(userInfo) {
       'http://ceprj.gachon.ac.kr:60011/user/login',
       userInfo
     );
-    console.log(response.data);
     return response.data.token;
   } catch (e) {
     alert(`아이디와 비밀번호를 확인해주세요`);
@@ -26,7 +25,6 @@ export async function fetchMyPageUserInfo(token) {
         },
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -40,8 +38,6 @@ export async function fetchSignUp(newUser) {
       'http://ceprj.gachon.ac.kr:60011/user/register',
       newUser
     );
-
-    console.log('success, response: ', response);
   } catch (e) {
     console.log(e);
   }
@@ -60,7 +56,6 @@ export async function fetchNewPost(newPost, token) {
       }
     );
 
-    console.log('success, response: ', response);
     return response;
   } catch (e) {
     console.log(e);
@@ -80,8 +75,6 @@ export async function fetchCommunityFileUpload(file, token, boardId) {
         },
       }
     );
-
-    console.log('success, response: ', response);
   } catch (e) {
     console.log(e);
     return false;
@@ -101,7 +94,6 @@ export async function fetchUpdatePost(id, updatePost, token) {
       }
     );
 
-    console.log('success, response: ', response);
     return true;
   } catch (e) {
     console.log(e);
@@ -115,7 +107,7 @@ export async function fetchCommunity() {
     const response = await axios.get(
       'http://ceprj.gachon.ac.kr:60011/board/list'
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -128,7 +120,7 @@ export async function fetchCommunityDetail(id) {
     const response = await axios.get(
       `http://ceprj.gachon.ac.kr:60011/board/${id}`
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -141,7 +133,6 @@ export async function fetchCommunityDelete(id) {
     const response = await axios.delete(
       `http://ceprj.gachon.ac.kr:60011/board/${id}/delete`
     );
-    console.log('delete success', response);
   } catch (e) {
     console.log(e);
   }
@@ -154,7 +145,6 @@ export async function fetchCommunityTitleSearch(search) {
     const response = await axios.get(
       `http://ceprj.gachon.ac.kr:60011/board/search?title=${search}&content=a&writerName=a`
     );
-    console.log('search success', response);
     return response;
   } catch (e) {
     console.log(e);
@@ -167,7 +157,6 @@ export async function fetchComment(id) {
     const response = await axios.get(
       `http://ceprj.gachon.ac.kr:60011/board/${id}/comment/list`
     );
-    console.log('comment success', response);
     return response;
   } catch (e) {
     console.log(e);
@@ -187,7 +176,6 @@ export async function fetchWriteComment(id, comment, token) {
         },
       }
     );
-    console.log('comment success', response);
     return response;
   } catch (e) {
     console.log(e);
@@ -206,7 +194,6 @@ export async function fetchCommentDelete(boardId, commentId, token) {
         },
       }
     );
-    console.log('delete success', response);
     return response;
   } catch (e) {
     console.log(e);
@@ -232,7 +219,6 @@ export async function fetchUpdateComment(
       }
     );
 
-    console.log('success, response: ', response);
     return true;
   } catch (e) {
     console.log(e);
@@ -247,7 +233,7 @@ export async function fetchInquire() {
     const response = await axios.get(
       'http://ceprj.gachon.ac.kr:60011/inquiry/list'
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -266,7 +252,7 @@ export async function fetchInquireWrite(inquriy, token) {
         },
       }
     );
-    console.log('success, response: ', response);
+
     return true;
   } catch (e) {
     console.log(e);
@@ -285,7 +271,7 @@ export async function fetchInquiryDetail(inquiryId, token) {
         },
       }
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -298,7 +284,7 @@ export async function fetchAdminUserInfo() {
     const response = await axios.get(
       `http://ceprj.gachon.ac.kr:60011/admin/user/list`
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -311,7 +297,6 @@ export async function fetchAdminUserDelete(id) {
     const response = await axios.delete(
       `http://ceprj.gachon.ac.kr:60011/user/delete/${id}`
     );
-    console.log('delete success: ', response);
   } catch (e) {
     console.log(e);
   }
@@ -323,7 +308,7 @@ export async function fetchAdminCommunityInfo() {
     const response = await axios.get(
       `http://ceprj.gachon.ac.kr:60011/admin/board/list`
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -336,7 +321,6 @@ export async function fetchAdminCommunityDelete(id) {
     const response = await axios.delete(
       `http://ceprj.gachon.ac.kr:60011/board/delete/${id}`
     );
-    console.log('delete success: ', response);
   } catch (e) {
     console.log(e);
   }
@@ -348,7 +332,7 @@ export async function fetchAdminInquiry() {
     const response = await axios.get(
       `http://ceprj.gachon.ac.kr:60011/admin/inquiry/list`
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -361,7 +345,7 @@ export async function fetchAdminInquiryDelete(id) {
     const response = await axios.delete(
       `http://ceprj.gachon.ac.kr:60011/admin/inquiry/delete/${id}`
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -375,7 +359,6 @@ export async function fetchAdminInquiryanswer(id, answer) {
       `http://ceprj.gachon.ac.kr:60011/admin/inquiry/${id}/answer`,
       answer
     );
-    console.log('success, response: ', response);
   } catch (e) {
     console.log(e);
   }
@@ -393,7 +376,6 @@ export async function fetchMyPageUpdate(updateInfo, token) {
         },
       }
     );
-    console.log('success, response: ', response);
   } catch (e) {
     console.log(e);
   }
@@ -410,7 +392,7 @@ export async function fetchMyPageCommunity(token) {
         },
       }
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -428,7 +410,7 @@ export async function fetchMyPageComment(token) {
         },
       }
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -446,7 +428,7 @@ export async function fetchMyPageInquiry(token) {
         },
       }
     );
-    console.log('success, response: ', response);
+
     return response;
   } catch (e) {
     console.log(e);
@@ -464,7 +446,6 @@ export async function fetchMyPageCommunityDelete(id, token) {
         },
       }
     );
-    console.log('success, response: ', response);
   } catch (e) {
     console.log(e);
   }
@@ -481,7 +462,6 @@ export async function fetchMyPageCommentDelete(id, token) {
         },
       }
     );
-    console.log('success, response: ', response);
   } catch (e) {
     console.log(e);
   }
@@ -498,7 +478,6 @@ export async function fetchMyPageUserDelete(id, token) {
         },
       }
     );
-    console.log('success, response: ', response);
   } catch (e) {
     console.log(e);
   }
@@ -516,7 +495,6 @@ export async function fetchVideo(token) {
         responseType: 'blob',
       }
     );
-    console.log('success, response: ', response);
 
     const videoURL = window.URL.createObjectURL(response.data);
     return videoURL;
@@ -538,7 +516,6 @@ export async function fetchVideoUpload(formData, token) {
         },
       }
     );
-    console.log('서버 응답:', response);
   } catch (error) {
     console.error('업로드 에러:', error);
   }
