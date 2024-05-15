@@ -3,9 +3,9 @@ import style from './ImageSelect.module.css';
 import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { fetchVideoUpload } from '@/pages/api/api';
+import { fetchCommunityFileUpload } from '@/pages/api/api';
 
-export default function ImageSelect() {
+export default function ImageSelect({ setUploadFunction }) {
   const [fileName, setFileName] = useState('');
   const [videoFile, setVideoFile] = useState(null);
   const [showVideo, setShowVideo] = useState(null);
@@ -20,16 +20,13 @@ export default function ImageSelect() {
   const onUpload = async () => {
     const formData = new FormData();
     formData.append('file', videoFile);
-    await fetchVideoUpload(formData, token);
-  };
-
-  const onToggleFile = () => {
-    setShowFile((prev) => !prev);
+    await fetchCommunityFileUpload(formData, token);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: 'video/*,image/*',
     onDrop: (acceptedFiles) => {
+      setUploadFunction(onUpload);
       setShowFile((prev) => !prev);
       // 첫 번째 파일만 사용 (다중 파일 업로드 미지원 시)
       const file = acceptedFiles[0];

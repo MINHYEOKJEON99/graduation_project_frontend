@@ -9,7 +9,7 @@ import { fetchVideoUpload } from '@/pages/api/api';
 export default function Dropdrag({ onClick }) {
   const [fileName, setFileName] = useState('');
   const [videoFile, setVideoFile] = useState(null);
-  const [showVideo, setShowVideo] = useState(null);
+  const [file, setFile] = useState(null);
   const [showFile, setShowFile] = useState(false);
   const [token, setToken] = useState();
 
@@ -39,7 +39,7 @@ export default function Dropdrag({ onClick }) {
 
       // 파일을 읽기 위해 URL.createObjectURL을 사용하여 임시 URL 생성
       const fileUrl = URL.createObjectURL(file);
-      setShowVideo(fileUrl);
+      setFile(fileUrl);
       setVideoFile(file);
       setFileName(file.name);
     },
@@ -69,7 +69,7 @@ export default function Dropdrag({ onClick }) {
       </div>
       <div className={style.video_box}>
         <video muted controls width="100%" style={{ borderRadius: '8px' }}>
-          <source src={showVideo} controls />
+          <source src={file} controls />
         </video>
       </div>
     </div>

@@ -68,6 +68,26 @@ export async function fetchNewPost(newPost, token) {
   }
 }
 
+//커뮤니티 파일 업로드
+export async function fetchCommunityFileUpload(file, token) {
+  try {
+    const response = await axios.post(
+      'http://ceprj.gachon.ac.kr:60011/video/upload',
+      file,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log('success, response: ', response);
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
 //커뮤니티 글 수정하기
 export async function fetchUpdatePost(id, updatePost, token) {
   try {
