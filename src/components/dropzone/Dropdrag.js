@@ -28,9 +28,7 @@ export default function Dropdrag({ onClick, onUploading }) {
     formData.append('file', videoFile); // 'file'은 서버에서 요구하는 필드명에 맞게 조정
     const response = await fetchVideoUpload(formData, token);
     if (response) {
-      onUploading(
-        `http://ceprj.gachon.ac.kr:60011/${response.data[0].filePath}`
-      );
+      onUploading(response.data[0].filePath);
     }
   };
 
