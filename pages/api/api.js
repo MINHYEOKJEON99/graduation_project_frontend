@@ -516,6 +516,8 @@ export async function fetchVideoUpload(formData, token) {
         },
       }
     );
+    console.log(response);
+    return response;
   } catch (error) {
     console.error('업로드 에러:', error);
   }

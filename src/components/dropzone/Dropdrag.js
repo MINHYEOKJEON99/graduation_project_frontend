@@ -6,7 +6,7 @@ import { BsClipboardPlus } from 'react-icons/bs';
 import { BsFileEarmarkPlay } from 'react-icons/bs';
 import { fetchVideoUpload } from '@/pages/api/api';
 
-export default function Dropdrag({ onClick }) {
+export default function Dropdrag({ onClick, onUploading }) {
   const [fileName, setFileName] = useState('');
   const [videoFile, setVideoFile] = useState(null);
   const [showVideo, setShowVideo] = useState(null);
@@ -24,10 +24,14 @@ export default function Dropdrag({ onClick }) {
 
   const onUpload = async () => {
     onClick(fileName);
-
     const formData = new FormData();
     formData.append('file', videoFile); // 'file'은 서버에서 요구하는 필드명에 맞게 조정
-    await fetchVideoUpload(formData, token);
+    const response = await fetchVideoUpload(formData, token);
+    if (response) {
+      onUploading(
+        `http://ceprj.gachon.ac.kr:60011/${response.data[0].filePath}`
+      );
+    }
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
