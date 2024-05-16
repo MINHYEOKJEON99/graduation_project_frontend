@@ -4,8 +4,11 @@ import Result from '@/src/components/dropzone/Result';
 import { fetchMyPageUserInfo } from '@/pages/api/api';
 import { useEffect, useState } from 'react';
 import { GridLoader } from 'react-spinners';
+import { useSelector } from 'react-redux';
 
 export default function Predictservice() {
+  const isLogin = useSelector((state) => state.auth.isUserAuthenticated);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const [currentUserInfo, setCurrentUserInfo] = useState({});
@@ -15,21 +18,16 @@ export default function Predictservice() {
   useEffect(() => {
     const token = localStorage.getItem('loginToken');
     const setInit = async () => {
-      const response = await fetchMyPageUserInfo(token);
+      if (isLogin) {
+        const response = await fetchMyPageUserInfo(token);
 
-      if (response) {
-        setCurrentUserInfo(response);
+        if (response) {
+          setCurrentUserInfo(response);
+        }
       }
     };
 
     setInit();
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setOne(false);
-    }, 2000);
-    return () => clearTimeout(timer);
   }, []);
 
   const onClickResult = (fileName) => {
@@ -40,11 +38,11 @@ export default function Predictservice() {
     setIsLoading(true);
     setIsUpload(true);
   };
-  const onUpload = (filePath) => {
-    const file = filePath;
+  const onUpload = (file) => {
+    // const file = `http://ceprj.gachon.ac.kr:60011/${filePath}`;
 
     console.log(file);
-    // 파일을 읽기 위해 URL.createObjectURL을 사용하여 임시 URL 생성
+
     setShowVideo(file);
     setIsUpload(false);
   };

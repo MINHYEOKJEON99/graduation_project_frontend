@@ -292,10 +292,15 @@ export async function fetchAdminUserInfo() {
 }
 
 //관리자 사용자 삭제
-export async function fetchAdminUserDelete(id) {
+export async function fetchAdminUserDelete(id, token) {
   try {
     const response = await axios.delete(
-      `http://ceprj.gachon.ac.kr:60011/user/delete/${id}`
+      `http://ceprj.gachon.ac.kr:60011/admin/user/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
   } catch (e) {
     console.log(e);
@@ -315,12 +320,18 @@ export async function fetchAdminCommunityInfo() {
   }
 }
 
-//관리자 사용자 삭제
-export async function fetchAdminCommunityDelete(id) {
+//관리자 커뮤니티 삭제
+export async function fetchAdminCommunityDelete(id, token) {
   try {
     const response = await axios.delete(
-      `http://ceprj.gachon.ac.kr:60011/board/delete/${id}`
+      `http://ceprj.gachon.ac.kr:60011/admin/board/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
+    console.log(response);
   } catch (e) {
     console.log(e);
   }
@@ -340,10 +351,15 @@ export async function fetchAdminInquiry() {
 }
 
 //관리자 문의글 삭제
-export async function fetchAdminInquiryDelete(id) {
+export async function fetchAdminInquiryDelete(id, token) {
   try {
     const response = await axios.delete(
-      `http://ceprj.gachon.ac.kr:60011/admin/inquiry/delete/${id}`
+      `http://ceprj.gachon.ac.kr:60011/admin/inquiry/${id}/delete`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     return response;
@@ -353,12 +369,18 @@ export async function fetchAdminInquiryDelete(id) {
 }
 
 //관리자 문의글 답변
-export async function fetchAdminInquiryanswer(id, answer) {
+export async function fetchAdminInquiryanswer(id, answer, token) {
   try {
     const response = await axios.patch(
       `http://ceprj.gachon.ac.kr:60011/admin/inquiry/${id}/answer`,
-      answer
+      answer,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
+    console.log(response);
   } catch (e) {
     console.log(e);
   }
@@ -484,10 +506,10 @@ export async function fetchMyPageUserDelete(id, token) {
 }
 
 //ai 비디오 파일 다운로드
-export async function fetchVideo(token) {
+export async function fetchVideo(id, token) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/video/download?videoId=6`,
+      `http://ceprj.gachon.ac.kr:60011/video/download?videoId=${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -495,8 +517,8 @@ export async function fetchVideo(token) {
         responseType: 'blob',
       }
     );
-
     const videoURL = window.URL.createObjectURL(response.data);
+    console.log(videoURL);
     return videoURL;
   } catch (e) {
     console.log(e);

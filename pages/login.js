@@ -14,7 +14,7 @@ export default function Login() {
     password: '',
   });
 
-  const adminData = { id: 'admin', password: '1234' };
+  const adminData = { id: 'admin@naver.com', password: '1234' };
 
   //회원가입페이지 이동버튼
   const onClickSignUp = () => {
@@ -46,7 +46,11 @@ export default function Login() {
         loginData.email === adminData.id &&
         loginData.password === adminData.password
       ) {
+        const token = await fetchLogin(loginData);
+        localStorage.setItem('loginToken', token);
+        localStorage.setItem('currentEmail', loginData.email);
         dispatch(authActions.adminLogin());
+        dispatch(authActions.userLogin());
         router.push('/admin');
         return;
       }

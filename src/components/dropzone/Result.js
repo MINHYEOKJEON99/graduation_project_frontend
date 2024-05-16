@@ -1,5 +1,6 @@
 import style from './Result.module.css';
 import React from 'react';
+import test3 from '../../assets/123.mp4';
 import Button from '../UI/Button';
 import { useRouter } from 'next/router';
 
@@ -17,12 +18,12 @@ export default function Result({ nickname, video }) {
     <div className={style.container}>
       <div className={style.outbox_second}>
         <div className={style.title}>
-          <p>{nickname || '방문자'} 님의</p>
+          <p>{nickname || '방문자'} 님의 사고현장 분석영상입니다.</p>
           {/* <p>과실 비율은?</p> */}
         </div>
         <div className={style.video_box}>
           <video muted controls width="100%" style={{ borderRadius: '8px' }}>
-            <source src={video} controls type="video/mp4" />
+            <source src={test3} type="video/mp4" />
           </video>
         </div>
         {/* <div className={style.result}>

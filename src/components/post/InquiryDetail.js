@@ -26,9 +26,12 @@ export default function InquiryDetail({ title, content, writerName }) {
   };
 
   const onSubmitAnswer = () => {
-    fetchAdminInquiryanswer(router.query.id, text);
+    const token = localStorage.getItem('loginToken');
+    const id = router.query.id;
+    fetchAdminInquiryanswer(id, text, token);
 
-    console.log('답변완료');
+    alert('문의답변이 등록되었습니다.');
+    router.push('/admin/customerservice');
   };
 
   return (

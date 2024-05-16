@@ -10,10 +10,13 @@ export default function AdminUserManageTr({
   memberId,
 }) {
   const onDelete = () => {
-    const result = confirm(`삭제하시겠습니까?`);
+    const token = localStorage.getItem('loginToken');
+    const result = confirm(`사용자를 삭제하시겠습니까?`);
     if (result) {
       console.log(result);
-      fetchAdminUserDelete(memberId);
+      fetchAdminUserDelete(memberId, token);
+      alert('삭제되었습니다.');
+      router.push('/admin');
     }
   };
   return (

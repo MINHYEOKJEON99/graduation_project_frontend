@@ -11,7 +11,6 @@ import { fetchMyPageUserInfo } from '@/pages/api/api';
 export default function Mypage() {
   const [showModal, setShowModal] = useState(false);
   const [currentUserInfo, setCurrentUserInfo] = useState({});
-  const userInfo = useSelector((state) => state.currentUserInfo);
   const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
   const router = useRouter();
 
@@ -24,8 +23,9 @@ export default function Mypage() {
         setCurrentUserInfo(response);
       }
     };
-
-    setInit();
+    if (userLogin) {
+      setInit();
+    }
   }, []);
 
   const onClickAcitivity = () => {
@@ -70,7 +70,7 @@ export default function Mypage() {
         <div className={style.box}>
           <h3>마이페이지</h3>
           <Image src={profile} alt="profile" className={style.img} priority />
-          {userLogin ? <h3>{userInfo.nickName}</h3> : <h3>닉네임</h3>}
+          {userLogin ? <h3>{currentUserInfo.nickName}</h3> : <h3>방문자</h3>}
         </div>
         <div className={style.content_box}>
           <Button

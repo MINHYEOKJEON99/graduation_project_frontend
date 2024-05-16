@@ -13,10 +13,13 @@ export default function AdminInquiryManageTr({
   const router = useRouter();
 
   const onDelete = () => {
-    const result = confirm(`삭제하시겠습니까?`);
+    const token = localStorage.getItem('loginToken');
+    const result = confirm(`문의글을 삭제하시겠습니까?`);
     if (result) {
       console.log(result);
-      fetchAdminInquiryDelete(inquiryId);
+      fetchAdminInquiryDelete(inquiryId, token);
+      alert('삭제되었습니다.');
+      router.push('/admin');
     }
   };
 
@@ -24,9 +27,9 @@ export default function AdminInquiryManageTr({
     router.push(`/admin/customerservice/adminInquiryDetail/${inquiryId}`);
   };
   return (
-    <tr style={style.tr} onClick={onClickTr}>
+    <tr style={style.tr}>
       <td>{inquiryId}</td>
-      <td>{title}</td>
+      <td onClick={onClickTr}>{title}</td>
       <td>{content}</td>
       <td>{writerName}</td>
       <td>{createdDate}</td>

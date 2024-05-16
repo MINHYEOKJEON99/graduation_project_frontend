@@ -1,5 +1,6 @@
 import { fetchAdminCommunityDelete } from '@/pages/api/api';
 import style from './AdminCommunityManageTr.module.css';
+import { useRouter } from 'next/router';
 
 export default function AdminCommunityManageTr({
   boardId,
@@ -9,11 +10,17 @@ export default function AdminCommunityManageTr({
   createdDate,
   modifiedDate,
 }) {
+  const router = useRouter();
+
   const onDelete = () => {
+    const token = localStorage.getItem('loginToken');
     const result = confirm(`삭제하시겠습니까?`);
     if (result) {
       console.log(result);
-      fetchAdminCommunityDelete(boardId);
+
+      fetchAdminCommunityDelete(boardId, token);
+      alert('삭제되었습니다.');
+      router.push('/admin');
     }
   };
   return (

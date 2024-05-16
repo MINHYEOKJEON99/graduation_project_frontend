@@ -11,6 +11,9 @@ export default function AdminSubLayout({ children }) {
 
   const onClickAdminLogout = () => {
     dispatch(authActions.adminLogout());
+    dispatch(authActions.userLogout());
+    localStorage.removeItem('loginToken');
+    localStorage.removeItem('currentEmail');
     router.push('/');
   };
   return (

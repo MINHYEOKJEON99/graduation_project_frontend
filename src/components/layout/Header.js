@@ -65,6 +65,7 @@ export default function Header({ children }) {
     localStorage.removeItem('currentEmail');
     setIsLogin(null);
     dispatch(authActions.userLogout());
+    dispatch(authActions.adminLogout());
     alert('로그아웃 되었습니다.');
   };
 
