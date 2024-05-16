@@ -69,7 +69,7 @@ export default function CommunityPostDetail({
     if (comment.content.trim().length !== '') {
       fetchWriteComment(id, comment, token);
       alert('댓글이 작성되었습니다.');
-      location.reload();
+      window.location.reload();
     } else {
       alert('댓글을 입력해주세요.');
     }

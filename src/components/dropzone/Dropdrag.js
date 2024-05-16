@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsClipboardPlus } from 'react-icons/bs';
 import { BsFileEarmarkPlay } from 'react-icons/bs';
-import { fetchCommunityFileUpload, fetchVideoUpload } from '@/pages/api/api';
+import { fetchVideoUpload } from '@/pages/api/api';
 
 export default function Dropdrag({ onClick }) {
   const [fileName, setFileName] = useState('');
@@ -27,7 +27,7 @@ export default function Dropdrag({ onClick }) {
 
     const formData = new FormData();
     formData.append('file', videoFile); // 'file'은 서버에서 요구하는 필드명에 맞게 조정
-    await fetchCommunityFileUpload(formData, token);
+    await fetchVideoUpload(formData, token);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
