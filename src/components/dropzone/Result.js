@@ -1,11 +1,17 @@
 import style from './Result.module.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import test3 from '../../assets/123.mp4';
 import Button from '../UI/Button';
 import { useRouter } from 'next/router';
+import ReactPlayer from 'react-player';
 
 export default function Result({ nickname, video }) {
   const router = useRouter();
+  const [isWindow, setIsWindow] = useState(false);
+
+  useEffect(() => {
+    setIsWindow(true);
+  }, []);
 
   const onClickHome = () => {
     router.push('/');
@@ -22,9 +28,16 @@ export default function Result({ nickname, video }) {
           {/* <p>과실 비율은?</p> */}
         </div>
         <div className={style.video_box}>
-          <video muted controls width="100%" style={{ borderRadius: '8px' }}>
-            <source src={test3} type="video/mp4" />
-          </video>
+          {isWindow && (
+            <ReactPlayer
+              url={test3}
+              width="100%"
+              height={'100%'}
+              controls={true}
+              playing={true}
+              muted={true}
+            />
+          )}
         </div>
         {/* <div className={style.result}>
           <h1>

@@ -40,7 +40,9 @@ export default function Dropdrag({ onClick, onUploading }) {
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: 'video/*',
+    accept: {
+      'video/mp4': ['.mp4'],
+    },
     onDrop: (acceptedFiles) => {
       setShowFile((prev) => !prev);
       // 첫 번째 파일만 사용 (다중 파일 업로드 미지원 시)

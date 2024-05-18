@@ -2,6 +2,8 @@ import style from './Epliogue.module.css';
 import dummy_video from '../../assets/dummy_video.mp4';
 import { FaHeart } from 'react-icons/fa';
 import { useRouter } from 'next/router';
+import ReactPlayer from 'react-player';
+import { useEffect, useState } from 'react';
 
 const DUMMY_DATA = [
   {
@@ -29,6 +31,11 @@ const DUMMY_DATA = [
 
 export default function Epilogue() {
   const router = useRouter();
+  const [isWindow, setIsWindow] = useState(false);
+
+  useEffect(() => {
+    setIsWindow(true);
+  }, []);
 
   const onClickEpilogueDetail = () => {
     router.push('/user/epilogue/epilogueDetail');
@@ -36,9 +43,15 @@ export default function Epilogue() {
 
   let content = DUMMY_DATA.map((epilogue) => (
     <div key={epilogue.id} className={style.container}>
-      <video muted controls width="210" style={{ borderRadius: '8px' }}>
-        <source src={epilogue.video} type="video/mp4" />
-      </video>
+      {isWindow && (
+        <ReactPlayer
+          url={epilogue.video}
+          width={'210px'}
+          height={'45%'}
+          controls={true}
+          muted={true}
+        />
+      )}
       <div className={style.content_box}>
         <p>{epilogue.content}</p>
         <div

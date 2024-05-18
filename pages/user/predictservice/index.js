@@ -50,14 +50,17 @@ export default function Predictservice() {
   return (
     <>
       {isLoading ? (
-        isUpload ? (
-          <div className={style.container}>
-            <GridLoader color="#dbe7f9" />
-            {one ? <p>과실 비율 측정중...</p> : <p>동영상 분석중...</p>}
-          </div>
-        ) : (
-          <Result nickname={currentUserInfo.nickcname} video={showVideo} />
-        )
+        //  (
+        //   isUpload ? (
+        //     <div className={style.container}>
+        //       <GridLoader color="#dbe7f9" />
+        //       {one ? <p>과실 비율 측정중...</p> : <p>동영상 분석중...</p>}
+        //     </div>
+        //   ) : (
+        //     <Result nickname={currentUserInfo.nickcname} video={showVideo} />
+        //   )
+        // )
+        <Result nickname={currentUserInfo.nickcname} video={showVideo} />
       ) : (
         <Dropdrag
           onClick={onClickResult}
