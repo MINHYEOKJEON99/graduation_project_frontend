@@ -32,8 +32,8 @@ export default function CommunityPost({ id, title, content, viewCount }) {
       <div className={style.like}>
         <FaRegEye size={20} />
         {viewCount}
-        <MdOutlineInsertComment size={20} />
-        {commentCount}
+        <MdOutlineInsertComment size={20} color="#849b9f" />
+        <p style={{ color: '#849b9f' }}>{commentCount}</p>
       </div>
     </div>
   );

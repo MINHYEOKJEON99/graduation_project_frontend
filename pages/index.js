@@ -1,10 +1,15 @@
 import Image from 'next/image';
 import style from './index.module.css';
 import backImg from '../src/assets/backImg.jpg';
-import { BsFileText } from 'react-icons/bs';
-import { useRouter } from 'next/router';
 import Epilogue from '@/src/components/epilogue/Epilogue';
 import Button from '@/src/components/UI/Button';
+import NewReleasesOutlinedIcon from '@mui/icons-material/NewReleasesOutlined';
+import reviewImg from '../src/assets/review.png';
+import communityImg from '../src/assets/community.png';
+import aiImg from '../src/assets/ai.png';
+
+import { BsFileText } from 'react-icons/bs';
+import { useRouter } from 'next/router';
 
 export default function MainPage() {
   const router = useRouter();
@@ -30,9 +35,37 @@ export default function MainPage() {
         </div>
         {/* 이미지 파일 */}
       </div>
+      <div className={style.core_service}>
+        <div className={style.core_service_box}>
+          <NewReleasesOutlinedIcon fontSize="30px" />
+          <span>주요 서비스</span>
+        </div>
+      </div>
+      <div className={style.img_box}>
+        <div>
+          <Image src={aiImg} className={style.Img} />
+          <h2>ai 서비스</h2>
+          <p>ai를 통하여 교통사고</p>
+          <p>영상과실비율 측정</p>
+          <p>가능합니다</p>
+        </div>
+        <div>
+          <Image src={communityImg} className={style.Img} />
+          <h2>커뮤니티 서비스</h2>
+          <p>커뮤니티 서비스를 통하여</p>
+          <p>사용자 간 소통을 할 수 있습니다</p>
+        </div>
+        <div>
+          <Image src={reviewImg} className={style.Img} />
+          <h2>후기서비스</h2>
+          <p>후기 서비스의 데이터를 이용</p>
+          <p>하여 ai 정확성을 향상 시킬 수</p>
+          <p>있습니다.</p>
+        </div>
+      </div>
       <div>
         <div className={style.text}>
-          <BsFileText size={25} />
+          <BsFileText size={30} />
           <span style={{ fontWeight: 'bold' }}>후기</span>
         </div>
         <Epilogue />

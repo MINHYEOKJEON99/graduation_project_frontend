@@ -45,10 +45,12 @@ export default function Epilogue() {
     <div key={epilogue.id} className={style.container}>
       {isWindow && (
         <ReactPlayer
+          style={{ paddingBottom: '8px' }}
           url={epilogue.video}
           width={'210px'}
           height={'45%'}
           controls={true}
+          playing={true}
           muted={true}
         />
       )}

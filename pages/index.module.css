@@ -28,10 +28,12 @@
 
 .text {
   display: flex;
+  gap: 5px;
   align-items: center;
   justify-content: center;
   margin: 20px 0px;
-  font-size: 26px;
+  color: #726464;
+  font-size: 30px;
 }
 
 .backImg {
@@ -47,6 +49,40 @@
   border-radius: 20px;
 }
 
+.core_service {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  gap: 5px;
+  font-size: 30px;
+}
+
+.core_service_box {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  color: #726464;
+}
+
+.Img {
+  width: 170px;
+  height: 80%;
+}
+
+.img_box {
+  margin: auto;
+  width: 960px;
+  display: flex;
+  justify-content: space-around;
+  height: 150px;
+  margin-top: 40px;
+  margin-bottom: 160px;
+  color: #726464;
+  text-align: center;
+}
+.img_box > div > p {
+  font-size: 12px;
+}
 @media (max-width: 790px) {
   .main_paragraph > h1 {
     font-size: 25px;

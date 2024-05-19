@@ -3,22 +3,27 @@ import style from './community.module.css';
 import CommunityPost from '@/src/components/post/CommunityPost';
 import { useRouter } from 'next/router';
 import {
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
 } from '@mui/material';
+import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchCommunity } from '@/pages/api/api';
+
+const actions = [{ icon: <DrawTwoToneIcon />, name: '글쓰기' }];
 
 export default function Community() {
   const router = useRouter();
   const isLogin = useSelector((state) => state.auth.isUserAuthenticated);
 
-  const [age, setAge] = useState(0);
   const [contents, setContents] = useState([]);
+  const [value, setValue] = useState('title');
 
   //커뮤니티 리스트 업데이트
   useEffect(() => {
@@ -40,7 +45,7 @@ export default function Community() {
   };
 
   const handleChange = (e) => {
-    setAge(e.target.value);
+    setValue(e.target.value);
   };
 
   return (
@@ -55,14 +60,14 @@ export default function Community() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={age}
+              value={value}
               label="검색옵션"
               onChange={handleChange}
               style={{ height: '42px' }}
             >
-              <MenuItem value={10}>제목</MenuItem>
-              <MenuItem value={20}>작성자</MenuItem>
-              <MenuItem value={30}>내용</MenuItem>
+              <MenuItem value={'title'}>제목</MenuItem>
+              <MenuItem value={'writer'}>작성자</MenuItem>
+              <MenuItem value={'content'}>내용</MenuItem>
             </Select>
           </FormControl>
           <Searchbar />
@@ -78,11 +83,25 @@ export default function Community() {
             />
           ))}
 
-        <div className={style.new_post}>
+        {/* <div className={style.new_post}>
           <Button style={{ color: 'black' }} onClick={onClickNewPost}>
             글쓰기
           </Button>
-        </div>
+        </div> */}
+        <SpeedDial
+          ariaLabel="SpeedDial basic example"
+          sx={{ position: 'fixed', bottom: 30, right: 30 }}
+          icon={<SpeedDialIcon />}
+        >
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+              onClick={onClickNewPost}
+            />
+          ))}
+        </SpeedDial>
         <div className={style.paging}>
           <p>1</p>
         </div>
