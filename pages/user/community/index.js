@@ -30,6 +30,7 @@ export default function Community() {
     const setInitData = async () => {
       const { data } = await fetchCommunity();
       setContents(data.content);
+      console.log(contents);
     };
 
     setInitData();

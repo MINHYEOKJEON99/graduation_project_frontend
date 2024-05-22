@@ -5,7 +5,13 @@ import { useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { fetchAdminInquiryanswer } from '@/pages/api/api';
 
-export default function InquiryDetail({ title, content, writerName }) {
+export default function InquiryDetail({
+  title,
+  content,
+  writerName,
+
+  answer_rp,
+}) {
   const router = useRouter();
 
   const [answer, setAnswer] = useState(false);
@@ -51,6 +57,7 @@ export default function InquiryDetail({ title, content, writerName }) {
             </div>
           </div>
         </div>
+        {answer_rp && <div className={style.answer_rp}>답변: {answer_rp}</div>}
         {isAdmin ? (
           <div className={style.answer}>
             {answer && (

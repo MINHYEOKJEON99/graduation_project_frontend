@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { fetchLogin } from './api/api';
 import { useDispatch } from 'react-redux';
 import { authActions } from '@/src/store/auth';
+import Image from 'next/image';
+import loginImg from '@/src/assets/login.jpg';
 
 export default function Login() {
   const router = useRouter();
@@ -79,37 +81,52 @@ export default function Login() {
   );
 
   return (
-    <div className={style.container}>
-      <form className={style.joinForm} onSubmit={onSubmitData}>
-        <h2>로그인</h2>
-        <div className={style.textForm}>
-          <input
-            name="email"
-            type="text"
-            className={style.value}
-            onChange={onChangeEmailData}
-            value={loginData.email || ''}
-            placeholder="이메일"
-          />
+    <div className={style.wrapper}>
+      <div className={style.container}>
+        <div className={style.text_box}>
+          <p>과실비율 측정을 위한 ai 서비스</p>
+          <p>로그인하고 간편하게 서비스를</p>
+          <p>경험하세요.</p>
+          <p className={style.en1}>Traffic accident fault rate</p>
+          <p className={style.en2}>measurement service</p>
         </div>
-        <div className={style.textForm}>
-          <input
-            name="password"
-            type="password"
-            className={style.value}
-            onChange={onChangePasswordData}
-            value={loginData.password || ''}
-            placeholder="비밀번호"
-          />
-        </div>
-        <input className={style.submitBtn} type="submit" value="로그인" />
-        <input
-          className={style.submitBtn}
-          onClick={onClickSignUp}
-          type="button"
-          value="회원가입"
+        <Image
+          src={loginImg}
+          className={style.img}
+          alt="loginImg"
+          height={700}
         />
-      </form>
+        <form className={style.joinForm} onSubmit={onSubmitData}>
+          <h2>로그인</h2>
+          <div className={style.textForm}>
+            <input
+              name="email"
+              type="text"
+              className={style.value}
+              onChange={onChangeEmailData}
+              value={loginData.email || ''}
+              placeholder="이메일"
+            />
+          </div>
+          <div className={style.textForm}>
+            <input
+              name="password"
+              type="password"
+              className={style.value}
+              onChange={onChangePasswordData}
+              value={loginData.password || ''}
+              placeholder="비밀번호"
+            />
+          </div>
+          <input className={style.submitBtn} type="submit" value="로그인" />
+          <input
+            className={style.submitBtn}
+            onClick={onClickSignUp}
+            type="button"
+            value="회원가입"
+          />
+        </form>
+      </div>
     </div>
   );
 }

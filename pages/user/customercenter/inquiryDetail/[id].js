@@ -26,7 +26,6 @@ export default function InquiryDetailPage() {
 
   useEffect(() => {
     setInitData();
-    console.log(contentDetail);
   }, [setInitData]);
 
   return (
@@ -37,6 +36,7 @@ export default function InquiryDetailPage() {
           title={contentDetail.title}
           content={contentDetail.contents}
           writerName={contentDetail.writerName}
+          answer_rp={contentDetail.answer_rp}
         />
       )}
     </>

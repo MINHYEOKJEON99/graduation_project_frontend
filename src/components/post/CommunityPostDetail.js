@@ -15,6 +15,7 @@ export default function CommunityPostDetail({
   writerName,
   writerEmail,
   onClickDelete,
+  admin,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -44,6 +45,7 @@ export default function CommunityPostDetail({
   useEffect(() => {
     setToken(localStorage.getItem('loginToken'));
     setIsValid(localStorage.getItem('currentEmail') === writerEmail);
+    setIsValid(admin);
     console.log(token);
     console.log(isValid);
   }, [token]);
@@ -69,7 +71,11 @@ export default function CommunityPostDetail({
     if (comment.content.trim().length !== '') {
       fetchWriteComment(id, comment, token);
       alert('댓글이 작성되었습니다.');
-      window.location.reload();
+      if (admin) {
+        router.push('/admin/communitymanage');
+      } else {
+        router.push('/user/community');
+      }
     } else {
       alert('댓글을 입력해주세요.');
     }
@@ -82,9 +88,11 @@ export default function CommunityPostDetail({
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
-        <div onClick={onClickCommunity} className={style.box}>
-          <h2>커뮤니티 게시판</h2>
-        </div>
+        {!admin && (
+          <div onClick={onClickCommunity} className={style.box}>
+            <h2>커뮤니티 게시판</h2>
+          </div>
+        )}
         {isValid && (
           <div className={style.button_box}>
             <Button onClick={onClickUpdate}>수정하기</Button>
@@ -141,6 +149,7 @@ export default function CommunityPostDetail({
               commentWriterEmail={comment.commentWriterEmail}
               content={comment.content}
               createdDate={comment.createdDate}
+              admin={admin}
             />
           ))}
       </div>

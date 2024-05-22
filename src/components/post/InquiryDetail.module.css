@@ -105,3 +105,11 @@
 .textarea {
   height: 100px;
 }
+
+.answer_rp {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 1px 1px 5px 2px #f1f1f1;
+  min-height: 100px;
+}

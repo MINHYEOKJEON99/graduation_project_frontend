@@ -1,9 +1,11 @@
 import style from './AdminCommunityInfo.module.css';
 
 import { fetchAdminCommunityInfo } from '@/pages/api/api';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function AdminCommunityInfo() {
+  const router = useRouter();
   const [communityInfo, setCommunityInfo] = useState();
 
   useEffect(() => {
@@ -18,11 +20,19 @@ export default function AdminCommunityInfo() {
     setInit();
   }, []);
 
+  const onClickPost = (boardId) => {
+    router.push(`/admin/communitymanage/communityDetail/${boardId}`);
+  };
+
   return (
     <>
       {communityInfo &&
         communityInfo.map((post) => (
-          <div key={post.boardId} className={style.container}>
+          <div
+            key={post.boardId}
+            className={style.container}
+            onClick={() => onClickPost(post.boardId)}
+          >
             <div className={style.id}>{post.boardId}</div>
             <div className={style.name}>{post.writerName}</div>
             <div className={style.title}>{post.title}</div>

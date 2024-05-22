@@ -5,3 +5,7 @@
 .delete:hover {
   background-color: rgb(207, 207, 207);
 }
+
+.title:hover {
+  cursor: pointer;
+}

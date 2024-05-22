@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Button } from '@mui/material';
 import { fetchCommentDelete, fetchUpdateComment } from '@/pages/api/api';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Comment({
   boardId,
@@ -12,7 +13,10 @@ export default function Comment({
   commentWriterEmail,
   createdDate,
   content,
+  admin,
 }) {
+  const router = useRouter();
+
   const [token, setToken] = useState();
   const [isValid, setIsValid] = useState(false);
   const [updateComment, setUpdateComment] = useState(content);
@@ -33,14 +37,23 @@ export default function Comment({
     fetchCommentDelete(boardId, commentId, token);
 
     alert('댓글이 삭제되었습니다.');
-    location.reload();
+    if (admin) {
+      router.push('/admin/communitymanage');
+    } else {
+      router.push('/user/community');
+    }
   };
 
   const onClickUpdate = () => {
     fetchUpdateComment(boardId, commentId, { content: updateComment }, token);
 
     alert('댓글이 수정되었습니다.');
-    location.reload();
+
+    if (admin) {
+      router.push('/admin/communitymanage');
+    } else {
+      router.push('/user/community');
+    }
   };
 
   const toggleButton = () => {

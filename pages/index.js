@@ -43,20 +43,20 @@ export default function MainPage() {
       </div>
       <div className={style.img_box}>
         <div>
-          <Image src={aiImg} className={style.Img} />
+          <Image src={aiImg} alt="ai이미지" className={style.Img} />
           <h2>ai 서비스</h2>
           <p>ai를 통하여 교통사고</p>
           <p>영상과실비율 측정</p>
           <p>가능합니다</p>
         </div>
         <div>
-          <Image src={communityImg} className={style.Img} />
+          <Image src={communityImg} alt="커뮤니티" className={style.Img} />
           <h2>커뮤니티 서비스</h2>
           <p>커뮤니티 서비스를 통하여</p>
           <p>사용자 간 소통을 할 수 있습니다</p>
         </div>
         <div>
-          <Image src={reviewImg} className={style.Img} />
+          <Image src={reviewImg} alt="리뷰" className={style.Img} />
           <h2>후기서비스</h2>
           <p>후기 서비스의 데이터를 이용</p>
           <p>하여 ai 정확성을 향상 시킬 수</p>

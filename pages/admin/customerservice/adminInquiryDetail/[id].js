@@ -37,6 +37,7 @@ export default function AdminInquiryDetailPage() {
           title={contentDetail.title}
           content={contentDetail.contents}
           writerName={contentDetail.writerName}
+          answer_rp={contentDetail.answer}
         />
       )}
     </>

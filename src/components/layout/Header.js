@@ -12,15 +12,16 @@ import Menu from '../UI/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '@/src/store/auth';
 import { currentUserInfoActions } from '@/src/store/currentUserInfo';
+import { fetchMyPageUserInfo } from '@/pages/api/api';
 
 export default function Header({ children }) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const nickname = useSelector((state) => state.currentUserInfo.nickName);
   const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
   const { q } = router.query;
   const [clickMenu, setClickMenu] = useState(false);
   const [isLogin, setIsLogin] = useState();
+  const [currentUserInfo, setCurrentUserInfo] = useState({});
 
   const { y } = useScroll();
   let headerStyle = style.header;
@@ -48,6 +49,22 @@ export default function Header({ children }) {
       dispatch(authActions.userLogout());
     }
   }, [isLogin, dispatch]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('loginToken');
+    const setInit = async () => {
+      if (isLogin) {
+        const response = await fetchMyPageUserInfo(token);
+
+        if (response) {
+          setCurrentUserInfo(response);
+          currentUserInfo && console.log(currentUserInfo);
+        }
+      }
+    };
+
+    setInit();
+  }, []);
 
   const onClickHome = () => {
     router.push('/');
@@ -96,7 +113,6 @@ export default function Header({ children }) {
   };
 
   const onToggleMenu = () => {
-    console.log(nickname);
     setClickMenu((prev) => !prev);
   };
 
@@ -106,7 +122,9 @@ export default function Header({ children }) {
         <Image src={logoBlack} alt="logo" className={style.img} priority />
       </div>
       {userLogin ? (
-        <p className={style.modal_login2}>{nickname} 님, 안녕하세요</p>
+        <p className={style.modal_login2}>
+          {currentUserInfo && currentUserInfo.nickname} 님, 안녕하세요
+        </p>
       ) : (
         <p onClick={onClickLogin} className={style.modal_login}>
           로그인 후 이용해주세요

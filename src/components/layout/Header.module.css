@@ -42,7 +42,8 @@
 .otherHeader {
   height: 50px;
   /* background-color: rgb(207, 218, 240); */
-  background-color: #e1ebfa;
+  background-color: rgba(233, 240, 247, 0.647);
+  /* background-color: #5995fc52; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,6 +53,7 @@
   color: black;
   /* color: black; */
   box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+  margin-bottom: 30px;
   cursor: default;
 }
 

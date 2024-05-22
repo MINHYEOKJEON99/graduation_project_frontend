@@ -1,16 +1,46 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 .container {
   display: flex;
-  width: 100%;
+  flex: 2;
+  width: 40%;
   min-height: 700px;
-  max-width: 800px; /* 적당한 최대 너비 */
-  margin: 50px auto; /* 중앙 정렬 */
-  padding: 50px 0px; /* 포스트 리스트 내부 여백 */
+  max-width: 90%;
   border-radius: 8px; /* 모서리 둥글게 */
   box-shadow: 1px 1px 5px 2px #f1f1f1;
+  background-color: #fbfdff;
+  overflow: hidden;
 }
+
+.text_box {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 30px;
+  font-weight: lighter;
+  color: #4a4c4f;
+  position: absolute;
+  top: 200px;
+  left: 100px;
+  z-index: 3;
+}
+
+.text_box > p {
+  margin: 10px 0px;
+}
+
+.img {
+  z-index: 1;
+  width: 60%;
+}
+
 .joinForm {
   width: 400px;
-  height: 400px;
+  height: 300px;
   padding: 30px, 20px;
   text-align: center;
   margin: auto;
@@ -39,7 +69,8 @@
 }
 
 .submitBtn {
-  background-color: #d5e1f2;
+  /* background-color: #d5e1f2; */
+  background-color: rgba(233, 240, 247, 0.647);
   padding: 10px 20px;
   margin-top: 20px;
   margin: 0px 20px;
@@ -51,5 +82,39 @@
   width: 30%;
 }
 .submitBtn:hover {
-  background-color: #9cafca;
+  background-color: #a7a7a7;
+}
+
+.en1 {
+  font-size: 16px;
+  margin-top: 40px;
+  font-weight: lighter;
+}
+
+.en2 {
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+@media (max-width: 950px) {
+  .text_box {
+    font-size: 24px;
+  }
+  .en1 {
+    font-size: 12px;
+  }
+
+  .en2 {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 790px) {
+  .img {
+    display: none;
+  }
+
+  .text_box {
+    display: none;
+  }
 }

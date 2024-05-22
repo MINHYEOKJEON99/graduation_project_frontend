@@ -5,14 +5,16 @@
   align-items: center;
   width: 100%;
   margin: 10px 0px;
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   border-radius: 10px;
   height: 90px;
   cursor: pointer;
+  padding-top: 10px;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
 }
 
 .container:hover {
-  background-color: #d9d7d7;
+  border: 2px solid #367cde;
 }
 
 .title {
@@ -22,6 +24,7 @@
 .content {
   width: 95%;
   font-family: 'NanumSquareRoundR';
+  padding-top: 10px;
   font-size: 14px;
 }
 .like {

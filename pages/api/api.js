@@ -450,7 +450,7 @@ export async function fetchMyPageInquiry(token) {
         },
       }
     );
-
+    console.log(response);
     return response;
   } catch (e) {
     console.log(e);

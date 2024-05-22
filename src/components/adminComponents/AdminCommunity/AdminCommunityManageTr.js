@@ -23,10 +23,17 @@ export default function AdminCommunityManageTr({
       router.push('/admin');
     }
   };
+
+  const onClickCommunity = () => {
+    router.push(`/admin/communitymanage/communityDetail/${boardId}`);
+  };
+
   return (
     <tr>
       <td>{boardId}</td>
-      <td>{title}</td>
+      <td onClick={onClickCommunity} className={style.title}>
+        {title}
+      </td>
       <td>{content}</td>
       <td>{writerName}</td>
       <td>{createdDate}</td>

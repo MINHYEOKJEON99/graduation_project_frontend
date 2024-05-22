@@ -27,9 +27,11 @@ export default function AdminInquiryManageTr({
     router.push(`/admin/customerservice/adminInquiryDetail/${inquiryId}`);
   };
   return (
-    <tr style={style.tr}>
+    <tr>
       <td>{inquiryId}</td>
-      <td onClick={onClickTr}>{title}</td>
+      <td onClick={onClickTr} className={style.title}>
+        {title}
+      </td>
       <td>{content}</td>
       <td>{writerName}</td>
       <td>{createdDate}</td>
