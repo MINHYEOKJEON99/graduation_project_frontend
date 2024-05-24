@@ -70,7 +70,11 @@ export default function Mypage() {
         <div className={style.box}>
           <h3>마이페이지</h3>
           <Image src={profile} alt="profile" className={style.img} priority />
-          {userLogin ? <h3>{currentUserInfo.nickName}</h3> : <h3>방문자</h3>}
+          {currentUserInfo ? (
+            <h3>{currentUserInfo.nickname}</h3>
+          ) : (
+            <h1>방문자</h1>
+          )}
         </div>
         <div className={style.content_box}>
           <Button

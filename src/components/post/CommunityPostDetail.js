@@ -44,8 +44,8 @@ export default function CommunityPostDetail({
 
   useEffect(() => {
     setToken(localStorage.getItem('loginToken'));
-    setIsValid(localStorage.getItem('currentEmail') === writerEmail);
-    setIsValid(admin);
+    setIsValid(localStorage.getItem('currentEmail') === writerEmail || admin);
+
     console.log(token);
     console.log(isValid);
   }, [token]);
