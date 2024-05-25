@@ -6,6 +6,7 @@ import { CgProfile } from 'react-icons/cg';
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2';
 import { LiaComment } from 'react-icons/lia';
 import { SlQuestion } from 'react-icons/sl';
+import { IoInformationCircleOutline } from 'react-icons/io5';
 import { LuBrainCircuit } from 'react-icons/lu';
 import { useRouter } from 'next/router';
 
@@ -30,6 +31,9 @@ export default function AdminHeader({ children }) {
   const onClickAiManage = () => {
     router.push('/admin/aimanage');
   };
+  const onClickInformation = () => {
+    router.push('/admin/information');
+  };
 
   return (
     <div>
@@ -39,6 +43,10 @@ export default function AdminHeader({ children }) {
         </div>
         <nav>
           <ul className={style.header_admin_nav}>
+            <li onClick={onClickInformation}>
+              <IoInformationCircleOutline size={25} />
+              공지사항
+            </li>
             <li onClick={onClickUserManage}>
               <CgProfile size={25} />
               사용자 계정 관리
@@ -55,6 +63,7 @@ export default function AdminHeader({ children }) {
               <SlQuestion size={25} />
               사용자 문의
             </li>
+
             <li onClick={onClickAiManage}>
               <LuBrainCircuit size={23} />
               AI 관리

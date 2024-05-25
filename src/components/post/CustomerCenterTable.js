@@ -92,7 +92,9 @@ export default function CustomerCenterTable({ inquriyList }) {
                     <StyledTableCell align="right">
                       {row.writerName}
                     </StyledTableCell>
-                    <StyledTableCell align="right">{row.date}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.createdDate.slice(0, 11)}
+                    </StyledTableCell>
                     <StyledTableCell align="right">
                       {row.replied ? '완료' : '미완료'}
                     </StyledTableCell>

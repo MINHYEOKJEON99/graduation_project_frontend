@@ -15,7 +15,6 @@ export default function AdminInquiryDetailPage() {
 
   const [contentDetail, setContentDetail] = useState({});
 
-  //커뮤니티 상세정보 업데이트
   const setInitData = useCallback(async () => {
     const response = await fetchInquiryDetail(router.query.id, token);
 

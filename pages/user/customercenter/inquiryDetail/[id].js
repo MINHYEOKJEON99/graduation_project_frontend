@@ -15,7 +15,6 @@ export default function InquiryDetailPage() {
 
   const [contentDetail, setContentDetail] = useState({});
 
-  //커뮤니티 상세정보 업데이트
   const setInitData = useCallback(async () => {
     const response = await fetchInquiryDetail(router.query.id, token);
 
@@ -26,6 +25,7 @@ export default function InquiryDetailPage() {
 
   useEffect(() => {
     setInitData();
+    console.log(contentDetail);
   }, [setInitData]);
 
   return (
@@ -36,7 +36,7 @@ export default function InquiryDetailPage() {
           title={contentDetail.title}
           content={contentDetail.contents}
           writerName={contentDetail.writerName}
-          answer_rp={contentDetail.answer_rp}
+          answer_rp={contentDetail.answer}
         />
       )}
     </>

@@ -1,7 +1,7 @@
 import CustomerCenterTable from '@/src/components/post/CustomerCenterTable';
 import style from './customercenter.module.css';
 import { useEffect, useState } from 'react';
-import { fetchInquire } from '@/pages/api/api';
+import { fetchInformation, fetchInquire } from '@/pages/api/api';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import Faq from '@/src/components/post/Faq';
@@ -22,18 +22,10 @@ const FAQ_DATA = [
   },
 ];
 
-const ANNOUNCEMENT_DATA = [
-  {
-    id: '1',
-    title: '후기 작성 이벤트 !',
-    content: `서비스를 이용후에 후기를 작성하신 사용자님중 
-      추첨을 통해 스타벅스 기프티콘을 드립니다.`,
-  },
-];
-
 export default function CustomerCenter() {
   const router = useRouter();
   const isLogin = useSelector((state) => state.auth.isUserAuthenticated);
+  const token = localStorage.getItem('loginToken');
 
   const [isValue, setIsValue] = useState({
     inquiry: true,
@@ -41,6 +33,19 @@ export default function CustomerCenter() {
     announcement: false,
   });
   const [list, setList] = useState();
+  const [information, setInformation] = useState([]);
+
+  const setInitInformation = async () => {
+    const response = await fetchInformation(token);
+
+    if (response) {
+      setInformation(response.data.content);
+    }
+  };
+
+  useEffect(() => {
+    setInitInformation();
+  }, []);
 
   useEffect(() => {
     async function setInit() {
@@ -102,14 +107,16 @@ export default function CustomerCenter() {
     title = 'FAQ';
   } else {
     title = '공지사항';
-    content = ANNOUNCEMENT_DATA.map((announcement) => (
-      <Announcement
-        key={announcement.id}
-        id={announcement.id}
-        title={announcement.title}
-        content={announcement.content}
-      />
-    ));
+    content =
+      information &&
+      information.map((announcement) => (
+        <Announcement
+          key={announcement.id}
+          id={announcement.id}
+          title={announcement.title}
+          content={announcement.content}
+        />
+      ));
   }
 
   return (

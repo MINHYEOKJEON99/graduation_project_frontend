@@ -9,7 +9,6 @@ export default function InquiryDetail({
   title,
   content,
   writerName,
-
   answer_rp,
 }) {
   const router = useRouter();
@@ -57,7 +56,7 @@ export default function InquiryDetail({
             </div>
           </div>
         </div>
-        {answer_rp && <div className={style.answer_rp}>답변: {answer_rp}</div>}
+
         {isAdmin ? (
           <div className={style.answer}>
             {answer && (
@@ -76,10 +75,7 @@ export default function InquiryDetail({
             </Button>
           </div>
         ) : (
-          <div className={style.answer}>
-            <div>답글</div>
-            <div className={style.answer_write}></div>
-          </div>
+          <div className={style.answer_rp}>답변: {answer_rp}</div>
         )}
       </div>
     </div>
