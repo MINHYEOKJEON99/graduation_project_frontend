@@ -4,6 +4,12 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  exportPathMap: async function () {
+    return {
+      '/': { page: '/' },
+      '/login': { page: '/login' },
+    };
+  },
   reactStrictMode: false,
   webpack: (config) => {
     config.module.rules.push({

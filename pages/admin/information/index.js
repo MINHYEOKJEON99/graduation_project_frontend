@@ -1,34 +1,33 @@
 import Announcement from '@/src/components/post/Announcement';
-import style from './index.module.css';
-import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Modal from '@/src/components/UI/Modal';
 import {
   fetchInformation,
   fetchInformationDelete,
   fetchWriteInformation,
 } from '@/pages/api/api';
+import style from './index.module.css';
+import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+
+import Modal from '@/src/components/UI/Modal';
+import { useRouter } from 'next/router';
 
 export default function Information() {
-  const router = useRouter();
-
   const [toggle, setToggle] = useState(false);
-  const [information, setInformation] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [information, setInformation] = useState([]);
 
-  const token = localStorage.getItem('loginToken');
-
-  const setInit = async () => {
-    const response = await fetchInformation(token);
-
-    if (response) {
-      setInformation(response.data.content);
-    }
-  };
+  const router = useRouter();
 
   useEffect(() => {
+    const token = localStorage.getItem('loginToken');
+    const setInit = async () => {
+      const response = await fetchInformation(token);
+
+      if (response) {
+        setInformation(response.data.content);
+      }
+    };
     setInit();
   }, []);
 
@@ -49,11 +48,12 @@ export default function Information() {
       await fetchInformationDelete(id);
       alert('삭제되었습니다.');
       router.push('/admin');
-      router.push('/admin/information');
     }
   };
 
   const onSubmit = async () => {
+    const token = localStorage.getItem('loginToken');
+
     const response = await fetchWriteInformation(
       { title: title, content: content },
       token

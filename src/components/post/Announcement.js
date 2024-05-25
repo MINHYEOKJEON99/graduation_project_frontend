@@ -10,9 +10,7 @@ export default function Announcement({ id, title, content }) {
 
   return (
     <div className={style.container} onClick={onClickToggle}>
-      <div className={style.title}>
-        {id}. {title}
-      </div>
+      <div className={style.title}>{title}</div>
 
       {toggle && (
         <div className={style.answer}>

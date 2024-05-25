@@ -25,7 +25,6 @@ const FAQ_DATA = [
 export default function CustomerCenter() {
   const router = useRouter();
   const isLogin = useSelector((state) => state.auth.isUserAuthenticated);
-  const token = localStorage.getItem('loginToken');
 
   const [isValue, setIsValue] = useState({
     inquiry: true,
@@ -33,18 +32,16 @@ export default function CustomerCenter() {
     announcement: false,
   });
   const [list, setList] = useState();
-  const [information, setInformation] = useState([]);
-
-  const setInitInformation = async () => {
-    const response = await fetchInformation(token);
-
-    if (response) {
-      setInformation(response.data.content);
-    }
-  };
+  const [announce, setAnnounce] = useState([]);
 
   useEffect(() => {
-    setInitInformation();
+    async function setInit() {
+      const response = await fetchInformation();
+      if (response) {
+        setAnnounce(response.data.content);
+      }
+    }
+    setInit();
   }, []);
 
   useEffect(() => {
@@ -107,16 +104,14 @@ export default function CustomerCenter() {
     title = 'FAQ';
   } else {
     title = '공지사항';
-    content =
-      information &&
-      information.map((announcement) => (
-        <Announcement
-          key={announcement.id}
-          id={announcement.id}
-          title={announcement.title}
-          content={announcement.content}
-        />
-      ));
+    content = announce.map((announcement) => (
+      <Announcement
+        key={announcement.id}
+        id={announcement.id}
+        title={announcement.title}
+        content={announcement.content}
+      />
+    ));
   }
 
   return (
