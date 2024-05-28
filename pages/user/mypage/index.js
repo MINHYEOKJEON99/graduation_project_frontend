@@ -83,7 +83,7 @@ export default function Mypage() {
   if (showModal) {
     content = <AiRecord onToggle={onToggleModal} onClick={onClickRecord} />;
   } else if (showVideo) {
-    content = <Video onToggle={onToggleModal} video={video} />;
+    content = <Video onToggle={onToggleModal} video={video} ratio={''} />;
   }
   return (
     <div className={style.wrapper}>

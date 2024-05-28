@@ -14,7 +14,7 @@ export default function Video({ video, onToggle, ratio }) {
         muted={true}
       />
       <div style={{ textAlign: 'center', fontSize: '40px' }}>
-        <p>{ratio.slice(10, 15)}</p>
+        <p>{ratio.slice(10, 15) || ''}</p>
       </div>
     </Modal>
   );

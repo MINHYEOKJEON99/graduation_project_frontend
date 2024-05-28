@@ -37,3 +37,9 @@
   gap: 10px;
   width: 95%;
 }
+
+@media (max-width: 790px) {
+  .container {
+    height: 120px;
+  }
+}

@@ -33,3 +33,9 @@
 .button {
   color: black;
 }
+
+@media (max-width: 790px) {
+  .review_box {
+    gap: 50px;
+  }
+}

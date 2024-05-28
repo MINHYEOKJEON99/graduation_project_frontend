@@ -93,6 +93,17 @@
   width: 80%;
 }
 @media (max-width: 790px) {
+  .core_service_box {
+    display: none;
+  }
+  .img_box {
+    display: none;
+  }
+
+  .review_box {
+    gap: 50px;
+  }
+
   .main_paragraph > h1 {
     font-size: 25px;
     margin-bottom: 6px;
