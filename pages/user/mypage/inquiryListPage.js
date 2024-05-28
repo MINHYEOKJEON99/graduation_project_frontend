@@ -3,7 +3,7 @@ import style from './InquiryList.module.css';
 import { useEffect, useState } from 'react';
 import { fetchMyPageInquiry } from '@/pages/api/api';
 
-export default function InquiryList() {
+export default function InquiryListPage() {
   const [token, setToken] = useState();
   const [list, setList] = useState();
 

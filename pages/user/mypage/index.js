@@ -52,7 +52,7 @@ export default function Mypage() {
   };
 
   const onClickInquiryList = () => {
-    router.push('/user/mypage/inquiryList');
+    router.push('/user/mypage/inquiryListPage');
   };
 
   const onOpenModal = () => {

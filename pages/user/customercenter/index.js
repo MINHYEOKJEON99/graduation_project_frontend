@@ -1,4 +1,3 @@
-import CustomerCenterTable from '@/src/components/post/CustomerCenterTable';
 import style from './customercenter.module.css';
 import { useEffect, useState } from 'react';
 import { fetchInformation, fetchInquire } from '@/pages/api/api';
@@ -6,7 +5,9 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import Faq from '@/src/components/post/Faq';
 import Announcement from '@/src/components/post/Announcement';
-
+import InquiryList from '@/src/components/post/InquiryList';
+import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
+import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 const FAQ_DATA = [
   {
     id: '1',
@@ -21,6 +22,8 @@ const FAQ_DATA = [
       '실제 과실비율과 정확성 일치는 80-90% 정도로 측정이 되고 있습니다. 하지만 법적효력이 있는건 아니니 참고용으로 사용하시면 좋을거같습니다.',
   },
 ];
+
+const actions = [{ icon: <DrawTwoToneIcon />, name: '문의하기' }];
 
 export default function CustomerCenter() {
   const router = useRouter();
@@ -90,10 +93,10 @@ export default function CustomerCenter() {
 
   let title = '고객센터';
 
-  let content = <CustomerCenterTable inquriyList={list} />;
+  let content = <InquiryList InquiryList={list} />;
 
   if (isValue.inquiry) {
-    content = <CustomerCenterTable inquriyList={list} />;
+    content = <InquiryList InquiryList={list} />;
 
     title = '문의글';
   } else if (isValue.faq) {
@@ -117,13 +120,26 @@ export default function CustomerCenter() {
   return (
     <>
       <div className={style.wrapper}>
+        <SpeedDial
+          ariaLabel="SpeedDial basic example"
+          sx={{ position: 'fixed', bottom: 30, right: 30 }}
+          icon={<SpeedDialIcon />}
+        >
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+              onClick={onClickInquiry}
+            />
+          ))}
+        </SpeedDial>
         <div className={style.title_box}>
           <h2>{title}</h2>
           <div className={style.category_box}>
             <li onClick={onClickInquiryList}>문의글</li>
             <li onClick={onClickFaq}>FAQ</li>
             <li onClick={onClickAnnounce}>공지사항</li>
-            <li onClick={onClickInquiry}>문의하기</li>
           </div>
         </div>
       </div>
