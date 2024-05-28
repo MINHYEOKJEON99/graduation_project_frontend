@@ -2,10 +2,12 @@ import Epilogue from '@/src/components/epilogue/Epilogue';
 
 import style from './epilogue.module.css';
 import { useRouter } from 'next/router';
-import { Button } from '@mui/material';
+import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
+import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import { useEffect, useState } from 'react';
-
 import { fetchReview } from '@/pages/api/api';
+
+const actions = [{ icon: <DrawTwoToneIcon />, name: '후기 작성' }];
 
 export default function EpiloguePage() {
   const [token, setToken] = useState();
@@ -42,9 +44,20 @@ export default function EpiloguePage() {
           </a> */}
         </div>
         <div className={style.new_post}>
-          <Button style={{ color: 'black' }} onClick={onClickNewEpilogue}>
-            글쓰기
-          </Button>
+          <SpeedDial
+            ariaLabel="SpeedDial basic example"
+            sx={{ position: 'fixed', bottom: 30, right: 30 }}
+            icon={<SpeedDialIcon />}
+          >
+            {actions.map((action) => (
+              <SpeedDialAction
+                key={action.name}
+                icon={action.icon}
+                tooltipTitle={action.name}
+                onClick={onClickNewEpilogue}
+              />
+            ))}
+          </SpeedDial>
         </div>
         <div className={style.review_box}>
           {review &&

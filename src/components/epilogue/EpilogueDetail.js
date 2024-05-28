@@ -43,7 +43,9 @@ export default function EpilogueDetail({ id, historyId, onClick }) {
         <div className={style.box}>
           <h2 onClick={onClick}>후기 게시판</h2>
         </div>
-        <Button onClick={onToggle}>사고영상 & 과실비율 보기</Button>
+        <Button sx={{ fontWeight: 'bold' }} onClick={onToggle}>
+          사고영상 & 과실비율 보기
+        </Button>
         {showModal && (
           <Video
             onToggle={onToggle}

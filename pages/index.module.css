@@ -86,7 +86,7 @@
 
 .review_box {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: auto;
   margin-bottom: 40px;
   flex-wrap: wrap;

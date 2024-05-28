@@ -6,6 +6,8 @@
 .container {
   width: 210px;
   margin-top: 20px;
+  margin: 0px 30px;
+
   height: 300px;
   background-color: #ffffff;
   box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
