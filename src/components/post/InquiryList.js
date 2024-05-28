@@ -1,7 +1,7 @@
 import style from './InquiryList.module.css';
 import { useRouter } from 'next/router';
 
-export default function inquriyList({ InquiryList }) {
+export default function InquriyList({ InquiryList }) {
   const router = useRouter();
 
   const onClickDetail = (id) => {
