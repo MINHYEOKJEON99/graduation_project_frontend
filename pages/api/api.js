@@ -44,6 +44,20 @@ export async function fetchSignUp(newUser) {
   }
 }
 
+//이메일 중복체크
+export async function fetchEmailCheck(email) {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/user/checkId?email=${email}`
+    );
+    console.log(response);
+    alert('사용할 수 있는 이메일입니다.');
+    return 200;
+  } catch (e) {
+    alert('사용할 수 없는 이메일입니다.');
+  }
+}
+
 //커뮤니티 새글 작성
 export async function fetchNewPost(newPost, token) {
   try {

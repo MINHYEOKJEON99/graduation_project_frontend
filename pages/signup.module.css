@@ -38,10 +38,31 @@
   background: none;
 }
 
+.box2 {
+  display: flex;
+  align-items: center;
+  height: 100px;
+}
+
+.box2 > div {
+  width: 70%;
+}
+
+.box3 {
+  display: flex;
+  align-items: center;
+  height: 100px;
+}
+
+.box3 > div {
+  width: 70%;
+}
+
 .submitBtn {
   background-color: #d5e1f2;
   padding: 10px 20px;
   margin-top: 20px;
+
   margin: 0px 20px;
   border: none;
   border-radius: 7px;

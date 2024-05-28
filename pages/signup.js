@@ -3,18 +3,19 @@ import Input from '@/src/components/UI/Input';
 import style from './signup.module.css';
 import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
-import { fetchSignUp } from './api/api';
+import { fetchEmailCheck, fetchSignUp } from './api/api';
 import { Button } from '@mui/material';
 
 export default function SignUp() {
   const router = useRouter();
 
+  const [emailCheck, setEmailCheck] = useState(false);
   const [userInfo, setUserInfo] = useState({
     email: '',
     username: '',
     password: '',
     passwordCheck: '',
-    Myname: '',
+    myName: '',
     nickname: '',
     birth: '',
     driveExp: 0,
@@ -38,24 +39,53 @@ export default function SignUp() {
     });
   };
 
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
+  const onEmailCheck = async () => {
+    const response = await fetchEmailCheck(userInfo.email);
 
-      fetchSignUp(userInfo);
-      alert('회원가입이 완료되었습니다.');
-      router.push('/login');
-      // if (pwd !== confirmPwd) {
-      //   setIsValid(false);
-      //   alert('비밀번호를 확인해주세요');
-      //   return;
-      // }
-      // dispatch(userInfoActions.addUserInfo(userInfo));
-      // alert('회원가입이 되었습니다.');
-      // router.push('/login');
-    },
-    [userInfo]
-  );
+    if (email.trim().length === 0) {
+      alert('이메일을 입력해주세요');
+      return;
+    }
+
+    if (!email.includes('@')) {
+      alert('이메일 형식을 제대로 입력해주세요');
+      return;
+    }
+
+    setEmailCheck(true);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (
+      myName.trim().length === 0 ||
+      nickname.trim().length === 0 ||
+      username.trim().length === 0 ||
+      email.trim().length === 0 ||
+      password.trim().length === 0 ||
+      birth.trim().length === 0
+    ) {
+      alert('모든 정보를 입력해주세요');
+      return;
+    }
+
+    if (emailCheck === false) {
+      alert('이메일 중복체크를 해주세요');
+      return;
+    }
+
+    if (password !== passwordCheck) {
+      alert('비밀번호를 확인해주세요');
+      return;
+    }
+
+    fetchSignUp(userInfo);
+    alert('회원가입이 완료되었습니다.');
+    router.push('/login');
+    // dispatch(userInfoActions.addUserInfo(userInfo));
+    // alert('회원가입이 되었습니다.');
+    // router.push('/login');
+  };
 
   return (
     <div className={style.container}>
@@ -89,7 +119,9 @@ export default function SignUp() {
           placeholder={'이메일'}
           value={email}
         />
-        <Button className={style.email_check}>중복 체크</Button>
+        <Button onClick={onEmailCheck} className={style.email_check}>
+          중복 체크
+        </Button>
         <Input
           onChange={onValueChange}
           name={'password'}
@@ -104,20 +136,26 @@ export default function SignUp() {
           placeholder={'비밀번호 확인'}
           value={passwordCheck}
         />
-        <Input
-          onChange={onValueChange}
-          name={'birth'}
-          type={'date'}
-          placeholder={'생년월일'}
-          value={birth}
-        />
-        <Input
-          onChange={onValueChange}
-          name={'driveExp'}
-          type={'number'}
-          placeholder={'운전 면허경력 숫자만 입력'}
-          value={driveExp}
-        />
+        <div className={style.box2}>
+          <span>생년월일</span>
+          <Input
+            onChange={onValueChange}
+            name={'birth'}
+            type={'date'}
+            placeholder={'생년월일'}
+            value={birth}
+          />
+        </div>
+        <div className={style.box3}>
+          <span>운전경력</span>
+          <Input
+            onChange={onValueChange}
+            name={'driveExp'}
+            type={'number'}
+            placeholder={'운전 면허경력 숫자만 입력'}
+            value={driveExp}
+          />
+        </div>
         <input className={style.submitBtn} type="submit" value="회원가입" />
       </form>
     </div>
