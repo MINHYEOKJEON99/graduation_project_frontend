@@ -10,9 +10,24 @@ import aiImg from '../src/assets/ai.png';
 
 import { BsFileText } from 'react-icons/bs';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { fetchReview } from './api/api';
 
 export default function MainPage() {
   const router = useRouter();
+
+  const [review, setReview] = useState();
+
+  useEffect(() => {
+    const setInitData = async () => {
+      const response = await fetchReview();
+      if (response) {
+        setReview(response.data.content.slice(0, 3));
+      }
+    };
+
+    setInitData();
+  }, []);
 
   const navService = () => {
     router.push('/user/predictservice');
@@ -68,7 +83,19 @@ export default function MainPage() {
           <BsFileText size={30} />
           <span style={{ fontWeight: 'bold' }}>후기</span>
         </div>
-        <Epilogue />
+        <div className={style.review_box}>
+          {review &&
+            review.map((review) => (
+              <Epilogue
+                key={review.reviewId}
+                id={review.reviewId}
+                historyId={review.historyId}
+                title={review.title}
+                content={review.content}
+                viewCount={review.viewCount}
+              />
+            ))}
+        </div>
       </div>
     </>
   );

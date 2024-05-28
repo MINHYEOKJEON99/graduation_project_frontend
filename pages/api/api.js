@@ -25,6 +25,7 @@ export async function fetchMyPageUserInfo(token) {
         },
       }
     );
+    console.log(response);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -546,6 +547,48 @@ export async function fetchVideoUpload(formData, token) {
   }
 }
 
+//스프링으로 영상,과실비율 전송
+export async function fetchVideoUploadBack(formData, ratio, token) {
+  try {
+    formData.append('ratio', JSON.stringify({ ratio: ratio }));
+
+    const response = await axios.post(
+      `http://ceprj.gachon.ac.kr:60011/history/upload`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error('업로드 에러:', error);
+  }
+}
+
+//스프링으로 영상 받아오기
+export async function fetchVideoBack(id, token) {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/history/download?historyId=${id}`,
+
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        responseType: 'blob',
+      }
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error('업로드 에러:', error);
+  }
+}
+
 //공지사항
 export async function fetchInformation(token) {
   try {
@@ -588,6 +631,87 @@ export async function fetchInformationDelete(id, token) {
   try {
     const response = await axios.delete(
       `http://ceprj.gachon.ac.kr:60011/admin/notice/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//ai기록조회
+export async function fetchAiRecord(token) {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/mypage/history/list`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+//후기조회
+
+export async function fetchReview() {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/review/list`
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error('업로드 에러:', error);
+  }
+}
+
+//후기작성
+
+export async function fetchWriteReview(data, token) {
+  try {
+    const response = await axios.post(
+      `http://ceprj.gachon.ac.kr:60011/review/write`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error('업로드 에러:', error);
+  }
+}
+
+//후기 상세
+
+export async function fetchReviewDetail(reviewId) {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/review/${reviewId}`
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error('업로드 에러:', error);
+  }
+}
+
+//후기 삭제(관리자)
+export async function fetchReviewDelete(id, token) {
+  try {
+    const response = await axios.delete(
+      `http://ceprj.gachon.ac.kr:60011/admin/review/delete/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -4,6 +4,7 @@ import style from './adminpage.module.css';
 import Card from '@/src/components/UI/Card';
 import AdminCommunityInfo from '@/src/components/adminComponents/AdminCommunity/AdminCommunityInfo';
 import AdminInquiryInfo from '@/src/components/adminComponents/adminInquiry/AdminInquiryInfo';
+import AdminReview from '@/src/components/adminComponents/adminReview/AdminReview';
 
 export default function AdminPage() {
   return (
@@ -31,7 +32,7 @@ export default function AdminPage() {
       <div className={style.second_container}>
         <Card styled={style.epilogue_manage}>
           <div className={style.dash_header}>후기 게시판 관리</div>
-          <div className={style.dash_content}>후기</div>
+          <AdminReview />
         </Card>
         <Card styled={style.qna_manage}>
           <div className={style.dash_header}>사용자 문의 관리</div>

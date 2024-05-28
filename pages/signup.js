@@ -4,6 +4,7 @@ import style from './signup.module.css';
 import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import { fetchSignUp } from './api/api';
+import { Button } from '@mui/material';
 
 export default function SignUp() {
   const router = useRouter();
@@ -88,6 +89,7 @@ export default function SignUp() {
           placeholder={'이메일'}
           value={email}
         />
+        <Button className={style.email_check}>중복 체크</Button>
         <Input
           onChange={onValueChange}
           name={'password'}

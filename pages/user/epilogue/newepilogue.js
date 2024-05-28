@@ -2,14 +2,51 @@ import { useState } from 'react';
 import style from './newepilogue.module.css';
 import Modal from '@/src/components/UI/Modal';
 import Button from '@/src/components/UI/Button';
+import AiRecord from '@/src/components/post/AiRecord';
+import { fetchWriteReview } from '@/pages/api/api';
+import { useRouter } from 'next/router';
 
 export default function NewEpilogue() {
   const [text, setText] = useState('');
+  const [title, setTitle] = useState('');
+  const [historyId, setHistoryId] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [showRecord, setShowRecord] = useState(false);
+  const [record, setRecord] = useState('');
+
+  const router = useRouter();
 
   const onChangeText = (e) => {
     setText(e.target.value);
     console.log(text);
+  };
+  const onChangeTitle = (e) => {
+    setTitle(e.target.value);
+    console.log(title);
+  };
+
+  const onSubmit = async () => {
+    const token = localStorage.getItem('loginToken');
+    const response = await fetchWriteReview(
+      {
+        title: title,
+        content: text,
+        historyId: historyId,
+      },
+      token
+    );
+
+    if (response) {
+      alert('후기가 작성되었습니다.');
+      router.push('/user/epilogue');
+    }
+  };
+
+  const onClickRecord = (id, rec) => {
+    setShowModal(false);
+    setShowRecord(true);
+    setHistoryId(id);
+    setRecord(rec);
   };
 
   const onToggleModal = () => {
@@ -17,12 +54,7 @@ export default function NewEpilogue() {
   };
 
   let content = showModal && (
-    <Modal onHide={onToggleModal}>
-      <h3>과거 기록조회</h3>
-      <ul>
-        <li>0000-00-00</li>
-      </ul>
-    </Modal>
+    <AiRecord onClick={onClickRecord} onToggle={onToggleModal} />
   );
   return (
     <div className={style.wrapper}>
@@ -30,12 +62,20 @@ export default function NewEpilogue() {
         <div className={style.box}>
           <h2>후기 작성</h2>
         </div>
-        <Button onClickButton={onToggleModal}>기록 조회</Button>
+        {!showRecord ? (
+          <Button onClickButton={onToggleModal}>기록 조회</Button>
+        ) : (
+          <div className={style.record_box}>선택한 과실비율 : {record}</div>
+        )}
         {content}
         <div className={style.content_box}>
           <div className={style.title}>
             <span>제목: </span>
-            <textarea className={style.title_post} />
+            <textarea
+              onChange={onChangeTitle}
+              className={style.title_post}
+              value={title}
+            />
           </div>
           <textarea
             placeholder="후기내용"
@@ -46,7 +86,9 @@ export default function NewEpilogue() {
         </div>
       </div>
       <div className={style.new_post}>
-        <button className={style.button}>글쓰기</button>
+        <button onClick={onSubmit} className={style.button}>
+          글쓰기
+        </button>
       </div>
     </div>
   );

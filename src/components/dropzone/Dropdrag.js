@@ -29,13 +29,11 @@ export default function Dropdrag({ onClick, onUploading }) {
     const response = await fetchVideoUpload(formData, token);
 
     if (response) {
-      const id = response.data[0].videoId;
+      // const video = await fetchVideo(id, token);
 
-      const video = await fetchVideo(id, token);
-
-      if (video) {
-        onUploading(video);
-      }
+      // if (video) {
+      onUploading(response.data[0], formData);
+      // }
     }
   };
 

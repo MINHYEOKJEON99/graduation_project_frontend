@@ -53,3 +53,7 @@
 .submitBtn:hover {
   background-color: #9cafca;
 }
+
+.email_check {
+  width: 80%;
+}

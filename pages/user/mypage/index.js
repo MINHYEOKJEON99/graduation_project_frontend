@@ -4,13 +4,17 @@ import Image from 'next/image';
 import Button from '@/src/components/UI/Button';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Modal from '@/src/components/UI/Modal';
 import { useSelector } from 'react-redux';
-import { fetchMyPageUserInfo } from '@/pages/api/api';
+import { fetchMyPageUserInfo, fetchVideoBack } from '@/pages/api/api';
+import AiRecord from '@/src/components/post/AiRecord';
+import Video from '@/src/components/post/Video';
 
 export default function Mypage() {
   const [showModal, setShowModal] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
   const [currentUserInfo, setCurrentUserInfo] = useState({});
+  const [video, setVideo] = useState(null);
+
   const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
   const router = useRouter();
 
@@ -33,6 +37,7 @@ export default function Mypage() {
   };
 
   const onClickUserInfo = () => {
+    console.log(currentUserInfo);
     router.push({
       pathname: '/user/mypage/userinfo',
       query: {
@@ -50,19 +55,36 @@ export default function Mypage() {
     router.push('/user/mypage/inquiryList');
   };
 
-  const onToggleModal = () => {
-    setShowModal((prev) => !prev);
+  const onOpenModal = () => {
+    setShowModal(true);
+    setShowVideo(false);
   };
 
-  let content = showModal && (
-    <Modal onHide={onToggleModal}>
-      <h3>과거 기록조회</h3>
-      <ul>
-        <li>0000-00-00</li>
-      </ul>
-    </Modal>
-  );
+  const onToggleModal = () => {
+    setShowModal(false);
+    setShowVideo(false);
+  };
 
+  const onClickRecord = async (id) => {
+    const token = localStorage.getItem('loginToken');
+
+    const response = await fetchVideoBack(id, token);
+    if (response) {
+      console.log(response);
+      setVideo(URL.createObjectURL(response));
+    }
+
+    setShowModal(false);
+    setShowVideo(true);
+  };
+
+  let content = <div />;
+
+  if (showModal) {
+    content = <AiRecord onToggle={onToggleModal} onClick={onClickRecord} />;
+  } else if (showVideo) {
+    content = <Video onToggle={onToggleModal} video={video} />;
+  }
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
@@ -93,7 +115,7 @@ export default function Mypage() {
               height: '70px',
               backgroundColor: '#EFF1F3',
             }}
-            onClickButton={onToggleModal}
+            onClickButton={onOpenModal}
           >
             과거 기록조회
           </Button>

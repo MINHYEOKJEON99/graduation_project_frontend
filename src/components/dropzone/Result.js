@@ -1,11 +1,9 @@
 import style from './Result.module.css';
 import React, { useEffect, useState } from 'react';
-import test3 from '../../assets/123.mp4';
 import Button from '../UI/Button';
 import { useRouter } from 'next/router';
-import ReactPlayer from 'react-player';
 
-export default function Result({ nickname, video }) {
+export default function Result({ nickname, ratio }) {
   const router = useRouter();
   const [isWindow, setIsWindow] = useState(false);
 
@@ -25,12 +23,12 @@ export default function Result({ nickname, video }) {
       <div className={style.outbox_second}>
         <div className={style.title}>
           <p>{nickname || '방문자'} 님의 사고현장 분석영상입니다.</p>
-          {/* <p>과실 비율은?</p> */}
+          <p>과실 비율은?</p>
         </div>
-        <div className={style.video_box}>
+        {/* <div className={style.video_box}>
           {isWindow && (
             <ReactPlayer
-              url={test3}
+              url={video}
               width="100%"
               height={'100%'}
               controls={true}
@@ -38,14 +36,14 @@ export default function Result({ nickname, video }) {
               muted={true}
             />
           )}
-        </div>
-        {/* <div className={style.result}>
-          <h1>
-            <span style={{ color: 'black', fontSize: '50px' }}>80</span>{' '}
-            <span style={{ color: 'black', fontSize: '50px' }}>:</span>
-            <span style={{ color: 'black', fontSize: '50px' }}>20</span>
-          </h1>
         </div> */}
+        <div className={style.result}>
+          <h1>
+            <span style={{ color: 'black', fontSize: '50px' }}>{ratio}</span>
+            {/* <span style={{ color: 'black', fontSize: '50px' }}>:</span>
+            <span style={{ color: 'black', fontSize: '50px' }}>20</span> */}
+          </h1>
+        </div>
         <Button
           onClickButton={onClickEpilogue}
           styles={{ width: '50%', marginTop: '0px' }}

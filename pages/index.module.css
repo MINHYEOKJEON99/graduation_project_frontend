@@ -83,6 +83,15 @@
 .img_box > div > p {
   font-size: 12px;
 }
+
+.review_box {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  width: 80%;
+}
 @media (max-width: 790px) {
   .main_paragraph > h1 {
     font-size: 25px;
