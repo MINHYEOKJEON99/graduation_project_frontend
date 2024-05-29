@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '../UI/Button';
 import { useRouter } from 'next/router';
 
-export default function Result({ nickname, ratio }) {
+export default function Result({ ratio }) {
   const router = useRouter();
   const [isWindow, setIsWindow] = useState(false);
 
@@ -22,8 +22,8 @@ export default function Result({ nickname, ratio }) {
     <div className={style.container}>
       <div className={style.outbox_second}>
         <div className={style.title}>
-          <p>{nickname || '방문자'} 님의 사고현장 분석영상입니다.</p>
-          <p>과실 비율은?</p>
+          <p>사고현장 분석영상입니다.</p>
+          <p>과실 비율은 ?</p>
         </div>
         {/* <div className={style.video_box}>
           {isWindow && (

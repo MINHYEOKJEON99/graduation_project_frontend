@@ -60,7 +60,7 @@ export default function Predictservice() {
             {one ? <p>과실 비율 측정중...</p> : <p>동영상 분석중...</p>}
           </div>
         ) : (
-          <Result nickname={nickname} ratio={ratio} />
+          <Result ratio={ratio} />
         )
       ) : (
         // <Result nickname={currentUserInfo.nickcname} video={showVideo} />
