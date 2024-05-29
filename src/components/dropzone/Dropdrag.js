@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsClipboardPlus } from 'react-icons/bs';
 import { BsFileEarmarkPlay } from 'react-icons/bs';
-import { fetchVideo, fetchVideoUpload } from '@/pages/api/api';
+import { fetchVideoUpload } from '@/pages/api/api';
 
 export default function Dropdrag({ onClick, onUploading }) {
   const [fileName, setFileName] = useState('');
@@ -40,6 +40,7 @@ export default function Dropdrag({ onClick, onUploading }) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       'video/mp4': ['.mp4'],
+      'video/webm': ['.webm'],
     },
     onDrop: (acceptedFiles) => {
       setShowFile((prev) => !prev);
@@ -48,6 +49,7 @@ export default function Dropdrag({ onClick, onUploading }) {
 
       // 파일을 읽기 위해 URL.createObjectURL을 사용하여 임시 URL 생성
       const fileUrl = URL.createObjectURL(file);
+
       setShowVideo(fileUrl);
       setVideoFile(file);
       setFileName(file.name);

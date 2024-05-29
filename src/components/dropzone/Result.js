@@ -24,6 +24,7 @@ export default function Result({ ratio }) {
         <div className={style.title}>
           <p>사고현장 분석영상입니다.</p>
           <p>과실 비율은 ?</p>
+          <p>왼쪽이 사용자입니다.</p>
         </div>
         {/* <div className={style.video_box}>
           {isWindow && (
