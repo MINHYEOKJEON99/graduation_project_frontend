@@ -736,3 +736,18 @@ export async function fetchReviewDelete(id, token) {
     console.log(e);
   }
 }
+
+export async function fetchMypageReview(token) {
+  try {
+    const response = await axios.get(
+      `http://ceprj.gachon.ac.kr:60011/mypage/review/list`,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error('업로드 에러:', error);
+  }
+}

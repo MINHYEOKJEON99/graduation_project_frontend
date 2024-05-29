@@ -6,6 +6,7 @@ import {
   fetchMyPageCommentDelete,
   fetchMyPageCommunity,
   fetchMyPageCommunityDelete,
+  fetchMypageReview,
 } from '@/pages/api/api';
 import { useRouter } from 'next/router';
 
@@ -52,6 +53,18 @@ export default function Activity() {
         community: false,
         comment: true,
         review: false,
+      });
+    }
+  };
+
+  const onClickReview = async () => {
+    const response = await fetchMypageReview(token);
+    if (response) {
+      setActivity(response.data.content);
+      setIsValid({
+        community: false,
+        comment: false,
+        review: true,
       });
     }
   };
@@ -103,6 +116,18 @@ export default function Activity() {
           onDelete={onClickCommunityDelete}
         />
       ));
+  } else if (isValid.review) {
+    content =
+      activity &&
+      activity.map((review) => (
+        <ActivityList
+          key={review.reviewId}
+          id={review.reviewId}
+          title={review.title}
+          content={review.content}
+          createdDate={review.createdDate}
+        />
+      ));
   } else if (isValid.comment) {
     content =
       activity &&
@@ -127,7 +152,9 @@ export default function Activity() {
           <div onClick={onClickCommunity} className={style.first_menu}>
             작성 글
           </div>
-          <div className={style.middle_menu}>작성 후기</div>
+          <div onClick={onClickReview} className={style.middle_menu}>
+            작성 후기
+          </div>
           <div onClick={onClickComment} className={style.last_menu}>
             작성 댓글
           </div>
