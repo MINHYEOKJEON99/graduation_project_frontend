@@ -15,6 +15,7 @@ import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchCommunity } from '@/pages/api/api';
+import Paginaition from '@/src/components/UI/Pagination';
 
 const actions = [{ icon: <DrawTwoToneIcon />, name: '글쓰기' }];
 
@@ -24,17 +25,33 @@ export default function Community() {
 
   const [contents, setContents] = useState([]);
   const [value, setValue] = useState('title');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPosts, setCurrentPosts] = useState([]);
+
+  //페이지 넘버를 계산하기 위한 상수 설정 props로 pagination컴포넌트로 넘겨준다.
+  const postsPerPage = 5;
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  // const currentPosts = postList.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   //커뮤니티 리스트 업데이트
   useEffect(() => {
     const setInitData = async () => {
       const { data } = await fetchCommunity();
       setContents(data.content);
-      console.log(contents);
     };
 
     setInitData();
   }, []);
+
+  useEffect(() => {
+    if (contents) {
+      setCurrentPosts(contents.slice(indexOfFirstPost, indexOfLastPost));
+    }
+  }, [currentPage, contents]);
 
   const onClickNewPost = () => {
     if (!isLogin) {
@@ -73,8 +90,8 @@ export default function Community() {
           </FormControl>
           <Searchbar />
         </div>
-        {contents &&
-          contents.map((post) => (
+        {currentPosts &&
+          currentPosts.map((post) => (
             <CommunityPost
               key={post.boardId}
               id={post.boardId}
@@ -104,7 +121,11 @@ export default function Community() {
           ))}
         </SpeedDial>
         <div className={style.paging}>
-          <p>1</p>
+          <Paginaition
+            postsPerPage={postsPerPage}
+            totalPosts={contents.length}
+            paginate={paginate}
+          />
         </div>
       </div>
     </div>

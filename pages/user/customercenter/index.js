@@ -8,6 +8,7 @@ import Announcement from '@/src/components/post/Announcement';
 import InquiryList from '@/src/components/post/InquiryList';
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
+import Paginaition from '@/src/components/UI/Pagination';
 const FAQ_DATA = [
   {
     id: '1',
@@ -34,8 +35,19 @@ export default function CustomerCenter() {
     faq: false,
     announcement: false,
   });
-  const [list, setList] = useState();
+  const [list, setList] = useState([]);
   const [announce, setAnnounce] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPosts, setCurrentPosts] = useState([]);
+
+  //페이지 넘버를 계산하기 위한 상수 설정 props로 pagination컴포넌트로 넘겨준다.
+  const postsPerPage = 5;
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  // const currentPosts = postList.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     async function setInit() {
@@ -57,6 +69,12 @@ export default function CustomerCenter() {
     setInit();
     console.log(list);
   }, []);
+
+  useEffect(() => {
+    if (list) {
+      setCurrentPosts(list.slice(indexOfFirstPost, indexOfLastPost));
+    }
+  }, [currentPage, list]);
 
   const onClickInquiry = () => {
     if (!isLogin) {
@@ -93,10 +111,10 @@ export default function CustomerCenter() {
 
   let title = '고객센터';
 
-  let content = <InquiryList InquiryList={list} />;
+  let content = <InquiryList InquiryList={currentPosts} />;
 
   if (isValue.inquiry) {
-    content = <InquiryList InquiryList={list} />;
+    content = <InquiryList InquiryList={currentPosts} />;
 
     title = '문의글';
   } else if (isValue.faq) {
@@ -144,6 +162,13 @@ export default function CustomerCenter() {
         </div>
       </div>
       {content}
+      {isValue.inquiry && (
+        <Paginaition
+          postsPerPage={postsPerPage}
+          totalPosts={list.length}
+          paginate={paginate}
+        />
+      )}
     </>
   );
 }
