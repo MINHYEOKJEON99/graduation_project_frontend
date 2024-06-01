@@ -737,6 +737,8 @@ export async function fetchReviewDelete(id, token) {
   }
 }
 
+//마이페이지 후기
+
 export async function fetchMypageReview(token) {
   try {
     const response = await axios.get(
