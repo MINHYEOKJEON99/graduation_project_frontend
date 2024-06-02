@@ -86,10 +86,12 @@ export async function fetchCommunityFileUpload(file, token, boardId) {
       file,
       {
         headers: {
+          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       }
     );
+    console.log(response);
   } catch (e) {
     console.log(e);
     return false;
@@ -718,6 +720,41 @@ export async function fetchReviewDetail(reviewId) {
     return response;
   } catch (error) {
     console.error('업로드 에러:', error);
+  }
+}
+
+//후기 수정
+export async function fetchReviewUpdate(reviewId, data, token) {
+  try {
+    const response = await axios.patch(
+      `http://ceprj.gachon.ac.kr:60011/review/${reviewId}/update`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error('업로드 에러:', error);
+  }
+}
+
+//후기 삭제(사용자)
+export async function fetchReviewUserDelete(reviewId, token) {
+  try {
+    const response = await axios.delete(
+      `http://ceprj.gachon.ac.kr:60011/review/${reviewId}/delete`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
   }
 }
 

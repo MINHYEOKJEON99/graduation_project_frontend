@@ -40,9 +40,7 @@ export default function AiRecord({ onToggle, onClick }) {
                 )}
               >
                 <div>과실비율 : {record.negligence.slice(10, 15)}</div>
-                <div className={style.date}>
-                  {record.createdDate.slice(0, 10)}
-                </div>
+                <div className={style.date}>{record.createdDate}</div>
               </div>
             </li>
           ))}

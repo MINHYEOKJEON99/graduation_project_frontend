@@ -1,19 +1,20 @@
 import { useState } from 'react';
-import style from './newepilogue.module.css';
+import style from './[id].module.css';
 import Button from '@/src/components/UI/Button';
 import AiRecord from '@/src/components/post/AiRecord';
-import { fetchWriteReview } from '@/pages/api/api';
+import { fetchReviewUpdate } from '@/pages/api/api';
 import { useRouter } from 'next/router';
 
-export default function NewEpilogue() {
+export default function EpilogueUpdate() {
   const [text, setText] = useState('');
   const [title, setTitle] = useState('');
-  const [historyId, setHistoryId] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [showRecord, setShowRecord] = useState(false);
   const [record, setRecord] = useState('');
 
   const router = useRouter();
+
+  const { id } = router.query;
 
   const onChangeText = (e) => {
     setText(e.target.value);
@@ -24,11 +25,11 @@ export default function NewEpilogue() {
 
   const onSubmit = async () => {
     const token = localStorage.getItem('loginToken');
-    const response = await fetchWriteReview(
+    const response = await fetchReviewUpdate(
+      id,
       {
         title: title,
         content: text,
-        historyId: historyId,
       },
       token
     );
@@ -39,10 +40,10 @@ export default function NewEpilogue() {
     }
   };
 
-  const onClickRecord = (id, rec) => {
+  const onClickRecord = (rec) => {
     setShowModal(false);
     setShowRecord(true);
-    setHistoryId(id);
+
     setRecord(rec);
   };
 
@@ -57,7 +58,7 @@ export default function NewEpilogue() {
     <div className={style.wrapper}>
       <div className={style.container}>
         <div className={style.box}>
-          <h2>후기 작성</h2>
+          <h2>후기 수정</h2>
         </div>
         {!showRecord ? (
           <Button onClickButton={onToggleModal}>기록 조회</Button>

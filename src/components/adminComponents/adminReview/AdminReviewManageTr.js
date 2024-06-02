@@ -8,6 +8,7 @@ export default function AdminReviewManageTr({
   title,
   content,
   writerName,
+  writerEmail,
   createdDate,
   modifiedDate,
 }) {
@@ -28,7 +29,7 @@ export default function AdminReviewManageTr({
   const onClickReview = () => {
     router.push({
       pathname: `/admin/epiloguemanage/epilogueDetail/${reviewId}`,
-      query: { historyId },
+      query: { historyId, writerEmail },
     });
   };
 

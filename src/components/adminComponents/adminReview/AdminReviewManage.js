@@ -41,6 +41,7 @@ export default function AdminReviewManage() {
                 title={post.title}
                 content={post.content.slice(0, 20)}
                 writerName={post.writerName}
+                writerEmail={post.writerEmail}
                 createdDate={post.createdDate.slice(0, 10)}
                 modifiedDate={post.modifiedDate.slice(0, 10)}
               />

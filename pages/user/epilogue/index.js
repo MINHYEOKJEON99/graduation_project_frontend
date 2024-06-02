@@ -6,14 +6,27 @@ import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import { useEffect, useState } from 'react';
 import { fetchReview } from '@/pages/api/api';
+import Paginaition from '@/src/components/UI/Pagination';
 
 const actions = [{ icon: <DrawTwoToneIcon />, name: '후기 작성' }];
 
 export default function EpiloguePage() {
   const [token, setToken] = useState();
 
-  const [review, setReview] = useState();
+  const [review, setReview] = useState([]);
   const router = useRouter();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPosts, setCurrentPosts] = useState([]);
+
+  //페이지 넘버를 계산하기 위한 상수 설정 props로 pagination컴포넌트로 넘겨준다.
+  const postsPerPage = 6;
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  // const currentPosts = postList.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const setInitData = async () => {
@@ -26,6 +39,12 @@ export default function EpiloguePage() {
 
     setInitData();
   }, []);
+
+  useEffect(() => {
+    if (review) {
+      setCurrentPosts(review.slice(indexOfFirstPost, indexOfLastPost));
+    }
+  }, [currentPage, review]);
 
   const onClickNewEpilogue = () => {
     router.push('/user/epilogue/newepilogue');
@@ -60,17 +79,25 @@ export default function EpiloguePage() {
           </SpeedDial>
         </div>
         <div className={style.review_box}>
-          {review &&
-            review.map((review) => (
+          {currentPosts &&
+            currentPosts.map((review) => (
               <Epilogue
                 key={review.reviewId}
                 historyId={review.historyId}
                 id={review.reviewId}
                 title={review.title}
-                content={review.content}
+                content={review.content.slice(0, 40)}
+                writerEmail={review.writerEmail}
                 viewCount={review.viewCount}
               />
             ))}
+        </div>
+        <div className={style.paging}>
+          <Paginaition
+            postsPerPage={postsPerPage}
+            totalPosts={review.length}
+            paginate={paginate}
+          />
         </div>
       </div>
     </div>

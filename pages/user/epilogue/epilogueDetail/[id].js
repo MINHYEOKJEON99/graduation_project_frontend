@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 export default function EpilogueDetailPage() {
   const router = useRouter();
 
-  const { id, historyId } = router.query;
+  const { id, historyId, writerEmail } = router.query;
 
   const onClick = () => {
     router.push('/user/epilogue');
@@ -12,7 +12,12 @@ export default function EpilogueDetailPage() {
 
   return (
     <>
-      <EpilogueDetail id={id} historyId={historyId} onClick={onClick} />
+      <EpilogueDetail
+        id={id}
+        historyId={historyId}
+        writerEmail={writerEmail}
+        onClick={onClick}
+      />
     </>
   );
 }

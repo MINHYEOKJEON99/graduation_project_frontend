@@ -6,7 +6,14 @@ import ReactPlayer from 'react-player';
 import { useEffect, useState } from 'react';
 import { fetchVideoBack } from '@/pages/api/api';
 
-export default function Epilogue({ viewCount, content, historyId, id }) {
+export default function Epilogue({
+  viewCount,
+  content,
+  historyId,
+  id,
+  writerEmail,
+  admin,
+}) {
   const router = useRouter();
   const [isWindow, setIsWindow] = useState(false);
   const [token, setToken] = useState('');
@@ -35,8 +42,13 @@ export default function Epilogue({ viewCount, content, historyId, id }) {
       pathname: `/user/epilogue/epilogueDetail/${id}`,
       query: {
         historyId: historyId,
+        writerEmail: writerEmail,
       },
     });
+  };
+
+  const ouClickUpdate = () => {
+    router.push(pathname`/user/epilogue/epilogueUpdate/${id}`);
   };
 
   let content1 = (
@@ -53,7 +65,7 @@ export default function Epilogue({ viewCount, content, historyId, id }) {
         />
       )}
       <div className={style.content_box}>
-        <p>{content}</p>
+        <p>{content.length === 40 ? content + '...' : content}</p>
         <div
           style={{
             display: 'flex',

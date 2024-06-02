@@ -31,7 +31,7 @@ export default function AdminReview() {
       {review &&
         review.map((post) => (
           <div
-            key={post.boardId}
+            key={post.reviewId}
             className={style.container}
             onClick={() => onClickReview(post.reviewId, post.historyId)}
           >

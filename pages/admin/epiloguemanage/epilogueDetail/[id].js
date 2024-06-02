@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 export default function AdminEpilogueDetail() {
   const router = useRouter();
 
-  const { id, historyId } = router.query;
+  const { id, historyId, writerEmail } = router.query;
 
   const onClick = () => {
     router.push('/admin/epiloguemanage');
@@ -30,7 +30,13 @@ export default function AdminEpilogueDetail() {
 
   return (
     <>
-      <EpilogueDetail id={id} historyId={historyId} onClick={onClick} />
+      <EpilogueDetail
+        id={id}
+        historyId={historyId}
+        onClick={onClick}
+        writerEmail={writerEmail}
+        admin={true}
+      />
     </>
   );
 }
