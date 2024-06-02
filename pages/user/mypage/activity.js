@@ -3,9 +3,7 @@ import style from './activity.module.css';
 import { useEffect, useState } from 'react';
 import {
   fetchMyPageComment,
-  fetchMyPageCommentDelete,
   fetchMyPageCommunity,
-  fetchMyPageCommunityDelete,
   fetchMypageReview,
 } from '@/pages/api/api';
 import { useRouter } from 'next/router';
@@ -69,34 +67,18 @@ export default function Activity() {
     }
   };
 
+  const onClickReviewDetail = (id, historyId, writerEmail) => {
+    router.push({
+      pathname: `/user/epilogue/epilogueDetail/${id}`,
+      query: {
+        historyId: historyId,
+        writerEmail: writerEmail,
+      },
+    });
+  };
+
   const onClickCommunityDetail = (id) => {
     router.push(`/user/community/communityDetail/${id}`);
-  };
-
-  const onClickCommunityDelete = async (id, token) => {
-    try {
-      const confirm = window.confirm('게시물을 삭제하시겠습니까?');
-      if (confirm) {
-        await fetchMyPageCommunityDelete(id, token);
-        alert('게시물이 삭제되었습니다.');
-        location.reload();
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const onClickCommentDelete = async (id, token) => {
-    try {
-      const confirm = window.confirm('게시물을 삭제하시겠습니까?');
-      if (confirm) {
-        await fetchMyPageCommentDelete(id, token);
-        alert('게시물이 삭제되었습니다.');
-        location.reload();
-      }
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   //조건부 렌더링 선언
@@ -113,7 +95,6 @@ export default function Activity() {
           title={post.title}
           content={post.content}
           createdDate={post.createdDate}
-          onDelete={onClickCommunityDelete}
         />
       ));
   } else if (isValid.review) {
@@ -121,6 +102,12 @@ export default function Activity() {
       activity &&
       activity.map((review) => (
         <ActivityList
+          onClick={onClickReviewDetail.bind(
+            null,
+            review.reviewId,
+            review.historyId,
+            review.writerEmail
+          )}
           key={review.reviewId}
           id={review.reviewId}
           title={review.title}
@@ -137,7 +124,6 @@ export default function Activity() {
           id={comment.commentId}
           content={comment.content}
           createdDate={comment.createdDate}
-          onDelete={onClickCommentDelete}
         />
       ));
   }

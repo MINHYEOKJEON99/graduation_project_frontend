@@ -1,16 +1,7 @@
-import { fetchMyPageCommunityDelete } from '@/pages/api/api';
 import style from './ActivityList.module.css';
-import { IoTrash } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
 
-export default function ActivityList({
-  id,
-  title,
-  content,
-  createdDate,
-  onClick,
-  onDelete,
-}) {
+export default function ActivityList({ title, content, createdDate, onClick }) {
   const [token, setToken] = useState();
 
   useEffect(() => {
@@ -25,12 +16,6 @@ export default function ActivityList({
         <div className={style.content}>{content}</div>
         <div className={style.date}>{createdDate}</div>
       </div>
-      <IoTrash
-        onClick={onDelete.bind(null, id, token)}
-        color="#ccc"
-        size={'35px'}
-        className={style.delete}
-      />
     </div>
   );
 }

@@ -781,7 +781,7 @@ export async function fetchMypageReview(token) {
     const response = await axios.get(
       `http://ceprj.gachon.ac.kr:60011/mypage/review/list`,
       {
-        Authorization: `Bearer ${token}`,
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     console.log(response);
