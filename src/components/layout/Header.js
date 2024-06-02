@@ -115,6 +115,7 @@ export default function Header({ children }) {
         <li onClick={onClickEpilogue}>후기</li>
         <li onClick={onClickMyPage}>마이페이지</li>
         <li onClick={onClickCustomerCenter}>고객센터</li>
+        {userLogin && <li onClick={onClickLogout}>로그아웃</li>}
         <li onClick={onToggleMenu}>닫기</li>
       </ul>
     </Menu>

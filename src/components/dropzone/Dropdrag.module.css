@@ -117,3 +117,20 @@
     width: 100%;
   }
 }
+
+@media (min-width: 1500px) {
+  .outbox_second {
+    height: 700px;
+  }
+}
+
+@media (min-width: 2500px) {
+  .outbox_second {
+    height: 900px;
+  }
+}
+@media (min-width: 3300px) {
+  .outbox_second {
+    height: 1200px;
+  }
+}

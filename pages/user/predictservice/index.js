@@ -11,7 +11,6 @@ export default function Predictservice() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
-  const [nickname, setNickname] = useState({});
   const [showVideo, setShowVideo] = useState(null);
   const [ratio, setRatio] = useState(null);
   const [one, setOne] = useState(true);
@@ -21,10 +20,6 @@ export default function Predictservice() {
     const setInit = async () => {
       if (isLogin) {
         const response = await fetchMyPageUserInfo(token);
-
-        if (response) {
-          setNickname(response.data.nickname);
-        }
       }
     };
 
