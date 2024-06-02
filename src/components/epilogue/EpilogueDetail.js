@@ -66,13 +66,13 @@ export default function EpilogueDetail({
   };
 
   const onClickDelete = async () => {
-    confirm('후기를 삭제하시겠습니까?');
+    const res = confirm('후기를 삭제하시겠습니까?');
 
-    if (confirm && admin) {
+    if (res && admin) {
       await fetchReviewDelete(id, token);
       alert('삭제되었습니다');
       router.push('/admin/epiloguemanage');
-    } else if (confirm) {
+    } else if (res) {
       await fetchReviewUserDelete(id, token);
       alert('삭제되었습니다');
       router.push('/user/epilogue');
