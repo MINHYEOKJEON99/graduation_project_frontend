@@ -23,7 +23,7 @@
   flex-direction: column;
   gap: 20px;
   width: 60%;
-  height: 430px;
+  min-height: 430px;
   padding: 10px 20px;
   background-color: #e1ebfa;
   justify-content: flex-start;
@@ -115,22 +115,5 @@
 
   .video_box {
     width: 100%;
-  }
-}
-
-@media (min-width: 1500px) {
-  .outbox_second {
-    height: 700px;
-  }
-}
-
-@media (min-width: 2500px) {
-  .outbox_second {
-    height: 900px;
-  }
-}
-@media (min-width: 3300px) {
-  .outbox_second {
-    height: 1200px;
   }
 }
