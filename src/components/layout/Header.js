@@ -19,6 +19,7 @@ export default function Header({ children }) {
   const { q } = router.query;
   const [clickMenu, setClickMenu] = useState(false);
   const [isLogin, setIsLogin] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
   const [currentUserInfo, setCurrentUserInfo] = useState({});
 
   const { y } = useScroll();
@@ -41,6 +42,11 @@ export default function Header({ children }) {
 
   useEffect(() => {
     setIsLogin(localStorage.getItem('loginToken'));
+    if (localStorage.getItem('currentEmail') === 'admin@naver.com') {
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(false);
+    }
     if (isLogin) {
       dispatch(authActions.userLogin());
     } else {
@@ -94,6 +100,10 @@ export default function Header({ children }) {
     setClickMenu(false);
   };
 
+  const onClickAdmin = () => {
+    router.push('/admin');
+  };
+
   const onToggleMenu = () => {
     setClickMenu((prev) => !prev);
   };
@@ -141,6 +151,11 @@ export default function Header({ children }) {
             <li onClick={onClickCustomerCenter}>고객센터</li>
           </ul>
         </nav>
+        {isAdmin && (
+          <p className={style.login} onClick={onClickAdmin}>
+            관리자 페이지
+          </p>
+        )}
         {router.pathname !== '/user/community' && <Searchbar q={q} />}
         {userLogin ? (
           <p onClick={onClickLogout} className={style.login}>
