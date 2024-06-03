@@ -2,20 +2,26 @@ import { useEffect, useState } from 'react';
 import style from './AdminReviewManage.module.css';
 import { fetchReview } from '@/pages/api/api';
 import AdminReivewManageTr from './AdminReviewManageTr';
+import Paginaition from '../../UI/Pagination';
 
 export default function AdminReviewManage() {
   const [review, setReview] = useState();
+  const [totalPage, setTotalPage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const setInitData = async () => {
-      const response = await fetchReview();
+      const response = await fetchReview(currentPage - 1);
       if (response) {
         setReview(response.data.content);
+        setTotalPage(response.data.totalPages);
       }
     };
 
     setInitData();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className={style.tableContainer}>
@@ -48,6 +54,7 @@ export default function AdminReviewManage() {
             ))}
         </tbody>
       </table>
+      <Paginaition totalPage={totalPage} paginate={paginate} />
     </div>
   );
 }

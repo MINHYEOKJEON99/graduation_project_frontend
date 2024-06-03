@@ -2,21 +2,27 @@ import { useEffect, useState } from 'react';
 import style from './AdminUserManage.module.css';
 import { fetchAdminUserInfo } from '@/pages/api/api';
 import AdminUserManageTr from './AdminUserManageTr';
+import Paginaition from '../../UI/Pagination';
 
 export default function AdminUserManage() {
   const [userInfo, setUserInfo] = useState();
+  const [totalPage, setTotalPage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     async function setInit() {
-      const response = await fetchAdminUserInfo();
+      const response = await fetchAdminUserInfo(currentPage - 1);
 
       if (response) {
         setUserInfo(response.data.content);
+        setTotalPage(response.data.totalPages);
         console.log(userInfo);
       }
     }
     setInit();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className={style.tableContainer}>
@@ -46,6 +52,7 @@ export default function AdminUserManage() {
             ))}
         </tbody>
       </table>
+      <Paginaition totalPage={totalPage} paginate={paginate} />
     </div>
   );
 }

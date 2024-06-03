@@ -119,12 +119,13 @@ export async function fetchUpdatePost(id, updatePost, token) {
 }
 
 //커뮤니티 리스트 불러오기
-export async function fetchCommunity() {
+export async function fetchCommunity(page) {
   try {
     const response = await axios.get(
-      'http://ceprj.gachon.ac.kr:60011/board/list'
+      `http://ceprj.gachon.ac.kr:60011/board/list?page=${page}`
     );
 
+    console.log(response);
     return response;
   } catch (e) {
     console.log(e);
@@ -297,10 +298,10 @@ export async function fetchInquiryDetail(inquiryId, token) {
 }
 
 //관리자 전체 사용자 조회
-export async function fetchAdminUserInfo() {
+export async function fetchAdminUserInfo(page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/admin/user/list`
+      `http://ceprj.gachon.ac.kr:60011/admin/user/list?page=${page}`
     );
 
     return response;
@@ -326,10 +327,10 @@ export async function fetchAdminUserDelete(id, token) {
 }
 
 //관리자 전체 커뮤니티 조회
-export async function fetchAdminCommunityInfo() {
+export async function fetchAdminCommunityInfo(page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/admin/board/list`
+      `http://ceprj.gachon.ac.kr:60011/admin/board/list?page=${page}`
     );
 
     return response;
@@ -677,10 +678,10 @@ export async function fetchAiRecord(token) {
 }
 //후기조회
 
-export async function fetchReview() {
+export async function fetchReview(page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/review/list`
+      `http://ceprj.gachon.ac.kr:60011/review/list?page=${page}`
     );
     console.log(response);
     return response;

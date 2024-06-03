@@ -2,21 +2,27 @@ import { useEffect, useState } from 'react';
 import style from './AdminCommunityManage.module.css';
 import { fetchAdminCommunityInfo } from '@/pages/api/api';
 import AdminCommunityManageTr from './AdminCommunityManageTr';
+import Paginaition from '../../UI/Pagination';
 
 export default function AdminCommunityManage() {
   const [communityInfo, setcommunityInfo] = useState();
+  const [totalPage, setTotalPage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     async function setInit() {
-      const response = await fetchAdminCommunityInfo();
+      const response = await fetchAdminCommunityInfo(currentPage - 1);
 
       if (response) {
         setcommunityInfo(response.data.content);
+        setTotalPage(response.data.totalPages);
         console.log(communityInfo);
       }
     }
     setInit();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className={style.tableContainer}>
@@ -47,6 +53,7 @@ export default function AdminCommunityManage() {
             ))}
         </tbody>
       </table>
+      <Paginaition totalPage={totalPage} paginate={paginate} />
     </div>
   );
 }

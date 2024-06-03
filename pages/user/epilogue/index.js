@@ -16,35 +16,37 @@ export default function EpiloguePage() {
   const [review, setReview] = useState([]);
   const router = useRouter();
 
+  const [totalPage, setTotalPage] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPosts, setCurrentPosts] = useState([]);
+  // const [currentPosts, setCurrentPosts] = useState([]);
 
   //페이지 넘버를 계산하기 위한 상수 설정 props로 pagination컴포넌트로 넘겨준다.
-  const postsPerPage = 6;
+  // const postsPerPage = 6;
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  // const indexOfLastPost = currentPage * postsPerPage;
+  // const indexOfFirstPost = indexOfLastPost - postsPerPage;
   // const currentPosts = postList.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const setInitData = async () => {
-      const response = await fetchReview();
+      const response = await fetchReview(currentPage - 1);
       if (response) {
         setReview(response.data.content);
+        setTotalPage(response.data.totalPages);
       }
     };
     setToken(localStorage.getItem('loginToken'));
 
     setInitData();
-  }, []);
+  }, [currentPage]);
 
-  useEffect(() => {
-    if (review) {
-      setCurrentPosts(review.slice(indexOfFirstPost, indexOfLastPost));
-    }
-  }, [currentPage, review]);
+  // useEffect(() => {
+  //   if (review) {
+  //     setCurrentPosts(review.slice(indexOfFirstPost, indexOfLastPost));
+  //   }
+  // }, [currentPage, review]);
 
   const onClickNewEpilogue = () => {
     router.push('/user/epilogue/newepilogue');
@@ -79,8 +81,8 @@ export default function EpiloguePage() {
           </SpeedDial>
         </div>
         <div className={style.review_box}>
-          {currentPosts &&
-            currentPosts.map((review) => (
+          {review &&
+            review.map((review) => (
               <Epilogue
                 key={review.reviewId}
                 historyId={review.historyId}
@@ -93,11 +95,7 @@ export default function EpiloguePage() {
             ))}
         </div>
         <div className={style.paging}>
-          <Paginaition
-            postsPerPage={postsPerPage}
-            totalPosts={review.length}
-            paginate={paginate}
-          />
+          <Paginaition totalPage={totalPage} paginate={paginate} />
         </div>
       </div>
     </div>

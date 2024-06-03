@@ -47,9 +47,7 @@ export default function Epilogue({
     });
   };
 
-  const ouClickUpdate = () => {
-    router.push(pathname`/user/epilogue/epilogueUpdate/${id}`);
-  };
+  
 
   let content1 = (
     <div className={style.container}>

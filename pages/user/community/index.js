@@ -25,33 +25,35 @@ export default function Community() {
 
   const [contents, setContents] = useState([]);
   const [value, setValue] = useState('title');
+  const [totalPage, setTotalPage] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPosts, setCurrentPosts] = useState([]);
+  // const [currentPosts, setCurrentPosts] = useState([]);
 
-  //페이지 넘버를 계산하기 위한 상수 설정 props로 pagination컴포넌트로 넘겨준다.
-  const postsPerPage = 5;
+  // //페이지 넘버를 계산하기 위한 상수 설정 props로 pagination컴포넌트로 넘겨준다.
+  // const postsPerPage = 5;
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  // const currentPosts = postList.slice(indexOfFirstPost, indexOfLastPost);
+  // const indexOfLastPost = currentPage * postsPerPage;
+  // const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  // // const currentPosts = postList.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   //커뮤니티 리스트 업데이트
   useEffect(() => {
     const setInitData = async () => {
-      const { data } = await fetchCommunity();
+      const { data } = await fetchCommunity(currentPage - 1);
       setContents(data.content);
+      setTotalPage(data.totalPages);
     };
 
     setInitData();
-  }, []);
+  }, [currentPage]);
 
-  useEffect(() => {
-    if (contents) {
-      setCurrentPosts(contents.slice(indexOfFirstPost, indexOfLastPost));
-    }
-  }, [currentPage, contents]);
+  // useEffect(() => {
+  //   if (contents) {
+  //     setCurrentPosts(contents.slice(indexOfFirstPost, indexOfLastPost));
+  //   }
+  // }, [currentPage, contents]);
 
   const onClickNewPost = () => {
     if (!isLogin) {
@@ -90,8 +92,8 @@ export default function Community() {
           </FormControl>
           <Searchbar />
         </div>
-        {currentPosts &&
-          currentPosts.map((post) => (
+        {contents &&
+          contents.map((post) => (
             <CommunityPost
               key={post.boardId}
               id={post.boardId}
@@ -121,11 +123,7 @@ export default function Community() {
           ))}
         </SpeedDial>
         <div className={style.paging}>
-          <Paginaition
-            postsPerPage={postsPerPage}
-            totalPosts={contents.length}
-            paginate={paginate}
-          />
+          <Paginaition totalPage={totalPage} paginate={paginate} />
         </div>
       </div>
     </div>

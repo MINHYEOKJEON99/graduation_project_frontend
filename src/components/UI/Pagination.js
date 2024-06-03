@@ -1,10 +1,10 @@
 import classes from './Pagination.module.css';
 
-const Paginaition = ({ postsPerPage, totalPosts, paginate }) => {
+const Paginaition = ({ totalPage, paginate }) => {
   const pageNumbers = [];
 
   //페이지 넘버를 설정하기 위한 로직
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalPage); i++) {
     pageNumbers.push(i);
   }
 
