@@ -7,6 +7,7 @@ import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2';
 import { LiaComment } from 'react-icons/lia';
 import { SlQuestion } from 'react-icons/sl';
 import { IoInformationCircleOutline } from 'react-icons/io5';
+import { LuBrainCircuit } from 'react-icons/lu';
 import { useRouter } from 'next/router';
 
 export default function AdminHeader({ children }) {
@@ -30,6 +31,10 @@ export default function AdminHeader({ children }) {
 
   const onClickInformation = () => {
     router.push('/admin/information');
+  };
+
+  const onClickAi = () => {
+    router.push('/admin/aimanage');
   };
 
   return (
@@ -59,6 +64,10 @@ export default function AdminHeader({ children }) {
             <li onClick={onClickCustomerService}>
               <SlQuestion size={25} />
               사용자 문의
+            </li>
+            <li onClick={onClickAi}>
+              <LuBrainCircuit size={25} />
+              AI 관리
             </li>
           </ul>
         </nav>

@@ -791,3 +791,16 @@ export async function fetchMypageReview(token) {
     console.error('업로드 에러:', error);
   }
 }
+
+//Ai 서버 확인
+export async function CheckAi() {
+  try {
+    const response = await axios.get(`http://61.79.137.116:5000/status`);
+    console.log(response);
+    alert('서버가 켜져있어요');
+    return response;
+  } catch (error) {
+    console.error('업로드 에러:', error);
+    alert('서버가 꺼져있어요');
+  }
+}
