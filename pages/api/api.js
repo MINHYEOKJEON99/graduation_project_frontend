@@ -246,10 +246,10 @@ export async function fetchUpdateComment(
 
 //고객센터 문의리스트
 
-export async function fetchInquire() {
+export async function fetchInquire(page) {
   try {
     const response = await axios.get(
-      'http://ceprj.gachon.ac.kr:60011/inquiry/list'
+      `http://ceprj.gachon.ac.kr:60011/inquiry/list?page=${page}`
     );
 
     console.log(response);

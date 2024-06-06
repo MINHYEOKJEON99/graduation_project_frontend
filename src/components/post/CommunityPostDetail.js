@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router';
 import style from './CommunityPostDetail.module.css';
-import { FaHeart } from 'react-icons/fa';
-import { FaRegHeart } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { fetchComment, fetchWriteComment } from '@/pages/api/api';
@@ -21,7 +19,6 @@ export default function CommunityPostDetail({
   const { id } = router.query;
   const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
 
-  const [toggleHeart, setToggleHeart] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [token, setToken] = useState();
   const [commentList, setCommentList] = useState();
@@ -52,10 +49,6 @@ export default function CommunityPostDetail({
 
   const onClickCommunity = () => {
     router.push('/user/community');
-  };
-
-  const onToggleHeart = () => {
-    setToggleHeart((prev) => !prev);
   };
 
   const onClickUpdate = () => {
@@ -108,21 +101,6 @@ export default function CommunityPostDetail({
             <div className={style.content}>
               <p>{content}</p>
             </div>
-          </div>
-          <div className={style.like}>
-            {toggleHeart ? (
-              <FaHeart
-                onClick={onToggleHeart}
-                color="red"
-                style={{ cursor: 'pointer' }}
-              />
-            ) : (
-              <FaRegHeart
-                onClick={onToggleHeart}
-                style={{ cursor: 'pointer' }}
-              />
-            )}
-            {like}
           </div>
         </div>
         <div className={style.answer}>

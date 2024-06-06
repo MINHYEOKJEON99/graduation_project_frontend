@@ -3,7 +3,6 @@ import style from './newpost.module.css';
 import { useRouter } from 'next/router';
 import { fetchNewPost } from '@/pages/api/api';
 import { fetchCommunityFileUpload } from '@/pages/api/api';
-import ImageSelect from '@/src/components/dropzone/ImageSelect';
 
 export default function Newpost() {
   const router = useRouter();

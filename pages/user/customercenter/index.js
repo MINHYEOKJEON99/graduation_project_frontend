@@ -37,17 +37,12 @@ export default function CustomerCenter() {
   });
   const [list, setList] = useState([]);
   const [announce, setAnnounce] = useState([]);
+  const [totalPage, setTotalPage] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPosts, setCurrentPosts] = useState([]);
 
   //페이지 넘버를 계산하기 위한 상수 설정 props로 pagination컴포넌트로 넘겨준다.
-  const postsPerPage = 5;
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  // const currentPosts = postList.slice(indexOfFirstPost, indexOfLastPost);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // const currentPosts = postList.slice(indexOfFirstPost, indexOfLastPost);
 
   useEffect(() => {
     async function setInit() {
@@ -61,20 +56,14 @@ export default function CustomerCenter() {
 
   useEffect(() => {
     async function setInit() {
-      const response = await fetchInquire();
+      const response = await fetchInquire(currentPage - 1);
       if (response) {
         setList(response.data.content);
+        setTotalPage(response.data.totalPages);
       }
     }
     setInit();
-    console.log(list);
-  }, []);
-
-  useEffect(() => {
-    if (list) {
-      setCurrentPosts(list.slice(indexOfFirstPost, indexOfLastPost));
-    }
-  }, [currentPage, list]);
+  }, [currentPage]);
 
   const onClickInquiry = () => {
     if (!isLogin) {
@@ -111,10 +100,10 @@ export default function CustomerCenter() {
 
   let title = '고객센터';
 
-  let content = <InquiryList InquiryList={currentPosts} />;
+  let content = <InquiryList InquiryList={list} />;
 
   if (isValue.inquiry) {
-    content = <InquiryList InquiryList={currentPosts} />;
+    content = <InquiryList InquiryList={list} />;
 
     title = '문의글';
   } else if (isValue.faq) {
@@ -163,11 +152,7 @@ export default function CustomerCenter() {
       </div>
       {content}
       {isValue.inquiry && (
-        <Paginaition
-          postsPerPage={postsPerPage}
-          totalPosts={list.length}
-          paginate={paginate}
-        />
+        <Paginaition totalPage={totalPage} paginate={paginate} />
       )}
     </>
   );
