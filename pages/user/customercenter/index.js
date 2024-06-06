@@ -46,13 +46,14 @@ export default function CustomerCenter() {
 
   useEffect(() => {
     async function setInit() {
-      const response = await fetchInformation();
+      const response = await fetchInformation(currentPage - 1);
+      setTotalPage(response.data.totalPages);
       if (response) {
         setAnnounce(response.data.content);
       }
     }
     setInit();
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     async function setInit() {
@@ -151,9 +152,8 @@ export default function CustomerCenter() {
         </div>
       </div>
       {content}
-      {isValue.inquiry && (
-        <Paginaition totalPage={totalPage} paginate={paginate} />
-      )}
+
+      <Paginaition totalPage={totalPage} paginate={paginate} />
     </>
   );
 }

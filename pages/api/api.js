@@ -357,12 +357,13 @@ export async function fetchAdminCommunityDelete(id, token) {
 }
 
 //관리자 전체 문의글 조회
-export async function fetchAdminInquiry() {
+export async function fetchAdminInquiry(page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/admin/inquiry/list`
+      `http://ceprj.gachon.ac.kr:60011/admin/inquiry/list?page=${page}`
     );
 
+    console.log(response);
     return response;
   } catch (e) {
     console.log(e);
@@ -423,10 +424,10 @@ export async function fetchMyPageUpdate(updateInfo, token) {
 }
 
 //마이페이지 활동내역(커뮤니티 글)
-export async function fetchMyPageCommunity(token) {
+export async function fetchMyPageCommunity(token, page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/mypage/board/list`,
+      `http://ceprj.gachon.ac.kr:60011/mypage/board/list?page=${page}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -441,10 +442,10 @@ export async function fetchMyPageCommunity(token) {
 }
 
 //마이페이지 활동내역(댓글)
-export async function fetchMyPageComment(token) {
+export async function fetchMyPageComment(token, page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/mypage/comment/list`,
+      `http://ceprj.gachon.ac.kr:60011/mypage/comment/list$page=${page}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -607,15 +608,10 @@ export async function fetchVideoBack(id, token) {
 }
 
 //공지사항
-export async function fetchInformation(token) {
+export async function fetchInformation(page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/admin/notice/list`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `http://ceprj.gachon.ac.kr:60011/admin/notice/list?page=${page}`
     );
     console.log(response);
     return response;

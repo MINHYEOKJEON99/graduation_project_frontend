@@ -2,21 +2,27 @@ import { useEffect, useState } from 'react';
 import style from './AdminInquiryManage.module.css';
 import { fetchAdminInquiry } from '@/pages/api/api';
 import AdminInquiryManageTr from './AdminInquiryManageTr';
+import Paginaition from '../../UI/Pagination';
 
 export default function AdminInquiryManage() {
   const [inquiry, setInquiry] = useState();
+  const [totalPage, setTotalPage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     async function setInit() {
-      const response = await fetchAdminInquiry();
+      const response = await fetchAdminInquiry(currentPage - 1);
 
       if (response) {
         setInquiry(response.data.content);
+        setTotalPage(response.data.totalPages);
         console.log(inquiry);
       }
     }
     setInit();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className={style.tableContainer}>
@@ -47,6 +53,7 @@ export default function AdminInquiryManage() {
             ))}
         </tbody>
       </table>
+      <Paginaition totalPage={totalPage} paginate={paginate} />
     </div>
   );
 }

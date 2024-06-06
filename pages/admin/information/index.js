@@ -10,26 +10,31 @@ import { useEffect, useState } from 'react';
 
 import Modal from '@/src/components/UI/Modal';
 import { useRouter } from 'next/router';
+import Paginaition from '@/src/components/UI/Pagination';
 
 export default function Information() {
   const [toggle, setToggle] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [information, setInformation] = useState([]);
+  const [totalPage, setTotalPage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('loginToken');
     const setInit = async () => {
-      const response = await fetchInformation(token);
+      const response = await fetchInformation(currentPage - 1);
 
       if (response) {
         setInformation(response.data.content);
+        setTotalPage(response.data.totalPages);
       }
     };
     setInit();
-  }, []);
+  }, [currentPage]);
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -96,7 +101,6 @@ export default function Information() {
       <div className={style.button_box}>
         <Button onClick={onClickButton}>공지사항 작성</Button>
       </div>
-
       {information &&
         information.map((post) => (
           <>
@@ -109,6 +113,7 @@ export default function Information() {
             <Button onClick={onDelete.bind(null, post.noticeId)}>삭제</Button>
           </>
         ))}
+      <Paginaition totalPage={totalPage} paginate={paginate} />
     </div>
   );
 }

@@ -7,32 +7,39 @@ import {
   fetchMypageReview,
 } from '@/pages/api/api';
 import { useRouter } from 'next/router';
+import Paginaition from '@/src/components/UI/Pagination';
 
 export default function Activity() {
   const router = useRouter();
 
   const [token, setToken] = useState();
   const [activity, setActivity] = useState();
+  const [totalPage, setTotalPage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [isValid, setIsValid] = useState({
     community: true,
     comment: false,
     review: false,
   });
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   useEffect(() => {
     async function setInit() {
       setToken(localStorage.getItem('loginToken'));
 
-      const response = await fetchMyPageCommunity(token);
+      const response = await fetchMyPageCommunity(token, currentPage - 1);
       if (response) {
         setActivity(response.data.content);
+        setTotalPage(response.data.totalPages);
       }
     }
     setInit();
-  }, [token]);
+  }, [token, currentPage]);
 
   const onClickCommunity = async () => {
-    const response = await fetchMyPageCommunity(token);
+    const response = await fetchMyPageCommunity(token, currentPage - 1);
+    setTotalPage(response.data.totalPages);
     if (response) {
       setActivity(response.data.content);
       setIsValid({
@@ -44,9 +51,10 @@ export default function Activity() {
   };
 
   const onClickComment = async () => {
-    const response = await fetchMyPageComment(token);
+    const response = await fetchMyPageComment(token, currentPage - 1);
     if (response) {
       setActivity(response.data.content);
+      setTotalPage(response.data.totalPages);
       setIsValid({
         community: false,
         comment: true,
@@ -56,9 +64,10 @@ export default function Activity() {
   };
 
   const onClickReview = async () => {
-    const response = await fetchMypageReview(token);
+    const response = await fetchMypageReview(token, currentPage - 1);
     if (response) {
       setActivity(response.data.content);
+      setTotalPage(response.data.totalPages);
       setIsValid({
         community: false,
         comment: false,
@@ -147,6 +156,7 @@ export default function Activity() {
         </div>
         {content}
       </div>
+      <Paginaition totalPage={totalPage} paginate={paginate} />
     </div>
   );
 }
