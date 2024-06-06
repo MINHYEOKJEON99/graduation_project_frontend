@@ -4,25 +4,31 @@ import { fetchAiRecord } from '@/pages/api/api';
 import { useEffect, useState } from 'react';
 import Modal from '../UI/Modal';
 import { useSelector } from 'react-redux';
+import Paginaition from '../UI/Pagination';
 
 export default function AiRecord({ onToggle, onClick }) {
   const [aiRecord, setAiRecord] = useState([]);
+  const [totalPage, setTotalPage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const userLogin = useSelector((state) => state.auth.isUserAuthenticated);
 
   useEffect(() => {
     const token = localStorage.getItem('loginToken');
     const setInit = async () => {
-      const response = await fetchAiRecord(token);
+      const response = await fetchAiRecord(token, currentPage - 1);
 
       if (response) {
         setAiRecord(response.data.content);
+        setTotalPage(response.data.totalPages);
       }
     };
     if (userLogin) {
       setInit();
     }
-  }, []);
+  }, [currentPage]);
 
   return (
     <Modal onHide={onToggle}>
@@ -45,6 +51,7 @@ export default function AiRecord({ onToggle, onClick }) {
             </li>
           ))}
       </ul>
+      <Paginaition totalPage={totalPage} paginate={paginate} />
     </Modal>
   );
 }

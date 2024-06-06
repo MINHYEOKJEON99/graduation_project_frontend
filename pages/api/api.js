@@ -460,10 +460,10 @@ export async function fetchMyPageComment(token, page) {
 }
 
 //마이페이지 문의내역
-export async function fetchMyPageInquiry(token) {
+export async function fetchMyPageInquiry(token, page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/mypage/inquiry/list`,
+      `http://ceprj.gachon.ac.kr:60011/mypage/inquiry/list?page=${page}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -656,10 +656,10 @@ export async function fetchInformationDelete(id, token) {
 }
 
 //ai기록조회
-export async function fetchAiRecord(token) {
+export async function fetchAiRecord(token, page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/mypage/history/list`,
+      `http://ceprj.gachon.ac.kr:60011/mypage/history/list?page=${page}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
