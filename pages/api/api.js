@@ -773,10 +773,10 @@ export async function fetchReviewDelete(id, token) {
 
 //마이페이지 후기
 
-export async function fetchMypageReview(token) {
+export async function fetchMypageReview(token, page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/mypage/review/list`,
+      `http://ceprj.gachon.ac.kr:60011/mypage/review/list?page=${page}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
