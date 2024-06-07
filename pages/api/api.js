@@ -445,7 +445,7 @@ export async function fetchMyPageCommunity(token, page) {
 export async function fetchMyPageComment(token, page) {
   try {
     const response = await axios.get(
-      `http://ceprj.gachon.ac.kr:60011/mypage/comment/list$page=${page}`,
+      `http://ceprj.gachon.ac.kr:60011/mypage/comment/list?page=${page}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
